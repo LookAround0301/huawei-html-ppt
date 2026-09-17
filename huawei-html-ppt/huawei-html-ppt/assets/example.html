@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>华为风格 HTML PPT 示例</title>
+<link rel="stylesheet" href="huawei.css">
+</head>
+<body>
+<div class="deck">
+
+  <!-- ================= 封面 ================= -->
+  <section class="slide slide--cover">
+    <img class="cover-photo" src="cover-bg.jpg" alt="">
+    <div class="cover-rect"></div>
+    <div class="cover-title">推理技术项目三期PDCP汇报</div>
+    <div class="cover-meta">
+      <div><span class="label">部门：</span>计算产品部，技术开发部，技术规划部</div>
+      <div><span class="label">作者：</span>张三，李四，王五</div>
+      <div><span class="label">日期：</span>2026-09-13</div>
+    </div>
+    <div class="security">Security Level:</div>
+    <img class="cover-logo" src="huawei-logo.png" alt="HUAWEI">
+  </section>
+
+  <!-- ================= 目录（第1章高亮） ================= -->
+  <section class="slide slide--toc">
+    <div class="toc-heading">目录</div>
+    <div class="toc-underline"></div>
+    <div class="toc-list">
+      <ol>
+        <li class="active"><span class="no">1.</span>组合概述</li>
+        <li><span class="no">2.</span>项目进展</li>
+        <li><span class="no">3.</span>项目计划</li>
+        <li><span class="no">4.</span>决策申请</li>
+      </ol>
+    </div>
+    <div class="footer">
+      <span class="page-no">Page 2/6</span>
+      <span class="confidential">Huawei Confidential</span>
+      <img class="logo" src="huawei-logo.png" alt="">
+    </div>
+  </section>
+
+  <!-- ================= 摘要页（分析结论标签块 + 关键指标表，无蓝色无KPI卡） ================= -->
+  <section class="slide slide--content">
+    <div class="crumbs">
+      <span class="crumb current">摘要</span><span class="crumb">洞察分析</span><span class="crumb">技术构想</span><span class="crumb">执行策略</span>
+    </div>
+    <div class="content-header">
+      <h1 class="content-title">摘要：极低比特混合量化与负载均衡优化，系统吞吐提升10%+，精度损失&lt;0.5%</h1>
+    </div>
+    <div class="content-body">
+      <div class="label-blocks" style="margin-bottom:0">
+        <div class="label-block">
+          <div class="tag">分析结论</div>
+          <div class="panel" style="font-size:15px;line-height:1.8">
+            <ul>
+              <li><b>量化方案：</b>线性层 W4A8，相比 FP8 权重压缩约 <span class="red">~2x</span>；分组 VQ 量化（SQ/VQ2）实现 WxA8（χ≤3）</li>
+              <li><b>负载均衡：</b><span class="red">大EP场景</span>联合优化 + 在线动态补偿，解决热点专家退化</li>
+              <li><b>精度保障：</b>量化残差 + EPLE 预测补偿，端到端精度损失 <span class="red">&lt;0.5%</span></li>
+              <li><b>适配要点：</b>核心算子需以专用编程语言等价实现，查表操作需 NPU 化</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <table class="hw roomy">
+        <thead>
+          <tr><th>系统吞吐提升</th><th>精度损失</th><th>权重压缩比</th><th>推荐部署</th><th>P0 增量算子</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="red">10%+</span><br><span class="tiny gray">大EP MoE 场景</span></td>
+            <td><span class="red">&lt;0.5%</span><br><span class="tiny gray">端到端精度</span></td>
+            <td><span class="red">~2x</span><br><span class="tiny gray">W4A8 vs FP8</span></td>
+            <td><span class="red">EP16–32</span><br><span class="tiny gray">W4A8, 43.5–28.0 GB/卡</span></td>
+            <td><span class="red">8 项</span><br><span class="tiny gray">含 4 个 tilelang kernel</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="footer">
+      <span class="page-no">Page 3/6</span>
+      <span class="confidential">Huawei Confidential</span>
+      <img class="logo" src="huawei-logo.png" alt="">
+    </div>
+  </section>
+
+  <!-- ================= 内容页（结论式标题 + 标签块 + 双栏卡片） ================= -->
+  <section class="slide slide--content">
+    <div class="crumbs">
+      <span class="crumb current">任务书</span><span class="crumb">洞察分析</span><span class="crumb">技术构想</span><span class="crumb">执行策略</span>
+    </div>
+    <div class="content-header">
+      <h1 class="content-title">【10TB大模型推理】极低比特混合量化与负载均衡优化，系统吞吐提升10%+，精度损失&lt;0.5%</h1>
+    </div>
+    <div class="content-body">
+      <!-- 目标 / 挑战 标签块 -->
+      <div class="label-blocks">
+        <div class="label-block">
+          <div class="tag">挑战</div>
+          <div class="panel">
+            <ul>
+              <li><b>中心推理场景：</b>TB级模型推理显存开销随之上升，推理成本攀升</li>
+              <li><b>低比特量化趋势：</b>业界逐步采用W4A8量化，降低内存开销</li>
+            </ul>
+          </div>
+        </div>
+        <div class="label-block">
+          <div class="tag">目标</div>
+          <div class="panel">
+            <ul>
+              <li>基于A5/A6硬件，探索MOE极低比特混合量化与负载均衡算法，<b>系统吞吐提升<span class="red">10%+</span>，精度损失<span class="red">&lt;0.5%</span></b></li>
+              <li><span class="red">大EP场景</span>联合负载均衡优化、以及在线精度补偿</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 双栏：流程图卡片 + 关键技术卡片 -->
+      <div class="cols">
+        <div class="card">
+          <div class="card-tab">量化流程</div>
+          <div style="margin-top:12px">
+            <div class="flow">
+              <div class="node">input</div><div class="arrow">→</div>
+              <div class="node blue">RMSNorm</div><div class="arrow">→</div>
+              <div class="node blue">GQA/DSA</div><div class="arrow">→</div>
+              <div class="node">MoE</div><div class="arrow">→</div>
+              <div class="node pink">热点专家</div>
+            </div>
+            <div class="flow" style="margin-top:10px">
+              <div class="node yellow">VQ量化</div><div class="arrow">→</div>
+              <div class="node yellow">量化残差</div><div class="arrow">→</div>
+              <div class="node">残差权重</div>
+            </div>
+            <p class="small" style="margin:10px 0 0"><span class="red">①</span> 线性层量化：W4A8，相比FP8权重压缩约~2x<br>
+               <span class="red">②</span> FA稀疏量化：推理性能提升10%+<br>
+               <span class="red">③</span> 分组VQ量化：SQ/VQ2实现WxA8量化（χ≤3）</p>
+          </div>
+        </div>
+        <div class="card accent">
+          <div class="card-tab">关键技术</div>
+          <div style="margin-top:12px">
+            <p class="small">□ <b>通算并发掩盖：</b>利用MoE计算流掩盖通信流耗时，Cube/Vector并发，降低端到端推理耗时；</p>
+            <p class="small">□ <b>细粒度资源控制：</b>C/V切分，Stream流粒度资源控制（计算/通信并发总线OTSD、Copy Size、访存带宽）；</p>
+            <p class="small">□ <b>在线动态补偿：</b>根据EPLE预测出的热点专家退化情况，在推理过程中动态加载残差项到NPU或者offload到CPU侧。</p>
+            <div class="kpis" style="margin-top:8px">
+              <div class="kpi"><div class="num">10%+</div><div class="lbl">系统吞吐提升</div></div>
+              <div class="kpi"><div class="num">&lt;0.5%</div><div class="lbl">精度损失</div></div>
+              <div class="kpi"><div class="num">~2x</div><div class="lbl">权重压缩比</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 表格 -->
+      <table class="hw" style="margin-top:18px">
+        <thead>
+          <tr><th>model</th><th>configuration</th><th>Prefill len</th><th>chunk size</th><th>TTFT(s)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>GLM5.2 W8A8</td><td class="left">4 nodes, PP16 TP4</td><td>1M</td><td>D 32K</td><td>245</td></tr>
+          <tr><td>GLM5.2 W8A8<br>With prefix cache</td><td class="left">4 nodes, PP16 TP4, 1M/1k, 99%, 16 prompts</td><td>1M</td><td>32K</td><td class="hl">49</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="footer">
+      <span class="page-no">Page 4/6</span>
+      <span class="confidential">Huawei Confidential</span>
+      <img class="logo" src="huawei-logo.png" alt="">
+    </div>
+  </section>
+
+  <!-- ================= 章节过渡目录（第2章高亮） ================= -->
+  <section class="slide slide--toc">
+    <div class="toc-heading">目录</div>
+    <div class="toc-underline"></div>
+    <div class="toc-list">
+      <ol>
+        <li><span class="no">1.</span>组合概述</li>
+        <li class="active"><span class="no">2.</span>项目进展</li>
+        <li><span class="no">3.</span>项目计划</li>
+        <li><span class="no">4.</span>决策申请</li>
+      </ol>
+    </div>
+    <div class="footer">
+      <span class="page-no">Page 5/6</span>
+      <span class="confidential">Huawei Confidential</span>
+      <img class="logo" src="huawei-logo.png" alt="">
+    </div>
+  </section>
+
+  <!-- ================= 结束页 ================= -->
+  <section class="slide">
+    <div style="position:absolute;left:72px;top:190px;font-size:64px;font-family:Arial,sans-serif;color:#1D1D1A">Thank you.</div>
+    <div style="position:absolute;right:70px;top:170px;width:420px;font-size:14px;color:#1D1D1A">
+      <p>把数字世界带入每个人、每个家庭、<br>每个组织，构建万物互联的智能世界。</p>
+      <p style="font-weight:700;margin-top:24px">Copyright©2026 Huawei Technologies Co., Ltd.<br>All Rights Reserved.</p>
+      <p class="tiny gray" style="margin-top:16px">The information in this document may contain predictive statements including, without limitation, statements regarding future financial and operating results, future product portfolio, new technology, etc.</p>
+      <img src="huawei-logo.png" style="height:40px;margin-top:24px" alt="">
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

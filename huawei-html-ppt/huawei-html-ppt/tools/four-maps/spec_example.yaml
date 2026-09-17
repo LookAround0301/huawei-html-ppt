@@ -1,0 +1,112 @@
+# 样板组四张地图 — 回环测试 spec(数据取自原 PPT)
+meta:
+  group_name: XX技术研发示例组
+  pl_name: 张三
+  pl_id: "00860000"
+
+business_map:
+  items:
+    - header: 1.基于XX平台和样板业务特点，使能推理引擎X 、推理框架A、 开源框架S生态建设，持续构建样板高性能训推竞争力
+      subs:
+        - text: 样板稀疏量化：训练FP8、推理FP4低精、混合量化&稀疏算法，提升样板稀疏量化竞争力
+        - text: 样板训练：样板训练专家负载均衡路由算法+通信优化，提升样板训练大EP场景竞争力
+        - text: 样板推理：emb cache样板理解加速，语音模型推理加速
+        - text: 样板FA过载自适应优化：动态调频、FA切分，算子重排
+        - lead: 关键挑战：
+          text: 量化精度优化评估，XX技术项目快速打通，训推算法开源社区价值兑现，功耗优化XX版本平稳交付落地+客户面支撑
+    - header: 2.Agent算子生成，项目630、930关键节点达成，保障Agentic RL训练效果，算子生成关键技术点开发落地
+      subs:
+        - text: SFT：CoT蒸馏，数据精简，多轮改造数据增强，构建开源高质量训练数据集
+        - text: RL：训练算法Reward设计、并行编程语言训练流程优化，profiling feedback注入优化，提升SFT、RL训练效果
+        - lead: 关键挑战：
+          text: 数据集质量难评估，Agent RL训练不稳定，环境受限情况下大规模训练算法评估和效率提升
+    - header: 3.团队建设，结合内转、校招，提升团队竞争力+组织能力
+      subs:
+        - text: 团队构成：当前15人（自有12人 + OD 1人+实习生1人，访问学者1人），年底达到18+（自有+OD）
+        - text: 能力提升：任职提升（5级1人，4级1人，3级4人，2级3人，1级3人）、论文专利发表（H1 2篇，H2规划5篇）
+        - text: 技术分享（模型、需求算法）、关键项目交付（推理、训练、部门T）
+        - lead: 关键挑战：
+          text: "1）新成员能力持续提升\n                 2）SE角色欠缺，需要尽快培养\n                 3）高职级内转员工能力激发"
+
+org_map:
+  features:
+    - title: Agent算子生成
+      col: 0
+      members:
+        - {feature: SFT训练+PAE需求, role: DV, name: 成员A, grade: "14 / 2 / 2", competency: 高}
+        - {feature: RL算法, role: SE, name: 成员B, grade: "17 / 4 / 5", competency: 胜任}
+        - {feature: 数据算法+生态+需求, role: DV, name: 成员C, grade: "15/1/2", competency: 胜任}
+        - {feature: 编码工具+benchmark, role: DV, name: 成员D, grade: "14/1/1", competency: 不胜任}
+        - {feature: 小巧灵需求, role: DV, name: 成员E, grade: "16/2/4", competency: 胜任}
+      partners: 部门A、部门B、部门C、部门D、部门E
+    - title: 量化
+      col: 0
+      members:
+        - {feature: 量化算子开发, role: SE, name: 成员F, grade: "17 / 3 / 6", competency: 高}
+        - {feature: 样板mxfp4、WAN, role: DV, name: 成员G, grade: "15 / 1 / 5", competency: 胜任}
+        - {feature: QAT、蒸馏、RL低精, role: DV, name: 成员E, grade: "16 / 2 / 4", competency: 胜任}
+      partners: 部门A、部门K、平台X、部门T、部门L
+    - title: FA功耗自适应优化
+      col: 1
+      w: 4.7          # 原版此表较窄, 给右上角图例让位
+      landing: true
+      members:
+        - {feature: 整体, role: SE, name: 成员H, grade: "19 / 5 / 8", landing: 仓库A}
+        - {feature: 可视化工具、FA、Seq切分, role: DV, name: 成员D, grade: "14 /1/ 1", competency: 基本, landing: ""}
+        - {feature: FA、Seq切分、调频, role: DV, name: 成员I, grade: "15 / 3 / 5", competency: 胜任, landing: ""}
+      partners: 部门R、部门M、部门U
+    - title: 样板训练加速
+      col: 1
+      landing: true
+      members:
+        - {feature: 训推EPLB + XX负载均衡框架, role: SE, name: 成员K, grade: "16 / 3 / 5", competency: 高, landing: 仓库B}
+        - {feature: 训推EPLB + XX流水线均衡, role: DV, name: 成员L, grade: "D2 / x / 2", competency: 胜任, landing: ""}
+      partners: 部门R、部门N、部门O、部门P
+    - title: 样板推理加速
+      col: 1
+      landing: true
+      sections:
+        - subtitle: Embedding Cache（样板理解）
+          members:
+            - {feature: 整体, role: SE, name: 成员H, grade: "19 / 5 / 8", landing: "推理框架B"}
+            - {feature: 推理框架适配，通信算子调优, role: DV, name: 成员I, grade: "15 / 3 / 5", competency: 胜任, landing: ""}
+            - {feature: 相似性算法、memcache通信算法调优, role: DV, name: 成员J, grade: "15 / 2 / 2", competency: 胜任, landing: ""}
+          partners: 部门S、部门T
+        - subtitle: 语音模型（样板理解+生成）
+          members:
+            - {feature: epd分离+prefix cache, role: DV, name: 成员G, grade: "15 / 1 / 5", competency: 高, landing: 推理框架A}
+            - {feature: 流水并行+图加速+亲和算子, role: DV, name: 成员L, grade: "D2 / x / 2", competency: 胜任, landing: ""}
+          partners: 部门R、部门Q
+
+# 组织结构图页(第7页): 缺省从 org_map 自动派生; group=顶部盒子组名, features 可完全覆盖
+org_map_v2:
+  group: 样板技术开发组
+
+talent_map:
+  positions:
+    - ["PL", "1、项目管理\n2、业务管理\n3、团队建设", "17级", "1、成功做个版本交付组长/MDE/思想导师/QCC圈长/一事经理；\n2、技术骨干", "1", "NA"]
+    - ["SE", "1、模块架构看护\n2、关键代码写作\n3、系统设计\n4、问题攻关", "16-19级", "1、领域技术牵头人.；\n2、有核心代码开发的经验；\n3、前沿技术洞察能力；", "2", "[red]2/4"]
+    - ["开发骨干", "1、系统设计\n2、特性责任田\n3、模块编码", "13-16级", "模块设计、算法实现，开发能力", "10", "10/13"]
+  hiring:
+    - ["SE（16+级）", "样板训练推理", "2人", "校招（成员Q）+内引培养（成员K）"]
+    - ["", "量化", "1人", "内引培养（成员F）"]
+    - ["", "RL算法", "1人", "内引培养（成员B）"]
+    - ["开发骨干\n（13-15级）", "样板训推技术", "3人", "内引"]
+    - ["", "LLM+MM稀疏量化", "1人", "内引"]
+    - ["", "Agent算子生成", "2人", "校招+内引"]
+
+atmosphere_map:
+  sections:
+    - title: 团队导向氛围：
+      statement: 打造一个敢于突破，勇于创新，团结一致，有技术追求的团队。
+      blocks:
+        - header: 行动措施
+          items:
+            - {lead: 关键GAP点：, text: 团队人员缺乏洞察能力，当前很多技术都来做外部团队输入。}
+            - text: 规划技术领域责任人，定期去洞察分析新技术。
+            - text: 组织小组例会、参与SEG例会，分享、全员学习相关新技术。
+            - text: 给予员工与专家、社区、外部会议论坛交流机会，培养员工技术洞察能力。
+        - header: 活动氛围
+          items:
+            - text: 关键节点的团建、聚餐，1~2个月组织一次。
+            - text: 根据员工兴趣组织集体活动：健身、打球、露营等等。

@@ -1,0 +1,302 @@
+/* ============================================================
+   华为技术报告风格 HTML PPT 设计系统
+   画布: 1280 x 720 px (16:9),每页一个 <section class="slide">
+   ============================================================ */
+
+:root {
+  /* ---- 色卡（唯一彩色来源 = 模板第4页"图表配色示意"，提取自 ppt/charts/chart1.xml）----
+     除照片/截图等图片资产外，一切元素只允许使用下列 6 色 + 黑白灰中性色。
+     图表系列顺序 = 模板色卡：浅灰→中灰→深灰→亮红→深红→琥珀 */
+  --hw-red-bright: #E9002F;  /* 亮红:华为红。封面角标、图形点缀、图表高亮系列 */
+  --hw-red:        #C00000;  /* 深红:页标题、关键数字、当前章、红标签、正向/关键状态文字 */
+  --hw-amber:      #FBA000;  /* 琥珀:警示/注意/中优先级。只作色块、圆点、图表系列，不作小字文字色 */
+  --hw-gray-lt:    #C5C5C5;  /* 浅灰:基线图表系列、层带浅底 */
+  --hw-gray-md:    #929292;  /* 中灰:次要图表系列 */
+  --hw-gray-dk:    #666666;  /* 深灰:次要文字、页脚、基线文字、挑战(蓝标签退役)标签 */
+  /* ---- 黑白灰中性 (模板 theme1) ---- */
+  --hw-ink:        #1D1D1A;  /* 正文近黑 dk1 */
+  --hw-bg-gray:    #EBEBEB;  /* 目录页/浅灰底 */
+  --hw-panel:      #F2F2F2;  /* 内容灰底块(挑战/目标/进展面板) */
+  --hw-border:     #C5C5C5;  /* 表格细边框(=色卡浅灰) */
+
+  /* ---- 色卡同系浅底（流程节点/层带底色，≈ 卡色 12% tint） ---- */
+  --hw-tint-red:   #FCE0E6;  /* 红浅底:热点/关键路径节点 */
+  --hw-tint-amber: #FDEED2;  /* 琥珀浅底:量化/注意节点 */
+
+  /* ---- 字体 ---- */
+  --hw-font: "Microsoft YaHei", "微软雅黑", "PingFang SC", "Noto Sans CJK SC", sans-serif;
+
+  /* ---- 字号 (对应 PPT 中的 pt) ---- */
+  --fs-title:   27px;  /* 页标题 ~20pt,单行可容纳约44个汉字 */
+  --fs-cover:   44px;  /* 封面主标题 ~32pt */
+  --fs-h2:      20px;  /* 卡片/模块标题 ~15pt */
+  --fs-body:    16px;  /* 正文 ~12pt */
+  --fs-small:   14px;  /* 次要正文 ~10.5pt */
+  --fs-tiny:    12px;  /* 脚注/页脚 ~9pt */
+
+  /* ---- 兼容别名（旧变量名保留、色值已并入色卡，旧页面自动合规；新页面请用规范名） ---- */
+  --hw-red-dark:   var(--hw-red);       /* 旧深红 7F0000 退役 */
+  --hw-gray-6:     var(--hw-gray-dk);
+  --hw-gray-9:     var(--hw-gray-md);   /* 旧 999999 退役 */
+  --hw-blue:       var(--hw-gray-dk);   /* 辅助蓝 0066BE 退役 → 深灰(基线/挑战标签) */
+  --hw-green:      var(--hw-red);       /* 状态绿 61B230 退役 → 红(正向即华为红) */
+  --hw-orange:     var(--hw-amber);     /* 旧橙 ED6D00 → 卡内琥珀 */
+  --hw-yellow:     var(--hw-amber);     /* 旧黄 FCC800 → 卡内琥珀 */
+  --hw-node-green: var(--hw-panel);     /* 流程节点默认 = 灰面板 */
+  --hw-node-blue:  var(--hw-bg-gray);   /* 旧蓝节点 → 浅灰 */
+  --hw-node-yellow: var(--hw-tint-amber);
+  --hw-node-pink:  var(--hw-tint-red);
+}
+
+/* ============ 页面骨架 ============ */
+html, body { margin: 0; padding: 0; background: #555; }
+.deck { width: 1280px; margin: 0 auto; }
+
+.slide {
+  position: relative;
+  width: 1280px; height: 720px;
+  background: #FFFFFF;
+  color: var(--hw-ink);
+  font-family: var(--hw-font);
+  font-size: var(--fs-body);
+  line-height: 1.45;
+  overflow: hidden;
+  box-sizing: border-box;
+  margin: 16px auto;
+  box-shadow: 0 2px 12px rgba(0,0,0,.35);
+}
+.slide * { box-sizing: border-box; }
+
+/* ============ 页脚 (内容页标配) ============ */
+.footer {
+  position: absolute; left: 48px; right: 48px; bottom: 14px;
+  display: flex; align-items: center;
+  font-size: var(--fs-tiny); color: var(--hw-gray-6);
+}
+.footer .page-no { width: 90px; }
+.footer .confidential { flex: 1; }
+.footer .logo { height: 22px; vertical-align: middle; }
+
+/* ============ 封面页 ============ */
+.slide--cover { background: #FFFFFF; }
+.slide--cover .cover-photo {
+  position: absolute; top: 0; left: 0;
+  width: 1280px; height: 588px;         /* 模板中图片占上部 6.12in */
+  object-fit: cover;
+}
+.slide--cover .cover-rect {             /* 红色 L 形角标 */
+  position: absolute; left: 1030px; top: 340px;
+  width: 74px; height: 76px;
+  border-left: 3px solid var(--hw-red-bright);
+  border-top: 3px solid var(--hw-red-bright);
+}
+.slide--cover .cover-title {
+  position: absolute; left: 94px; top: 118px;
+  width: 900px;
+  font-size: var(--fs-cover); font-weight: 700; color: #262626;
+  line-height: 1.25;
+}
+.slide--cover .cover-meta {
+  position: absolute; left: 20px; top: 470px; width: 1100px;
+  font-size: 17px; font-weight: 700; color: #262626;
+  line-height: 1.7;
+}
+.slide--cover .cover-meta .label { font-weight: 700; }
+.slide--cover .security {
+  position: absolute; left: 94px; bottom: 52px;
+  font-size: var(--fs-tiny); color: var(--hw-gray-6);
+}
+.slide--cover .cover-logo {
+  position: absolute; right: 64px; bottom: 44px; height: 44px;
+}
+
+/* ============ 目录页 ============ */
+.slide--toc { background: var(--hw-bg-gray); }
+.toc-heading {
+  position: absolute; left: 96px; top: 52px;
+  font-size: 40px; font-weight: 700; color: var(--hw-ink);
+}
+.toc-underline {                        /* 标题下短红线 */
+  width: 78px; height: 4px; background: var(--hw-red);
+  margin: 10px 0 0 96px;
+}
+.toc-list { position: absolute; left: 106px; top: 190px; }
+.toc-list ol { list-style: none; margin: 0; padding: 0; }
+.toc-list li {
+  font-size: 26px; color: var(--hw-ink);
+  margin-bottom: 26px;
+}
+.toc-list li .no { margin-right: 14px; }
+.toc-list li.active {                   /* 当前章:红色加大 */
+  color: var(--hw-red); font-size: 32px; font-weight: 700;
+}
+
+/* ============ 章节页 (大标题 + 引言) ============ */
+.slide--section { background: var(--hw-bg-gray); }
+.slide--section .section-title {
+  position: absolute; left: 37px; top: 37px;
+  width: 1160px;
+  font-size: 34px; font-weight: 700; color: var(--hw-red);
+}
+
+/* ============ 内容页 ============ */
+.slide--content { padding: 0; }
+.content-header {
+  position: absolute; left: 37px; top: 30px; right: 48px;
+}
+.content-title {
+  font-size: var(--fs-title); font-weight: 700; color: var(--hw-red);
+  line-height: 1.25; margin: 0;
+}
+.content-title .bracket { color: var(--hw-red); }
+.content-body {
+  position: absolute; left: 37px; right: 37px; top: 72px; bottom: 46px;
+  padding-top: 16px;   /* 让首行卡片骑线的 .card-tab 不被 overflow 裁剪 */
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  justify-content: space-evenly;  /* 内容不足一页时均匀分布，避免底部大片留白 */
+}
+/* flex 容器内 margin 不再折叠，既有 margin 作为最小间距保留 */
+
+/* ---- 右上角章节导航面包屑 ---- */
+.crumbs {
+  position: absolute; right: 14px; top: 10px;
+  display: flex; border: 1px solid var(--hw-ink);
+  font-size: 11px; font-weight: 700; font-style: italic;
+  background: #FFF;
+}
+.crumbs .crumb { padding: 2px 10px; border-left: 1px solid var(--hw-ink); white-space: nowrap; }
+.crumbs .crumb:first-child { border-left: none; }
+.crumbs .crumb.current { background: var(--hw-red); color: #FFF; }
+.crumbs.dense .crumb { padding: 2px 7px; }   /* 面包屑 ≥5 项时防溢出 */
+
+/* ============ 目标/挑战/进展 标签块 ============ */
+/* 版式规则：标签块永远放内容区上方（标题正下方），与下方内容保持 ≥20px 间距，
+   不放在表格/图之后或页底（用户明确反馈：别跟内容黏在一起、别放底下） */
+.label-blocks { display: flex; gap: 18px; margin-bottom: 20px; }
+.label-block { display: flex; flex: 1; min-height: 96px; }
+.label-block .tag {
+  flex: 0 0 44px;
+  background: var(--hw-red); color: #FFF;
+  font-size: 17px; font-weight: 700; line-height: 1.2;
+  display: flex; align-items: center; justify-content: center;
+  writing-mode: vertical-rl; letter-spacing: 6px;
+  padding: 8px 0;
+}
+/* 标签一律红色（用户明确反馈：灰标签怪，统一红）。.blue 变体保留 class 名
+   兼容旧页面，色值并入红色自动合规；新页面禁止再用任何非红标签 */
+.label-block.blue .tag { background: var(--hw-red); }
+.label-block .panel {
+  flex: 1; background: var(--hw-panel);
+  padding: 10px 14px; font-size: var(--fs-small);
+}
+.label-block .panel ul { margin: 0; padding-left: 4px; list-style: none; }
+.label-block .panel li { margin-bottom: 4px; position: relative; padding-left: 1.4em; }
+.label-block .panel li::before { content: "➢"; position: absolute; left: 0; color: var(--hw-ink); }
+
+/* ============ 卡片 / 围栏 ============ */
+.card {
+  border: 1.5px solid var(--hw-ink);
+  background: #FFF; padding: 10px 14px;
+  position: relative;
+}
+.card.accent { border: 2.5px solid var(--hw-red); }
+.card .card-tab {                      /* 卡片顶部居中标签(如"关键技术") */
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  background: var(--hw-panel); padding: 1px 16px;
+  font-size: var(--fs-h2); font-weight: 700; color: var(--hw-red);
+  white-space: nowrap;
+}
+.card .card-title { font-weight: 700; font-size: var(--fs-h2); margin: 2px 0 6px; }
+
+/* ============ 表格 ============ */
+table.hw {
+  border-collapse: collapse; width: 100%;
+  font-size: var(--fs-small); background: #FFF;
+}
+table.hw th, table.hw td {
+  border: 1px solid var(--hw-ink);   /* 模板实抄:边框=tx1 近黑 0.5pt 细线 */
+  padding: 4px 8px; text-align: center;
+}
+table.hw th { font-weight: 700; color: var(--hw-ink); background: #FFF; }
+/* 表头 = 模板实抄(Agentic PDCP slide10 XML):填充=tx2 lumMod95% = #F2F2F2 灰底,字=tx1 近黑粗体 */
+table.hw thead th { color: var(--hw-ink); background: var(--hw-panel); }
+table.hw tr:nth-child(even) td { background: #FFF; }  /* 模板实抄:全白底,无斑马纹 */
+/* 表格内容字色 = 模板实抄:前缀/责任人/决策建议 #0000FF 蓝,【技术点名】 #C00000 红 */
+table.hw td .tblue { color: #0000FF; }
+table.hw td .tname { color: var(--hw-red); font-weight: 700; }
+/* 清单页裁剪行:整行灰字,空格填 "/" */
+table.hw tr.cutrow td { color: var(--hw-gray-md); }
+table.hw td.left, table.hw th.left { text-align: left; }
+table.hw td.hl { color: var(--hw-red); font-weight: 700; }
+
+/* ============ 流程图节点 ============ */
+.flow { display: flex; align-items: center; gap: 0; }
+.node {
+  border: 1px solid var(--hw-ink); background: var(--hw-node-green);
+  padding: 4px 10px; font-size: var(--fs-small); text-align: center;
+}
+.node.blue   { background: var(--hw-node-blue); }
+.node.yellow { background: var(--hw-node-yellow); }
+.node.pink   { background: var(--hw-node-pink); }
+.node.gray   { background: #E7E6E6; }
+.arrow {
+  flex: 0 0 auto; color: var(--hw-ink); font-size: 16px; padding: 0 4px;
+}
+
+/* ============ 文字辅助 ============ */
+.red   { color: var(--hw-red); font-weight: 700; }
+.blue  { color: var(--hw-blue); }
+.green { color: var(--hw-green); font-weight: 700; }
+.orange{ color: var(--hw-orange); font-weight: 700; }
+.gray  { color: var(--hw-gray-6); }
+.small { font-size: var(--fs-small); }
+.tiny  { font-size: var(--fs-tiny); }
+b, strong { font-weight: 700; }
+
+/* 两栏 / 多栏布局 */
+.cols { display: flex; gap: 20px; }
+.cols > * { flex: 1; min-width: 0; }
+
+/* KPI 数字块 */
+.kpis { display: flex; gap: 14px; }
+.kpi {
+  flex: 1; background: var(--hw-panel); padding: 10px 14px; text-align: center;
+}
+.kpi .num { font-size: 30px; font-weight: 700; color: var(--hw-red); }
+.kpi .lbl { font-size: var(--fs-small); color: var(--hw-gray-6); }
+
+/* ============ 垂直流程（数据流图用） ============ */
+.vflow { display: flex; flex-direction: column; align-items: center; }
+.vflow .node { font-size: 13px; padding: 4px 10px; max-width: 100%; }
+.varrow {
+  width: 0; height: 0; margin: 2px 0;
+  border-left: 4px solid transparent; border-right: 4px solid transparent;
+  border-top: 5px solid #8c8c8c;
+}
+.vlbl { font-size: 10.5px; color: var(--hw-gray-6); text-align: center; line-height: 1.3; margin: 1px 0; }
+
+/* ============ 层分布色带 ============ */
+.chip {
+  width: 36px; height: 22px; border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 700;
+}
+
+/* ============ 紧凑表格（高密度页用） ============ */
+table.hw.compact th, table.hw.compact td { padding: 2px 6px; font-size: 12px; line-height: 1.35; }
+table.hw.compact .stage td { text-align: center; font-weight: 700; color: #FFF; }
+
+/* ============ 宽松表格（内容少的页撑满用，定义在 compact 之后以便覆盖） ============ */
+table.hw.roomy th, table.hw.roomy td { padding: 8px 10px; font-size: 14px; line-height: 1.5; }
+
+/* ============ 超紧凑表格（行数很多时用） ============ */
+table.hw.tight th, table.hw.tight td { padding: 1px 6px; font-size: 11.5px; line-height: 1.3; }
+
+/* ============ 打印 / 导出 PDF ============ */
+@media print {
+  html, body { background: #FFF; }
+  .deck { width: auto; }
+  .slide { margin: 0; box-shadow: none; page-break-after: always; }
+  @page { size: 1280px 720px; margin: 0; }
+}
