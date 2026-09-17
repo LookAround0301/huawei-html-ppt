@@ -50,6 +50,36 @@ Skill 会按任务类型自动分流：
 - **只有明确要求 PPT/PPTX 时**才转换，且重建为原生可编辑对象
   （文本框/表格/形状），不做整页截图贴图。
 
+## 在 Codex CLI 中使用
+
+Skill 采用开放的 SKILL.md 格式（Agent Skills 规范），Claude Code 与
+Codex CLI 通用。区别是 Codex 没有 plugin/marketplace 机制，需手动放置
+skill 目录：
+
+```bash
+git clone https://github.com/LookAround0301/huawei-html-ppt.git
+mkdir -p ~/.codex/skills
+# 软链方式（推荐）：以后 git pull 即更新
+ln -s /完整路径/huawei-html-ppt/skills/huawei-html-ppt ~/.codex/skills/huawei-html-ppt
+# 或直接拷贝
+cp -r /完整路径/huawei-html-ppt/skills/huawei-html-ppt ~/.codex/skills/
+```
+
+- **触发**：`$huawei-html-ppt` 显式提及，或自然语言描述任务（按 skill
+  的 description 自动匹配）
+- **项目级使用**：放到项目的 `.codex/skills/huawei-html-ppt/` 同样生效
+- 文档中的 `${CLAUDE_SKILL_DIR}` 指 skill 根目录（即 SKILL.md 所在目录），
+  在 Codex 中按实际放置路径理解即可
+
+需要 draw.io 浏览器实时预览时，在 `~/.codex/config.toml` 注册 MCP server
+（可选；不注册则走 skill 内置的 `tools/drive_drawio.mjs` 后备通道）：
+
+```toml
+[mcp_servers.drawio]
+command = "node"
+args = ["/完整路径/huawei-html-ppt/skills/huawei-html-ppt/tools/drawio-server/dist/index.js"]
+```
+
 ## 依赖
 
 - HTML 渲染/验收：Chrome 或 Chromium（headless 截图）
