@@ -7,6 +7,12 @@ description: 生成华为官方模板风格的技术汇报 PPT（HTML 格式，1
 
 用 HTML/CSS 生成与华为官方 PPT 模板一致的技术汇报幻灯片。
 
+资源布局相对 skill 根目录（= `${CLAUDE_SKILL_DIR}`，即本 SKILL.md 所在目录）：
+`references/` 分支规范文档、`assets/` 设计系统（huawei.css / example.html /
+logo / 封面图）、`tools/` four-maps 生成器与内置离线 drawio-server。
+plugin 安装时根目录位于插件缓存内，文档中 `${CLAUDE_SKILL_DIR}` 占位符
+以解析后的实际路径为准。
+
 ## 任务分流（先判断，再选分支）
 
 - **A. 常规技术汇报页**（给主题/单页内容做华为风格幻灯片）→ 走下面主流程。

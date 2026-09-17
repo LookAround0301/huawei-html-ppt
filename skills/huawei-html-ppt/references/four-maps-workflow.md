@@ -97,7 +97,7 @@ org_map_v2:
 1. **写 spec.yaml**（放工作目录，如 `llm组_spec.yaml`）。
 2. **渲染 HTML 交用户验收**：
    ```bash
-   python <skill>/tools/four-maps/render_html.py --spec spec.yaml \
+   python ${CLAUDE_SKILL_DIR}/tools/four-maps/render_html.py --spec spec.yaml \
      --out "<组名>四张地图.html"          # 绝对路径! 相对路径会写错目录
    ```
    页序固定 7 页：1封面 2业务 3组织 4人才 5氛围 6结束页 7组织结构图。
@@ -106,10 +106,10 @@ org_map_v2:
 3. **用户明确要 PPTX 时**转原生 PPT（模板克隆路线，不走 pptx-conversion.md 的
    HTML 解析路线）：
    ```bash
-   python <skill>/tools/four-maps/generate.py --spec spec.yaml \
-     --template <skill>/tools/four-maps/assets/template.pptx \
+   python ${CLAUDE_SKILL_DIR}/tools/four-maps/generate.py --spec spec.yaml \
+     --template ${CLAUDE_SKILL_DIR}/tools/four-maps/assets/template.pptx \
      --out "<组名>四张地图.pptx"
-   python <skill>/tools/four-maps/export_png.py "<组名>四张地图.pptx" <预览目录>
+   python ${CLAUDE_SKILL_DIR}/tools/four-maps/export_png.py "<组名>四张地图.pptx" <预览目录>
    ```
    逐页 PNG 抽查：组织地图表格无重叠越界（COM 重排超页会打警告→提醒精简）、
    文本无溢出、胜任度颜色、封面组名/工号。

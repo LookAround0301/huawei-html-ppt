@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "huawei-html-ppt",
+  "description": "生成华为官方模板风格的技术汇报 PPT（HTML 格式，16:9，可导出 PDF，可转换原生可编辑 PPTX）。含 PDCP 项目评审、团队四张地图分支与内置离线 draw.io 画图服务。",
+  "author": {
+    "name": "LookAround0301",
+    "url": "https://github.com/LookAround0301"
+  },
+  "homepage": "https://github.com/LookAround0301/huawei-html-ppt#readme",
+  "repository": "https://github.com/LookAround0301/huawei-html-ppt",
+  "keywords": ["ppt", "slides", "huawei", "html", "pptx", "report"]
+}

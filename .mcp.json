@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "drawio": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/skills/huawei-html-ppt/tools/drawio-server/dist/index.js"
+      ],
+      "env": {
+        "PORT": "6002"
+      }
+    }
+  }
+}

@@ -6,12 +6,13 @@ deck 需要架构图/流程图/拓扑图/时序图时用本流程。运行时已
 
 ## 1. 跑起来（按优先级）
 
-1. **会话有 `mcp__drawio__*` 工具**（用户级 MCP 已注册 `~/.claude.json`，
-   重启会话后加载）：直接调 `start_session` / `create_new_diagram` /
-   `edit_diagram` / `export_diagram`。
+1. **会话有 drawio 的 MCP 工具**（本 skill 以 plugin 安装时已随 `.mcp.json`
+   自动注册，工具名形如 `mcp__plugin_huawei-html-ppt_drawio__*`；用户级
+   注册 `~/.claude.json` 时为 `mcp__drawio__*`）：直接调 `start_session` /
+   `create_new_diagram` / `edit_diagram` / `export_diagram`。
 2. **无 MCP 工具**（注册晚于会话启动，最常见）：后台跑内置驱动脚本
    ```bash
-   node <skill>/tools/drive_drawio.mjs 图.drawio    # 端口被占时前置 PORT=6003
+   node ${CLAUDE_SKILL_DIR}/tools/drive_drawio.mjs 图.drawio    # 端口被占时前置 PORT=6003
    ```
    脚本：启动内置 server → initialize 握手 → start_session（自动开浏览器）
    → create_new_diagram（推送 XML）→ 挂住保活（server 死则预览断连）。

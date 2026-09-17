@@ -1,0 +1,17 @@
+{
+  "name": "huawei-html-ppt",
+  "owner": {
+    "name": "LookAround0301",
+    "url": "https://github.com/LookAround0301"
+  },
+  "metadata": {
+    "description": "华为风格 HTML PPT 生成 skill 的发布源（单插件兼任 marketplace）"
+  },
+  "plugins": [
+    {
+      "name": "huawei-html-ppt",
+      "source": "./",
+      "description": "生成华为官方模板风格的技术汇报 PPT（HTML/PPTX），含 PDCP 评审、四张地图分支与离线 draw.io 画图服务。"
+    }
+  ]
+}
