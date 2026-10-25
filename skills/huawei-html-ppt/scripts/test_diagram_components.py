@@ -59,6 +59,35 @@ class ComponentTests(unittest.TestCase):
         self.assertEqual(d.data['graph']['nodes']['b.budget']['known_total'],30)
         self.assertIn('未必可用',str(d.data))
 
+    def transfer(self):
+        d=Diagram('Synthetic state transfer')
+        p=d.use('pd-state-transfer','pd',0,0,880,260,
+                p={'nodes':2,'cards_per_node':2,'ranks_per_node':4,'parallel':'PP2 / TP4'},
+                d={'nodes':3,'cards_per_node':2,'ranks_per_node':4,'parallel':'DP3 / TP4'},
+                states=['主缓存','递归状态'])
+        d.contract('mechanism',paths=[[p['p'],p['states'],p['d']]])
+        return d
+
+    def test_pd_transfer_counts_physical_cards_separately(self):
+        d=self.transfer()
+        self.assertTrue(audit(d.data,True)['ok'])
+        self.assertEqual(d.data['graph']['nodes']['pd.p']['devices'],{'nodes':2,'physical_cards':4,'ranks':8})
+        self.assertEqual(d.data['graph']['nodes']['pd.d']['devices'],{'nodes':3,'physical_cards':6,'ranks':12})
+
+    def test_pd_transfer_requires_complete_state_handoff(self):
+        d=self.transfer().data
+        d['graph']['edges']=[e for e in d['graph']['edges'] if e['target']!='pd.d']
+        self.assertFalse(audit(d,True)['ok'])
+
+    def test_pd_transfer_rejects_unknown_or_invalid_counts_and_empty_states(self):
+        valid={'nodes':2,'cards_per_node':2,'ranks_per_node':4,'parallel':'PP2 / TP4'}
+        for field,value in [('nodes',0),('cards_per_node',True),('ranks_per_node',1.5)]:
+            bad={**valid,field:value}
+            with self.assertRaises(ValueError):
+                Diagram('Bad counts').use('pd-state-transfer','pd',0,0,880,260,p=bad,d=valid,states=['状态'])
+        with self.assertRaises(ValueError):
+            Diagram('No states').use('pd-state-transfer','pd',0,0,880,260,p=valid,d=valid,states=[])
+
     def test_contract_required_only_for_new_reports(self):
         legacy={'title':'Old','width':100,'height':100,'elements':[]}
         self.assertTrue(audit(legacy)['ok'])

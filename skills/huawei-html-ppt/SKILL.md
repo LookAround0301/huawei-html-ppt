@@ -23,7 +23,7 @@ PCP/DCP 是技术名称，不等于 PDCP。模型主题也能做项目评审；�
 
 ## 制作
 
-1. 用 `plan` 读取本次分支、适用规则和最小组件；每页先明确要回答的问题与结论，再组织内容。已有结构化材料优先复用。
+1. 用 `plan` 读取本次分支、适用规则和最小组件；先理解材料的核心变化、实现约束和证据，再形成判断与组织页面。洞察结论按 [结论写法](references/insight-conclusions.md) 提炼关键事实、原因和具体判断，不能只摘抄数字或复述页题。已有结构化材料优先复用。
 2. 只选需要的组件。`assets/units/catalog.json` 是最小单元目录；`plan` 还返回可执行的 `component_builders`。结构图通过 `scripts/diagram_components.py` 实际实例化所需组件，保留参数、端口和使用记录，不能只在备注中写组件名称。新结构可扩展局部组件，不强套现有拓扑。见 [组件复用与绘图验收](references/component-reuse-and-review.md)。优先简单曲线、柱状图、对比表及必要的结构/流程图；复杂图不默认进正文。见 [chart-selection.md](references/chart-selection.md)。
 3. 绘图标准继续沿用 [reference-diagram-fidelity.md](references/reference-diagram-fidelity.md)：完整主干、实际分支、缓存与回路，整体和局部放大明确对应。图内文字与批注黑灰红、低饱和填充。不能退化为无关联的方框卡片。
 4. 用同一份 `deck-model.json` 生成 HTML、SVG、draw.io。`python scripts/ppt.py render request.json output/`。逻辑画布1280×720，HTML自包含并自动适配。图表、说明和页数随内容变通，不强塞固定页数或重复卡片。
@@ -32,7 +32,7 @@ PCP/DCP 是技术名称，不等于 PDCP。模型主题也能做项目评审；�
 
 共享要求见 [style-guide.md](references/style-guide.md)：大白话标题、准确术语、内容集中，减少大块无意义留白，不能靠小字和装饰填满。来源、依据、制作批注放隐藏元数据/演讲者备注；影响结论的条件正常显示。
 
-用户材料优先。缺少资料时读 [source-acquisition.md](references/source-acquisition.md)。从官方模型仓库取得事实，用 se-tools / model_analysis 计算和整理；运行实现联合检查 vLLM-Ascend 与匹配版本的上游 vLLM。调度、KV 管理及并行调用链按需读 [runtime-static-analysis.md](references/runtime-static-analysis.md)，先查 patch/覆盖再判断是否继承上游。涉及昇腾的洞察按需覆盖量化、算子、KV Cache、通信、P/D并行与部署；A3/A5分别建场景，不把个案容量作为通用硬件参数。
+用户材料优先。缺少资料时读 [source-acquisition.md](references/source-acquisition.md)。从官方模型仓库取得事实，用 se-tools / model_analysis 计算和整理；运行实现联合检查 vLLM-Ascend 与匹配版本的上游 vLLM。调度、KV 管理及并行调用链按需读 [runtime-static-analysis.md](references/runtime-static-analysis.md)，先查 patch/覆盖再判断是否继承上游。涉及昇腾的洞察按 [部署分析](references/ascend-deployment-analysis.md) 分别建立A3/A5场景，覆盖量化、算子、各类Cache、通信、P/D并行与部署，不把个案容量作为通用硬件参数。
 
 本地材料不上传。解析与渲染在本机；不把私有内容送到外部绘图、图像生成、云文档或搜索服务。
 

@@ -22,6 +22,8 @@ data = g.contract('mechanism',
 
 `comparison-table` 用于结构总览旁的关键参数表，通过 `changed_rows` 只强调真实变化；`memory-budget` 接收本次核算的容量与分项，不内置特定硬件容量或系统预留。完整参考报告及学习记录留在项目目录，只将这些最小表达方式和通用规则纳入skill。
 
+`pd-state-transfer` 分别呈现P/D并行配置、节点、物理卡与rank数量，以及有读写箭头的状态交接。P/D规模通过各自的`nodes/cards_per_node/ranks_per_node/parallel`传入；`states`只列本模型真实需要迁移的1–4类状态。组件不解析并行字符串来证明进程组正确，也不假设一卡一rank；这些由场景底稿核验。
+
 ## 两层验收
 
 新报告顶层设置 `diagram_contract: 1`。每张图声明 `acceptance`，包括必要节点、必须连通的路径、总览到放大的关系。`validate`/`diagram_audit.py`检查：

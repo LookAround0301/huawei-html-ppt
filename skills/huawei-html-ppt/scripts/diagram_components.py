@@ -276,6 +276,35 @@ def budget(d,i,p):
     d.text(0,80,f'已核算 {total:.2f} / {cap:.2f} GiB；'+('超出容量' if total>cap else '其余空间未必可用'),15,color=RED if total>cap else GRAY)
     d._register(i+'.budget',0,29,420,30,'capacity',capacity=cap,known_total=total,unresolved=p.get('unresolved',[]))
 
+def pd_state_transfer(d,i,p):
+    def key(s): return i+'.'+s
+    states=p['states']
+    if not isinstance(states,list) or not 1<=len(states)<=4 or any(not isinstance(s,str) or not s.strip() or '\n' in s for s in states):
+        raise ValueError('Provide 1–4 named persistent states from this model')
+    for phase,x,title,fill in [('p',8,'Prefill',BLUE),('d',617,'Decode',PALE)]:
+        spec=p[phase]
+        for field in ('nodes','cards_per_node','ranks_per_node'):
+            value=spec.get(field)
+            if isinstance(value,bool) or not isinstance(value,int) or value<=0:
+                raise ValueError('Device counts must be positive integers: '+phase+'.'+field)
+        parallel=spec.get('parallel')
+        if not isinstance(parallel,str) or not parallel.strip():
+            raise ValueError('Provide the verified parallel configuration for '+phase)
+        d.frame(key(phase+'_group'),x,16,255,221,title,fill=fill)
+        d.node(key(phase),x+15,57,225,68,parallel,'deployment',fill=WHITE,fs=17)
+        d.text(x+16,160,f'{spec["nodes"]}节点 · {spec["nodes"]*spec["ranks_per_node"]} rank',17,True)
+        d.text(x+16,188,f'{spec["nodes"]*spec["cards_per_node"]}物理卡 · 每节点{spec["cards_per_node"]}卡',16)
+        d.text(x+16,216,f'每节点{spec["ranks_per_node"]}可见rank',16)
+        d.data['graph']['nodes'][key(phase)]['devices']={
+            'nodes':spec['nodes'],'physical_cards':spec['nodes']*spec['cards_per_node'],
+            'ranks':spec['nodes']*spec['ranks_per_node']}
+    d.text(440,43,'状态交接',18,True,anchor='middle')
+    d.node(key('states'),333,61,214,147,'\n'.join(states),'storage','storage',WHITE,fs=17,require_io=True)
+    d.connect(key('p'),key('states'),via=[[292,91],[292,134]],kind='write')
+    d.connect(key('states'),key('d'),via=[[585,134],[585,91]],kind='read')
+    if p.get('note'):d.text(440,254,p['note'],15,color=GRAY,anchor='middle')
+
+
 BUILDERS={'moe-routing':moe,'model-backbone':backbone,'version-locator':locator,
           'mhc-mixer':mhc,'recurrent-state':recurrent,'pooled-sparse-attention':sparse,
-          'comparison-table':comparison,'memory-budget':budget}
+          'comparison-table':comparison,'memory-budget':budget,'pd-state-transfer':pd_state_transfer}

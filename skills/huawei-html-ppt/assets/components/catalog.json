@@ -9,6 +9,7 @@
     {"id":"recurrent-state","revision":1,"viewbox":[400,324],"styles":["insight-analysis","technical-project"],"purpose":"门控Delta状态写入与读取、QKV和输出路径；具体维度从模型读取","required_params":["state_label"]},
     {"id":"pooled-sparse-attention","revision":1,"viewbox":[740,324],"styles":["insight-analysis","technical-project"],"purpose":"池化索引与完整主KV分开，包含尾部缓冲的写入和读取","required_params":["pool","top_k","index_dim","cache_label"]},
     {"id":"comparison-table","revision":1,"viewbox":[520,444],"styles":["insight-analysis","technical-project"],"purpose":"结构总览旁的同口径对比表，只强调实际变化项","required_params":["headers","rows"]},
-    {"id":"memory-budget","revision":1,"viewbox":[420,88],"styles":["insight-analysis","technical-project"],"purpose":"显存分项的简明容量条带；未核算空间不写成可用空间","required_params":["title","capacity","segments"]}
+    {"id":"memory-budget","revision":1,"viewbox":[420,88],"styles":["insight-analysis","technical-project"],"purpose":"显存分项的简明容量条带；未核算空间不写成可用空间","required_params":["title","capacity","segments"]},
+    {"id":"pd-state-transfer","revision":1,"viewbox":[880,260],"styles":["insight-analysis","technical-project"],"purpose":"P/D并行配置、物理卡与rank独立计数、模型所需状态的写入与读取","required_params":["p","d","states"]}
   ]
 }
