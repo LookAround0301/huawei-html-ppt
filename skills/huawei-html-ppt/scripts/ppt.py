@@ -15,6 +15,7 @@ sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parents[1]
 import route_request
 import render_style_deck
+import diagram_audit
 
 
 def read(path):
@@ -94,7 +95,8 @@ def plan(request, units=None):
     catalog = read(ROOT / 'assets/units/catalog.json')
     return {'route': result, 'units': active,
             'unit_refs': [f"{u['id']}@{u['revision']}" for u in active],
-            'components': [u for u in catalog['units'] if result['style'] in u['styles']]}
+            'components': [u for u in catalog['units'] if result['style'] in u['styles']],
+            'component_builders': [u for u in read(ROOT / 'assets/components/catalog.json')['components'] if result['style'] in u['styles']]}
 
 
 def resolved_deck(request, planning):
@@ -180,6 +182,10 @@ def validate(deck):
             for e in d.get('elements', []):
                 if e.get('type') not in ('rect', 'ellipse', 'line', 'polygon', 'text'): errors.append(prefix + 'unsupported diagram element')
                 if e.get('type') == 'text' and not e.get('text', '').strip(): errors.append(prefix + 'empty diagram label')
+            if d.get('acceptance') or deck.get('diagram_contract') == 1:
+                checked = diagram_audit.audit(d, required=deck.get('diagram_contract') == 1)
+                errors.extend(prefix + value for value in checked['errors'])
+                warnings.extend(prefix + value for value in checked['warnings'])
         if len(s.get('title', '')) > 60: warnings.append(prefix + 'check title wrapping visually')
     return {'ok': not errors, 'errors': errors, 'warnings': warnings, 'visual_review_required': True}
 
@@ -189,6 +195,7 @@ def render(request, output, units=None):
     if not result['ok']: raise ValueError('; '.join(result['errors']))
     output = Path(output).resolve(); output.mkdir(parents=True, exist_ok=True)
     html = render_style_deck.render(deck, output)
+    save(output / 'diagram-audit.json', diagram_audit.deck_audit(deck))
     save(output / 'plan.json', planning); save(output / 'validation.json', result)
     return {'html': html, 'deck': str(output / 'deck-model.json'), 'plan': str(output / 'plan.json'), 'validation': result}
 

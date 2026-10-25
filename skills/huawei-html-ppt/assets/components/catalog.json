@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "implementation": "scripts/diagram_components.py",
+  "components": [
+    {"id":"moe-routing","revision":1,"viewbox":[800,230],"styles":["insight-analysis","technical-project"],"purpose":"路由、激活专家、共享专家、合并与输出；隐藏维度和专家数为参数","required_params":["hidden","intermediate","experts","top_k","shared"]},
+    {"id":"model-backbone","revision":1,"viewbox":[340,454],"styles":["insight-analysis","technical-project"],"purpose":"输入到输出的完整主干，暴露Attention和FFN放大端口","required_params":["input","repeat","attention","ffn","pre","post","layer_note"]},
+    {"id":"version-locator","revision":1,"viewbox":[1164,96],"styles":["insight-analysis","technical-project"],"purpose":"前后两行总览与变化定位；允许每行有不同的真实结构","required_params":["before_label","after_label","before","after"]},
+    {"id":"mhc-mixer","revision":1,"viewbox":[980,374],"styles":["insight-analysis","technical-project"],"purpose":"多条残差流、前混合、子层、后混合及矩阵残差支路","required_params":["streams","hidden"]},
+    {"id":"recurrent-state","revision":1,"viewbox":[400,324],"styles":["insight-analysis","technical-project"],"purpose":"门控Delta状态写入与读取、QKV和输出路径；具体维度从模型读取","required_params":["state_label"]},
+    {"id":"pooled-sparse-attention","revision":1,"viewbox":[740,324],"styles":["insight-analysis","technical-project"],"purpose":"池化索引与完整主KV分开，包含尾部缓冲的写入和读取","required_params":["pool","top_k","index_dim","cache_label"]},
+    {"id":"comparison-table","revision":1,"viewbox":[520,444],"styles":["insight-analysis","technical-project"],"purpose":"结构总览旁的同口径对比表，只强调实际变化项","required_params":["headers","rows"]},
+    {"id":"memory-budget","revision":1,"viewbox":[420,88],"styles":["insight-analysis","technical-project"],"purpose":"显存分项的简明容量条带；未核算空间不写成可用空间","required_params":["title","capacity","segments"]}
+  ]
+}

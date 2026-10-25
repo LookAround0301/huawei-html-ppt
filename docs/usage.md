@@ -85,6 +85,12 @@ python skills/huawei-html-ppt/scripts/ppt.py catalog
 
 输出包括自包含HTML、`deck-model.json`、`diagrams/*.svg`、`*.drawio`、计划和静态检查结果。来源、详细推导和制作批注放 `notes`；理论/实测性质、精度、硬件与并行条件放正文。
 
+### 组件复用与绘图验收
+
+`plan` 的 `component_builders` 返回可执行组件目录，包含主干、MoE、变化定位、残差混合、循环状态、池化索引、对比表和显存预算条带。用 `scripts/diagram_components.py` 的 `Diagram.use()` 按当前模型参数实例化，再通过具名端口组合；不把已有模型的数字和拓扑当默认值。
+
+新结构图在报告中启用 `diagram_contract: 1`，声明主路径、必要分支和放大关系。`render` 会保存 `diagram-audit.json`，检查组件重放、路径连通、缓存读写及越界。静态检查后仍要实际查看每页。完整接口和示例见[组件复用与绘图验收](../skills/huawei-html-ppt/references/component-reuse-and-review.md)。
+
 ## 反馈迭代
 
 提供 AI 初版、人工终版和用途。Agent 对应页面，区分数据更新与通用表达改进，再决定修订规则、组件或脚本。

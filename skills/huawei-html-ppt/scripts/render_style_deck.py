@@ -1,7 +1,7 @@
 """Render two-style JSON decks, diagrams and editable draw.io locally (stdlib only)."""
 from pathlib import Path
 from xml.etree.ElementTree import Element, SubElement, tostring
-import argparse, base64, copy, html, json, importlib.util
+import argparse, base64, copy, html, json, importlib.util, hashlib
 
 ROOT=Path(__file__).resolve().parents[1]
 E=lambda v: html.escape(str(v),quote=True)
@@ -55,8 +55,12 @@ def prepare_diagram(diagram):
                           else '#FFFFFF' if color in {'#FFFFFF','WHITE'} else '#1D1D1A')
     return result
 
-def svg(d):
-    out=[f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {d["width"]} {d["height"]}" role="img" aria-label="{E(d.get("title","技术图"))}"><defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.5 L0,9 Z" fill="#526573"/></marker></defs>']
+def svg(d, marker_prefix=None):
+    marker_prefix=marker_prefix or 'arrow-'+hashlib.sha256(json.dumps(d,sort_keys=True).encode()).hexdigest()[:12]
+    colors=sorted({e.get('stroke','#526573') for e in d['elements'] if e.get('arrow')})
+    markers={c:f'{marker_prefix}-{n}' for n,c in enumerate(colors)}
+    defs=''.join(f'<marker id="{E(key)}" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.5 L0,9 Z" fill="{E(color)}"/></marker>' for color,key in markers.items())
+    out=[f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {d["width"]} {d["height"]}" role="img" aria-label="{E(d.get("title","技术图"))}"><defs>{defs}</defs>']
     for e in d['elements']:
         typ=e['type'];fill=e.get('fill','none');stroke=e.get('stroke','#526573');sw=e.get('sw',1.2)
         attrs=f'fill="{fill}" stroke="{stroke}" stroke-width="{sw}"'+(' stroke-dasharray="6 4"' if e.get('dash') else '')
@@ -65,7 +69,7 @@ def svg(d):
         elif typ in ('line','polygon'):
             tag='polygon' if typ=='polygon' else 'polyline'
             points=' '.join(f'{p[0]},{p[1]}' for p in e['points'])
-            out.append(f'<{tag} points="{points}" {attrs}'+(' marker-end="url(#arrow)"' if e.get('arrow') else '')+'/>')
+            out.append(f'<{tag} points="{points}" {attrs}'+(f' marker-end="url(#{markers[stroke]})"' if e.get('arrow') else '')+'/>')
         elif typ=='text':
             fs=e.get('fs',18);lines=e['text'].split('\n');anchor=e.get('anchor','start');x=e['x'];y=e['y']
             out.append(f'<text x="{x}" y="{y}" text-anchor="{anchor}" font-size="{fs}" style="fill:{e.get("color","#202B35")};font-weight:{700 if e.get("bold") else 400}">')
@@ -125,7 +129,7 @@ def render(spec,outdir,asset_root=ROOT):
             elif s['layout']=='project-coordination': body=project.coordination(s)
             else: body=project.explainer(s)
             for k,d in enumerate(ds,1):
-                (outdir/'diagrams'/f'{n:02d}-{k}.svg').write_text(svg(d),encoding='utf-8')
+                (outdir/'diagrams'/f'{n:02d}-{k}.svg').write_text(svg(d,f'arrow-{n}-{k}'),encoding='utf-8')
                 drawio(d,outdir/'diagrams'/f'{n:02d}-{k}.drawio')
             pages.append(f'<article class="slide project-report" data-slide="{n}" data-layout="{s["layout"]}"><span class="context">{E(s.get("context",""))}</span><h1>{E(s["title"])}</h1>{body}<footer><span>{n:02d} / {len(spec["slides"]):02d}</span><img alt="HUAWEI" src="data:image/png;base64,{logo}"></footer></article>')
             continue
@@ -139,10 +143,12 @@ def render(spec,outdir,asset_root=ROOT):
         panels=[]
         for k,p in enumerate(s['panels'],1):
             body=''
-            for b in p['blocks']:
+            for block_index,b in enumerate(p['blocks'],1):
                 if b['type']=='diagram':
-                    d=prepare_diagram(b['data']);stem=f'{n:02d}-{k}';body+=svg(d)
-                    (outdir/'diagrams'/f'{stem}.svg').write_text(svg(d),encoding='utf-8');drawio(d,outdir/'diagrams'/f'{stem}.drawio')
+                    d=prepare_diagram(b['data']);stem=f'{n:02d}-{k}'
+                    if sum(v['type']=='diagram' for v in p['blocks'])>1:stem+=f'-{block_index}'
+                    body+=svg(d,f'arrow-{stem}')
+                    (outdir/'diagrams'/f'{stem}.svg').write_text(svg(d,f'arrow-{stem}'),encoding='utf-8');drawio(d,outdir/'diagrams'/f'{stem}.drawio')
                 elif b['type']=='chart':body+=chart_svg(b['data'])
                 elif b['type']=='text':body+=f'<p class="{E(b.get("class",""))}">{E(b["text"]).replace(chr(10),"<br>")}</p>'
                 elif b['type']=='heading':body+=f'<h3>{E(b["text"])}</h3>'
