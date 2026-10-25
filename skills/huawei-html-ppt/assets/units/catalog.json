@@ -176,6 +176,21 @@
       "asset": "assets/units/cache-state-lanes.json",
       "preview": "assets/units/cache-state-lanes.svg",
       "editable": "assets/units/cache-state-lanes.drawio"
+    },
+    {
+      "id": "source-figure-layouts",
+      "revision": 1,
+      "styles": [
+        "technical-project"
+      ],
+      "purpose": "按图形密度复用原图配表、图表核验或通栏版式",
+      "asset": "assets/units/source-figure-layouts.json",
+      "sources": [
+        {
+          "kind": "generic-layout",
+          "note": "只含通用局部布局，不携带报告或参考原图。"
+        }
+      ]
     }
   ]
 }

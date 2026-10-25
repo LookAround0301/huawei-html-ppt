@@ -24,10 +24,10 @@ PCP/DCP 是技术名称，不等于 PDCP。模型主题也能做项目评审；�
 ## 制作
 
 1. 用 `plan` 读取本次分支、适用规则和最小组件；先理解材料的核心变化、实现约束和证据，再形成判断与组织页面。洞察结论按 [结论写法](references/insight-conclusions.md) 提炼关键事实、原因和具体判断，不能只摘抄数字或复述页题。已有结构化材料优先复用。
-2. 只选需要的组件。`assets/units/catalog.json` 是最小单元目录；`plan` 还返回可执行的 `component_builders`。结构图通过 `scripts/diagram_components.py` 实际实例化所需组件，保留参数、端口和使用记录，不能只在备注中写组件名称。新结构可扩展局部组件，不强套现有拓扑。见 [组件复用与绘图验收](references/component-reuse-and-review.md)。优先简单曲线、柱状图、对比表及必要的结构/流程图；复杂图不默认进正文。见 [chart-selection.md](references/chart-selection.md)。
-3. 绘图标准继续沿用 [reference-diagram-fidelity.md](references/reference-diagram-fidelity.md)：完整主干、实际分支、缓存与回路，整体和局部放大明确对应。图内文字与批注黑灰红、低饱和填充。不能退化为无关联的方框卡片。
-4. 用同一份 `deck-model.json` 生成 HTML、SVG、draw.io。`python scripts/ppt.py render request.json output/`。逻辑画布1280×720，HTML自包含并自动适配。图表、说明和页数随内容变通，不强塞固定页数或重复卡片。
-5. 新结构图使用 `diagram_contract: 1`，在图中声明主路径、共享分支、缓存读写与放大对应关系；`validate` 校验真实组件重放和这些路径，`render` 保存 `diagram-audit.json`。再按参考图与来源逐页检查字体、连线遮挡、留白、翻页及图的解释力。保存实际查看者和截图摘要；静态通过不能记成视觉通过或用户确认。
+2. 技术项目先查用户材料、对应版本的仓库文档（含 `docs` 图片）和官方论文，有匹配原图就直接本地复用，不能默认重新画。先按 [原图复用规则](references/technical-project-style.md#原图优先) 核对版本与内容。需要新绘或改绘时再选组件：`assets/units/catalog.json` 是最小单元目录，`plan` 返回 `component_builders`；通过 `scripts/diagram_components.py` 实际实例化所需组件，保留参数、端口和使用记录，不能只在备注中写组件名称。新结构可扩展局部组件，不强套现有拓扑。见 [组件复用与绘图验收](references/component-reuse-and-review.md)。按问题选简单曲线、柱状图、对比表及必要的结构图，见 [chart-selection.md](references/chart-selection.md)。
+3. 新绘图继续沿用 [reference-diagram-fidelity.md](references/reference-diagram-fidelity.md)：完整主干、实际分支、缓存与回路，整体和局部放大明确对应；图内文字与批注黑灰红、低饱和填充，不能退化为无关联的方框卡片。直接使用的原图保留原貌，新增标注遵守黑灰红规范。
+4. 用同一份 `deck-model.json` 生成 HTML，原图用 `image` 本地嵌入并保持比例；技术项目按图形密度选概览配表、图表核验或原图通栏，可点击放大。局部版式见 [技术项目风格](references/technical-project-style.md#原图和分析怎么搭配)。新绘图同步生成 SVG、draw.io，不把原图声称为可编辑图源。接口见 [runtime-contract.md](references/runtime-contract.md)。`python scripts/ppt.py render request.json output/`。逻辑画布1280×720，HTML自包含并自动适配。图表、说明和页数随内容变通，不强塞固定页数或重复卡片。
+5. 新结构图使用 `diagram_contract: 1`，在图中声明主路径、共享分支、缓存读写与放大对应关系；`validate` 校验真实组件重放和这些路径，`render` 保存 `diagram-audit.json`。原图检查来源、适用版本、清晰度、比例和关键内容完整性，不要求组件重放。再逐页检查字体、连线遮挡、留白、翻页及图的解释力。保存实际查看者和截图摘要；静态通过不能记成视觉通过或用户确认。
 6. 明确需要可编辑 PPTX 时读 [pptx-conversion.md](references/pptx-conversion.md)，保留原生文字/表格/形状和备注，逐页渲染检查。默认交付 HTML。
 
 共享要求见 [style-guide.md](references/style-guide.md)：大白话标题、准确术语、内容集中，减少大块无意义留白，不能靠小字和装饰填满。来源、依据、制作批注放隐藏元数据/演讲者备注；影响结论的条件正常显示。

@@ -1,0 +1,23 @@
+/* Original figures are fitted, never stretched or recolored. */
+.technical-project .figure-overview{grid-template-columns:1.57fr 1fr;gap:20px}
+.technical-project .figure-evidence{grid-template-columns:.88fr 1.12fr;gap:20px}
+.technical-project .figure-full{grid-template-columns:1fr}
+.technical-project .source-with-table table{font-size:15px}
+.technical-project .source-with-table th,.technical-project .source-with-table td{padding:8px}
+.technical-project .project-progress-text h3{margin:6px 0 3px;font-size:19px}
+.technical-project .project-progress-text p{font-size:17px;line-height:1.5;margin:4px 0 13px}
+.technical-project .project-progress-text .finding{font-size:17px;margin:8px 0 0}
+.technical-project .project-evidence-detail table{font-size:18px}
+.technical-project .project-evidence-detail th,.technical-project .project-evidence-detail td{padding:7px 9px}
+.technical-project .project-evidence-detail h3{margin:11px 0 4px}
+.technical-project .project-evidence-detail p{font-size:17px;line-height:1.5;margin:6px 0 12px}
+.technical-project .project-evidence-detail .finding{font-size:17px;margin:8px 0 0}
+.source-figure img[data-zoom]{cursor:zoom-in}
+.source-figure img[data-zoom]:focus-visible{outline:2px solid #c00000;outline-offset:3px}
+.source-lightbox{border:0;padding:18px;background:#fff;width:96vw;height:95vh;max-width:none;max-height:none}
+.source-lightbox::backdrop{background:#000b}
+.source-lightbox .image-scroll{height:calc(100% - 42px);overflow:auto;text-align:center}
+.source-lightbox img{max-width:100%;max-height:100%;object-fit:contain;cursor:zoom-in}
+.source-lightbox.expanded img{max-width:none;max-height:none;cursor:zoom-out}
+.source-lightbox button{font:16px 'Microsoft YaHei',sans-serif;border:1px solid #aaa;background:white;padding:5px 12px;cursor:pointer;margin-bottom:8px}
+@media print{.source-lightbox{display:none!important}.source-figure img[data-zoom]{cursor:auto;outline:none}}

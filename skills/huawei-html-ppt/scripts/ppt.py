@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 import route_request
 import render_style_deck
 import diagram_audit
+import source_images
 
 
 def read(path):
@@ -114,6 +115,9 @@ def resolved_deck(request, planning):
         else:
             slide['layout'] = {'portfolio': 'project-portfolio', 'landscape': 'project-landscape',
                                'coordination': 'project-coordination', 'appendix': 'project-explainer',
+                               'figure-overview': 'project-figure-overview',
+                               'figure-evidence': 'project-figure-evidence',
+                               'figure-full': 'project-figure-full',
                                'proposal': 'project-solution'}.get(slide.get('page_kind'), 'project-progress')
     deck['generation'] = {'api_version': 1, 'style': deck['style'], 'unit_refs': planning['unit_refs']}
     return deck
@@ -149,11 +153,19 @@ def validate(deck):
                 errors.append(prefix + 'single-topic project requires paired summary')
             panels = s.get('panels', [])
             if not panels: errors.append(prefix + 'no content panels')
+            if layout in ('project-figure-overview', 'project-figure-evidence', 'project-figure-full'):
+                expected = 1 if layout == 'project-figure-full' else 2
+                if len(panels) != expected: errors.append(prefix + f'{layout} needs {expected} panels')
+                if not any(b.get('type') == 'image' for p in panels for b in p.get('blocks', [])):
+                    errors.append(prefix + 'source-figure layout needs a local image')
             for p in panels:
                 if 'title' not in p: errors.append(prefix + 'panel needs title')
                 for b in p.get('blocks', []):
                     kind = b.get('type')
-                    if kind not in ('text', 'heading', 'bullets', 'table', 'diagram', 'chart'): errors.append(prefix + 'unsupported block')
+                    if kind not in ('text', 'heading', 'bullets', 'table', 'diagram', 'chart', 'image'): errors.append(prefix + 'unsupported block')
+                    if kind == 'image':
+                        try: source_images.read_image(b)
+                        except (ValueError, OSError) as exc: errors.append(prefix + str(exc))
                     if kind == 'table':
                         width = len(b.get('headers', []))
                         if not width or any(len(r) != width for r in b.get('rows', [])): errors.append(prefix + 'table dimensions differ')
@@ -174,6 +186,10 @@ def validate(deck):
             if not s.get('targets') or not s.get('milestones') or not s.get('topics'): errors.append(prefix + 'portfolio needs targets, milestones and topics')
             for t in s.get('topics', []):
                 if not t.get('summary') or not 1 <= len(t.get('progress_columns', [])) <= 3: errors.append(prefix + 'topic needs summary and 1-3 progress columns')
+                if ('image' in t) == ('diagram' in t): errors.append(prefix + 'topic needs exactly one image or diagram')
+                if 'image' in t:
+                    try: source_images.read_image(t['image'])
+                    except (ValueError, OSError) as exc: errors.append(prefix + str(exc))
         elif layout == 'project-landscape' and not s.get('projects'): errors.append(prefix + 'missing projects')
         elif layout == 'project-coordination' and not s.get('stages'): errors.append(prefix + 'missing stages')
         elif layout == 'project-explainer' and any(len(r) != 3 for r in s.get('rows', [])): errors.append(prefix + 'explainer has three columns')

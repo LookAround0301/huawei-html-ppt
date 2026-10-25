@@ -29,9 +29,15 @@ context 是字符串键值，例如 `{hardware:"ascend", scenario:"long-context"
 deck 格式沿用 `title, style, slides[]`。slides 支持共享两分支布局和四种正式项目布局，可在同一项目报告混用。显式 deck.style/用户style冲突时报错，不静默改风格。单个slide已指定layout时保留；未指定时按page_kind和有效规则选择。
 
 共享页：`title, layout, panels[]`；洞察页还要 `conclusion`，单专题项目页要 `labels:[挑战,目标]` 或 `[目标,进展]` 及两段 `summary`。
-panel 为 `title, blocks[]`；block 支持 text、heading、bullets、table、diagram、chart。
+panel 为 `title, blocks[]`；block 支持 text、heading、bullets、table、diagram、chart、image。
 chart 为 `{type:"chart",data:{kind:"line"|"bar", x_label,y_label, x:[...], series:[{name,values:[...]}]}}`，最多3组、数据长度一致。不虚构缺失数据。
 diagram 为已确认的 width/height/elements 格式，输出 SVG 与可编辑draw.io。
+image 为 `{type:"image",path:"本地绝对路径",alt:"图的内容",source:{url:"原文地址",revision:"commit或论文版本",figure:"文件路径或图号"}}`。source 必须记录真实来源，可以按资料补充页码或改动说明。支持 PNG/JPEG/GIF/WebP，其他格式先在本地导出；HTML 原字节嵌入，保留校验摘要、等比例完整显示，不联网取图。建议原图独占一个 panel，解释放旁栏；图片中的来源不另行转写为可见页脚。
+组合页每个 topic 在 `diagram` 与 `image` 中选一个，image 字段同上但不需 type。原图不受新绘图的组件重放校验，不输出伪造的 SVG/draw.io；来源保留在隐藏 deck-model。局部放大或新增覆盖标注由宿主准备，记录处理依据并视觉核验。
+
+技术项目原图页可用 `page_kind:"figure-overview"|"figure-evidence"|"figure-full"` 自动选择对应的 `project-figure-*` 布局；显式 layout 优先。前两种需要两个 panel，通栏需要一个 panel，均须含 image。局部组件说明见 `assets/units/source-figure-layouts.json`：概览页左 panel 用 `class:"source-with-table"`、右 panel 用 `class:"project-progress-text"`；图表核验页右 panel 可用 `class:"project-evidence-detail"`。这些类只调局部间距和字号，不带报告内容。
+
+技术项目原图自动启用本地放大组件 `assets/source-figures.js`：点击/Enter 打开、点击图切换原始尺寸、Esc 或按钮关闭。交互只使用已嵌入图像，不请求网络；打印不显示放大层。洞察分析页不自动套用这一技术项目交互。
 正式项目页字段详见现有 `render_project_report.py` 的 portfolio/landscape/coordination/explainer函数。
 
 `notes` 仅进入隐藏deck-model和未来PPT备注；标题/正文不要填来源、内部批注。图片及其他资源须在本地处理。

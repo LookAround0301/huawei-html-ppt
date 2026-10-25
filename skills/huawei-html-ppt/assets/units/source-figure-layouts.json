@@ -1,0 +1,16 @@
+{
+  "id": "source-figure-layouts",
+  "revision": 1,
+  "kind": "layout",
+  "styles": ["technical-project"],
+  "purpose": "按信息密度选择原图、对照表与进展说明的组合",
+  "slots": ["local_image", "comparison_table", "implementation_analysis", "progress"],
+  "variants": [
+    {"layout": "project-figure-overview", "page_kind": "figure-overview", "use": "左图及短对照表，右侧集中写实现、进展和下一步", "panel_classes": ["source-with-table", "project-progress-text"]},
+    {"layout": "project-figure-evidence", "page_kind": "figure-evidence", "use": "左侧原图，右侧数据或实现对照和关键判断", "panel_classes": ["", "project-evidence-detail"]},
+    {"layout": "project-figure-full", "page_kind": "figure-full", "use": "复杂原图独占正文通栏，目标和进展放顶部摘要", "panel_classes": [""]}
+  ],
+  "renderer": "scripts/render_style_deck.py",
+  "assets": ["assets/source-figures.css", "assets/source-figures.js"],
+  "sources": [{"kind": "generic-layout", "note": "通用局部版式；实际报告、原图和验收记录留在用户项目。"}]
+}

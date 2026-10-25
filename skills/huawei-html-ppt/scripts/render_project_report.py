@@ -1,6 +1,7 @@
 """Render formal project portfolio, landscape, coordination and explainer pages."""
 from pathlib import Path
 import argparse, base64, html, importlib.util, json
+from source_images import image_html
 
 ROOT=Path(__file__).resolve().parents[1]
 mod=importlib.util.spec_from_file_location('shared_diagrams',ROOT/'scripts/render_style_deck.py')
@@ -23,8 +24,11 @@ def portfolio(slide,diagrams):
     rows=';grid-template-rows:'+' '.join(f'{x}fr' for x in weights)
     left=[];right=[]
     for topic in topics:
-        diagram=dg.prepare_diagram(topic['diagram']);diagrams.append(diagram)
-        left.append(f'<section class="topic-row"><h3 class="topic-name">{E(topic["name"])}</h3><div class="topic-figure">{dg.svg(diagram)}</div></section>')
+        if ('image' in topic)==('diagram' in topic):raise ValueError('Topic needs exactly one image or diagram')
+        if 'image' in topic:figure=image_html(topic['image'])
+        else:
+            diagram=dg.prepare_diagram(topic['diagram']);diagrams.append(diagram);figure=dg.svg(diagram)
+        left.append(f'<section class="topic-row"><h3 class="topic-name">{E(topic["name"])}</h3><div class="topic-figure">{figure}</div></section>')
         cols=topic['progress_columns'];assert 1<=len(cols)<=3
         content=''.join('<div>'+''.join(f'<p class="progress-item"><span class="item-name">{E(item["name"])}：</span>{rich(item["text"])}</p>' for item in col)+'</div>' for col in cols)
         right.append(f'<section class="topic-row progress-row"><div class="theme-marker">{E(topic["name"])}</div><div class="progress-content"><p class="topic-summary"><span class="item-name">总进展：</span>{rich(topic["summary"])}</p><div class="progress-columns" style="--columns:{len(cols)}">{content}</div></div></section>')
@@ -56,6 +60,8 @@ def render(spec,outdir):
     outdir=Path(outdir);outdir.mkdir(parents=True,exist_ok=True);(outdir/'diagrams').mkdir(exist_ok=True)
     css=(ROOT/'assets/project-report/style.css').read_text(encoding='utf-8')+'\n'+(ROOT/'assets/slide-viewer.css').read_text(encoding='utf-8')
     js=(ROOT/'assets/slide-viewer.js').read_text(encoding='utf-8')
+    css+='\n'+(ROOT/'assets/source-figures.css').read_text(encoding='utf-8')
+    js+='\n'+(ROOT/'assets/source-figures.js').read_text(encoding='utf-8')
     logo=base64.b64encode((ROOT/'assets/huawei-logo.png').read_bytes()).decode()
     pages=[]
     for n,slide in enumerate(spec['slides'],1):

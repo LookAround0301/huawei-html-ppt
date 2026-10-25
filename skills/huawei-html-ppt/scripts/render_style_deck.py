@@ -2,6 +2,7 @@
 from pathlib import Path
 from xml.etree.ElementTree import Element, SubElement, tostring
 import argparse, base64, copy, html, json, importlib.util, hashlib
+from source_images import image_html
 
 ROOT=Path(__file__).resolve().parents[1]
 E=lambda v: html.escape(str(v),quote=True)
@@ -116,6 +117,9 @@ def render(spec,outdir,asset_root=ROOT):
     style=spec['style'];assert style in catalog['styles']
     styles=(asset_root/'assets/two-style/style.css').read_text(encoding='utf-8')+'\n'+(asset_root/'assets/project-report/style.css').read_text(encoding='utf-8')+'\n'+(asset_root/'assets/slide-viewer.css').read_text(encoding='utf-8')
     viewer=(asset_root/'assets/slide-viewer.js').read_text(encoding='utf-8')
+    if style=='technical-project':
+        styles+='\n'+(asset_root/'assets/source-figures.css').read_text(encoding='utf-8')
+        viewer+='\n'+(asset_root/'assets/source-figures.js').read_text(encoding='utf-8')
     logo=base64.b64encode((asset_root/'assets/huawei-logo.png').read_bytes()).decode()
     pages=[]
     for n,s in enumerate(spec['slides'],1):
@@ -149,6 +153,7 @@ def render(spec,outdir,asset_root=ROOT):
                     if sum(v['type']=='diagram' for v in p['blocks'])>1:stem+=f'-{block_index}'
                     body+=svg(d,f'arrow-{stem}')
                     (outdir/'diagrams'/f'{stem}.svg').write_text(svg(d,f'arrow-{stem}'),encoding='utf-8');drawio(d,outdir/'diagrams'/f'{stem}.drawio')
+                elif b['type']=='image':body+=image_html(b)
                 elif b['type']=='chart':body+=chart_svg(b['data'])
                 elif b['type']=='text':body+=f'<p class="{E(b.get("class",""))}">{E(b["text"]).replace(chr(10),"<br>")}</p>'
                 elif b['type']=='heading':body+=f'<h3>{E(b["text"])}</h3>'
@@ -158,7 +163,8 @@ def render(spec,outdir,asset_root=ROOT):
                     body+='<div class="table-wrap"><table><colgroup>'+''.join(f'<col style="width:{w*100}%">' for w in widths)+'</colgroup><thead><tr>'+''.join(f'<th>{E(v)}</th>' for v in b['headers'])+'</tr></thead><tbody>'
                     for row in b['rows']:body+='<tr>'+''.join(f'<td>{E(v).replace(chr(10),"<br>")}</td>' for v in row)+'</tr>'
                     body+='</tbody></table></div>'
-            panels.append(f'<section class="frame {E(p.get("class",""))}"><h2>{E(p["title"])}</h2>{body}</section>')
+            image_class=' image-panel' if any(b['type']=='image' for b in p['blocks']) else ''
+            panels.append(f'<section class="frame {E(p.get("class",""))}{image_class}"><h2>{E(p["title"])}</h2>{body}</section>')
         pages.append(f'<article class="slide {style}" data-slide="{n}" data-layout="{s["layout"]}"><span class="eyebrow">{E(spec.get("chapter",catalog["styles"][style]["name"]))}</span><h1>{E(s["title"])}</h1><div class="head-rule"></div>{top}<div class="body-grid {lay["class"]}">{"".join(panels)}</div><footer><span>{n:02d} / {len(spec["slides"]):02d}　 Huawei Confidential</span><img alt="HUAWEI" src="data:image/png;base64,{logo}"></footer></article>')
     metadata=json.dumps(spec,ensure_ascii=False).replace('</','<\\/')
     doc=f'<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{E(spec["title"])}</title><style>{styles}</style></head><body><main class="deck">{"".join(pages)}</main><script type="application/json" id="deck-model">{metadata}</script><script>{viewer}</script></body></html>'

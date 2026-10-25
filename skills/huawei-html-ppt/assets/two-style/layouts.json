@@ -129,6 +129,33 @@
       "class": "project-report",
       "renderer": "scripts/render_project_report.py",
       "use": "技术点 / 做什么 / 解决什么问题"
+    },
+    "project-figure-overview": {
+      "style": "technical-project",
+      "class": "figure-overview",
+      "header": [
+        "目标",
+        "进展"
+      ],
+      "use": "左侧原图与短表，右侧实现和总进展"
+    },
+    "project-figure-evidence": {
+      "style": "technical-project",
+      "class": "figure-evidence",
+      "header": [
+        "目标",
+        "进展"
+      ],
+      "use": "左侧原图，右侧数据或实现对照"
+    },
+    "project-figure-full": {
+      "style": "technical-project",
+      "class": "figure-full",
+      "header": [
+        "目标",
+        "进展"
+      ],
+      "use": "复杂原图通栏，顶部目标和进展"
     }
   }
 }
