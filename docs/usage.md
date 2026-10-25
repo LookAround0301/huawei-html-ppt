@@ -1,4 +1,6 @@
-# 使用说明
+# 进阶使用与开发参考
+
+普通使用直接向 Agent 描述需求即可。本页供需要调用底层接口、维护技能或集成其他系统时参考。
 
 命令都在仓库根目录执行。Python 3.10+ 可运行 JSON 接口；浏览 HTML 需要现代浏览器。模型分析和 PPTX 转换的额外依赖按任务准备，不在安装时一次性拉取。
 
@@ -110,3 +112,12 @@ python skills/huawei-html-ppt/scripts/ppt.py evaluate local/evaluation-input.jso
 **页面太密怎么办？** 先提炼内容、调栏宽、放大主体或合并/拆分页面，不持续缩小字号。逐页查看，静态检查不替代视觉验收。
 
 **已经接入MindIE Agent吗？** 尚未接入。现有JSON接口可由宿主包装；仓库不自动调用其知识服务或提交社区经验。
+
+## 维护者验证
+
+```bash
+python -m unittest discover -s tests -v
+python skills/huawei-html-ppt/scripts/check_package.py
+```
+
+接口检查通过后，实际交付仍需逐页查看渲染，核对数据、连接关系和可读性。

@@ -4,7 +4,7 @@
 
 按用途选择「技术项目」或「洞察分析」风格，默认生成自包含 HTML 幻灯片。支持从源码和配置准备分析底稿，输出 SVG / draw.io 图源，并将实际反馈保存为可验证、可回退的规则。
 
-[快速开始](#快速开始) · [怎么使用](#怎么使用) · [数据来源](#没有数据时怎么办) · [反馈迭代](#如何持续改进) · [详细使用说明](docs/usage.md)
+[快速开始](#快速开始) · [怎么使用](#怎么使用) · [数据来源](#没有数据时怎么办) · [反馈迭代](#如何持续改进) · [进阶与开发参考](docs/usage.md)
 
 ## 可以做什么
 
@@ -74,19 +74,6 @@ python -c "from pathlib import Path; import shutil; shutil.copytree(Path('skills
 标题说清内容，表格简洁，正文集中，不要无意义留白。
 ```
 
-### 运行小例子
-
-Python 3.10+ 即可运行 JSON 接口，不需要 Node 服务或大模型 API key。在仓库根目录执行：
-
-```bash
-python skills/huawei-html-ppt/scripts/ppt.py route examples/insight-request.json
-python skills/huawei-html-ppt/scripts/ppt.py plan examples/insight-request.json
-python skills/huawei-html-ppt/scripts/ppt.py render examples/insight-request.json local/insight
-python skills/huawei-html-ppt/scripts/ppt.py render examples/project-request.json local/project
-```
-
-浏览器打开输出目录的 HTML。例子只有一页且使用明确标注的演示数据，不代表实际模型或硬件结果。JSON 接口负责路由辅助、读取规则、渲染和检查；技术分析及内容编写由宿主 Agent 完成。
-
 ## 没有数据时怎么办
 
 先准备可追溯的底稿，再绘图排版：
@@ -107,7 +94,7 @@ python skills/huawei-html-ppt/scripts/ppt.py render examples/project-request.jso
 
 以 **AI 初版＋人工终版** 作为学习样本：比较修改，提炼适用经验，再用相同内容重新生成并验证。写作偏好进入规则，稳定局部版式进入组件，绘图错误进入对应检查。
 
-当前支持 `feedback → evaluate → review → promote` 和 `rollback`。候选有来源、适用范围和版本；验证前不影响正常生成，后续生成读取已采用的规则。
+经验先形成候选，经过重新生成、检查后才采用，出现退步可以回退。候选有来源、适用范围和版本，后续生成读取已采用的规则。
 
 逐页匹配、视觉差异理解及代码修改由宿主 Agent 完成，并非后台自学习服务。新风格需要新增路由/布局并回归验证；单页变化优先复用现有分支。详见 [使用与反馈示例](docs/usage.md#反馈迭代)。
 
@@ -120,7 +107,7 @@ python skills/huawei-html-ppt/scripts/ppt.py render examples/project-request.jso
 - 原始材料、状态、测试输出和完整报告留在用户项目，不自动上传或发布经验。
 - 已预留 [MindIE Agent 集成边界](skills/huawei-html-ppt/references/mindie-integration.md)，尚未接入其插件或知识服务。
 
-## 目录与验证
+## 目录
 
 ```text
 skills/huawei-html-ppt/
@@ -129,14 +116,9 @@ skills/huawei-html-ppt/
   assets/              页面样式、品牌资源、最小图形组件
   knowledge/           可版本化规则
   scripts/             路由、渲染、校验与反馈管理
-examples/              两个单页接口例子
-docs/usage.md          参数、反馈迭代和迁移说明
+examples/              开发测试使用的单页数据
+docs/usage.md          进阶与开发参考
 tests/                 不依赖私有材料的本地回归
 ```
 
-```bash
-python -m unittest discover -s tests -v
-python skills/huawei-html-ppt/scripts/check_package.py
-```
-
-这些检查覆盖接口和基本结构。实际交付仍需逐页查看，核对数据、连接关系和可读性。
+一般使用只需向 Agent 描述需求并提供材料。底层接口、测试和迁移方法放在进阶文档中。
