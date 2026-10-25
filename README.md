@@ -4,7 +4,7 @@
 
 按用途选择「技术项目」或「洞察分析」风格，默认生成自包含 HTML 幻灯片。支持从源码和配置准备分析底稿，输出 SVG / draw.io 图源，并将实际反馈保存为可验证、可回退的规则。
 
-[快速开始](#快速开始) · [怎么使用](#怎么使用) · [数据来源](#没有数据时怎么办) · [反馈迭代](#持续改进) · [进阶与开发参考](docs/usage.md)
+[一句话安装](#一句话安装) · [怎么使用](#怎么使用) · [数据来源](#没有数据时怎么办) · [反馈迭代](#持续改进) · [进阶与开发参考](docs/usage.md)
 
 ## 可以做什么
 
@@ -17,43 +17,15 @@
 
 用户指定风格时优先遵从。否则按汇报目的选择，PCP/DCP 特性名称不会直接触发 PDCP 项目风格。数据已获用户确认时直接沿用。
 
-## 快速开始
+## 一句话安装
 
-### 交给 Agent 安装
-
-在支持本地 skills 的 Agent 中发送：
+把下面这句话发给你正在使用的 AI：
 
 ```text
-请安装 https://github.com/LookAround0301/huawei-html-ppt 中的
-skills/huawei-html-ppt，并查看 README 和 SKILL.md。
+帮我安装这个 PPT skill：https://github.com/LookAround0301/huawei-html-ppt
 ```
 
-Agent 使用当前宿主的技能安装方式，保留已有修改；不要因安装而上传材料、安装全部分析仓库或配置远端服务。
-
-### Claude Code 插件
-
-```text
-/plugin marketplace add LookAround0301/huawei-html-ppt
-/plugin install huawei-html-ppt@huawei-html-ppt
-```
-
-可用 `/huawei-html-ppt` 或自然语言触发。更新时先更新 marketplace，再更新插件。仓库保留原插件名称与目录，不再自动注册旧 draw.io MCP 服务。
-
-### Codex 本地技能
-
-可让 Codex 从仓库安装 `skills/huawei-html-ppt`。手工安装先克隆：
-
-```bash
-git clone --depth 1 https://github.com/LookAround0301/huawei-html-ppt.git
-```
-
-将 `skills/huawei-html-ppt` 复制到当前环境的技能目录。以使用 `~/.codex/skills` 的本地环境为例，在仓库根目录执行：
-
-```bash
-python -c "from pathlib import Path; import shutil; shutil.copytree(Path('skills/huawei-html-ppt'), Path.home()/'.codex/skills/huawei-html-ppt')"
-```
-
-目标目录已存在时先备份或比较差异；该命令不会覆盖已有目录。新会话中使用 `$huawei-html-ppt`，或直接描述需求。
+安装完成后，直接描述要制作的汇报即可。需要自行操作时，查看[手动安装与更新](docs/usage.md#手动安装与更新)。
 
 ## 怎么使用
 

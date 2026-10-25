@@ -4,6 +4,44 @@
 
 命令都在仓库根目录执行。Python 3.10+ 可运行 JSON 接口；浏览 HTML 需要现代浏览器。模型分析和 PPTX 转换的额外依赖按任务准备，不在安装时一次性拉取。
 
+## 手动安装与更新
+
+交给 AI 安装时，先读取仓库说明，按当前宿主的技能安装方式安装 `skills/huawei-html-ppt`。保留已有本地修改，不因安装而上传材料、安装全部分析仓库或配置远端服务。
+
+### Claude Code 插件
+
+```text
+/plugin marketplace add LookAround0301/huawei-html-ppt
+/plugin install huawei-html-ppt@huawei-html-ppt
+```
+
+可用 `/huawei-html-ppt` 或自然语言触发。更新时先更新 marketplace，再更新插件：
+
+```text
+/plugin marketplace update huawei-html-ppt
+/plugin update huawei-html-ppt
+```
+
+仓库保留原插件名称与目录，不再自动注册旧 draw.io MCP 服务。
+
+### Codex 本地技能
+
+手动安装先克隆仓库：
+
+```bash
+git clone --depth 1 https://github.com/LookAround0301/huawei-html-ppt.git
+```
+
+将 `skills/huawei-html-ppt` 复制到当前环境的技能目录。以使用 `~/.codex/skills` 的本地环境为例，在仓库根目录执行：
+
+```bash
+python -c "from pathlib import Path; import shutil; shutil.copytree(Path('skills/huawei-html-ppt'), Path.home()/'.codex/skills/huawei-html-ppt')"
+```
+
+目标目录已存在时先备份或比较差异；该命令不会覆盖已有目录。安装后在新会话中使用 `$huawei-html-ppt`，或直接描述需求。
+
+更新时拉取仓库的新版本，比较本地修改后再同步技能目录。项目反馈状态放在技能目录之外，避免升级覆盖个人经验。
+
 ## 自然语言入口
 
 用户可指定“技术项目风格”或“洞察分析风格”。未指定时，根据汇报目的、希望读者作出的判断和材料内容选分支。
