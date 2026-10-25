@@ -1,0 +1,154 @@
+{
+  "version": 1,
+  "units": [
+    {
+      "id": "language.plain",
+      "revision": 1,
+      "kind": "preference",
+      "styles": [
+        "technical-project",
+        "insight-analysis"
+      ],
+      "when": {},
+      "rule": {
+        "guidance": "标题和正文用大白话；术语用准确含义，不硬凑抽象口号。"
+      },
+      "provenance": [
+        {
+          "kind": "maintainer-policy",
+          "source": "本仓库的风格与制作规范"
+        }
+      ]
+    },
+    {
+      "id": "layout.compact",
+      "revision": 1,
+      "kind": "layout",
+      "styles": [
+        "technical-project",
+        "insight-analysis"
+      ],
+      "when": {},
+      "rule": {
+        "guidance": "减少大块无意义留白；先放大有效图表、调列宽和合并相关页，不用小字或装饰填充。"
+      },
+      "provenance": [
+        {
+          "kind": "maintainer-policy",
+          "source": "本仓库的风格与制作规范"
+        }
+      ]
+    },
+    {
+      "id": "notes.provenance",
+      "revision": 1,
+      "kind": "content",
+      "styles": [
+        "technical-project",
+        "insight-analysis"
+      ],
+      "when": {},
+      "rule": {
+        "guidance": "来源和制作批注只放隐藏元数据/PPT备注；影响技术判断的条件放正文。"
+      },
+      "provenance": [
+        {
+          "kind": "maintainer-policy",
+          "source": "本仓库的风格与制作规范"
+        }
+      ]
+    },
+    {
+      "id": "diagram.fidelity",
+      "revision": 1,
+      "kind": "diagram",
+      "styles": [
+        "technical-project",
+        "insight-analysis"
+      ],
+      "when": {},
+      "rule": {
+        "guidance": "保持主干、分支、回路、缓存及总览和放大关系；文字黑灰红、低饱和填充，图形不局限于方框。"
+      },
+      "provenance": [
+        {
+          "kind": "maintainer-policy",
+          "source": "本仓库的风格与制作规范"
+        }
+      ]
+    },
+    {
+      "id": "chart.simple",
+      "revision": 1,
+      "kind": "preference",
+      "styles": [
+        "technical-project",
+        "insight-analysis"
+      ],
+      "when": {},
+      "rule": {
+        "guidance": "根据问题选图，优先简单曲线、柱状图、对比表；复杂统计图不是正文默认。"
+      },
+      "provenance": [
+        {
+          "kind": "maintainer-policy",
+          "source": "本仓库的风格与制作规范"
+        }
+      ]
+    },
+    {
+      "id": "insight.conclusion",
+      "revision": 1,
+      "kind": "layout",
+      "styles": [
+        "insight-analysis"
+      ],
+      "when": {},
+      "rule": {
+        "guidance": "每个洞察内容页保留红色分析结论标签和通栏浅灰结论块；标题不能代替。"
+      },
+      "provenance": [
+        {
+          "kind": "maintainer-policy",
+          "source": "本仓库的风格与制作规范"
+        }
+      ]
+    },
+    {
+      "id": "project.summary",
+      "revision": 1,
+      "kind": "layout",
+      "styles": [
+        "technical-project"
+      ],
+      "when": {},
+      "rule": {
+        "guidance": "单专题写挑战+目标或目标+进展；组合页用专题目标、节点、布局和各专题总进展。"
+      },
+      "provenance": [
+        {
+          "kind": "maintainer-policy",
+          "source": "本仓库的风格与制作规范"
+        }
+      ]
+    },
+    {
+      "id": "hardware.scenarios",
+      "revision": 1,
+      "kind": "content",
+      "styles": [
+        "insight-analysis"
+      ],
+      "when": {},
+      "rule": {
+        "guidance": "涉及昇腾时分别分析A3/A5的精度、KV、通信、并行和部署；个案卡数/容量不泛化。"
+      },
+      "provenance": [
+        {
+          "kind": "maintainer-policy",
+          "source": "本仓库的风格与制作规范"
+        }
+      ]
+    }
+  ]
+}

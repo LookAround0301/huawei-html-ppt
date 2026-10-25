@@ -1,0 +1,190 @@
+{
+  "id": "milestone-band",
+  "revision": 1,
+  "kind": "fragment",
+  "styles": [
+    "technical-project"
+  ],
+  "purpose": "目标后紧跟当前阶段，计划/实际/待定分别标明",
+  "slots": [
+    "milestones",
+    "date_semantics"
+  ],
+  "sources": [
+    {
+      "kind": "generic-layout",
+      "note": "通用结构示例；私有参考材料及逐页追溯记录留在用户项目。"
+    }
+  ],
+  "diagram": {
+    "title": "紧凑节点带",
+    "width": 690,
+    "height": 100,
+    "elements": [
+      {
+        "type": "line",
+        "points": [
+          [
+            30,
+            48
+          ],
+          [
+            660,
+            48
+          ]
+        ],
+        "stroke": "#666666",
+        "arrow": true,
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 35,
+        "y": 25,
+        "text": "立项",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": true
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            60,
+            40
+          ],
+          [
+            54,
+            48
+          ],
+          [
+            66,
+            48
+          ]
+        ],
+        "fill": "#AAAAAA",
+        "stroke": "none"
+      },
+      {
+        "type": "text",
+        "x": 35,
+        "y": 77,
+        "text": "日期 / 状态",
+        "fs": 14,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "text",
+        "x": 200,
+        "y": 25,
+        "text": "当前评审",
+        "fs": 16,
+        "color": "#C00000",
+        "bold": true
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            225,
+            40
+          ],
+          [
+            219,
+            48
+          ],
+          [
+            231,
+            48
+          ]
+        ],
+        "fill": "#C00000",
+        "stroke": "none"
+      },
+      {
+        "type": "text",
+        "x": 200,
+        "y": 77,
+        "text": "日期 / 状态",
+        "fs": 14,
+        "color": "#C00000",
+        "bold": false
+      },
+      {
+        "type": "text",
+        "x": 365,
+        "y": 25,
+        "text": "验证",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": true
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            390,
+            40
+          ],
+          [
+            384,
+            48
+          ],
+          [
+            396,
+            48
+          ]
+        ],
+        "fill": "#AAAAAA",
+        "stroke": "none"
+      },
+      {
+        "type": "text",
+        "x": 365,
+        "y": 77,
+        "text": "日期 / 状态",
+        "fs": 14,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "text",
+        "x": 530,
+        "y": 25,
+        "text": "交付",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": true
+      },
+      {
+        "type": "polygon",
+        "points": [
+          [
+            555,
+            40
+          ],
+          [
+            549,
+            48
+          ],
+          [
+            561,
+            48
+          ]
+        ],
+        "fill": "#AAAAAA",
+        "stroke": "none"
+      },
+      {
+        "type": "text",
+        "x": 530,
+        "y": 77,
+        "text": "日期 / 状态",
+        "fs": 14,
+        "color": "#1D1D1A",
+        "bold": false
+      }
+    ]
+  }
+}

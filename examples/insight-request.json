@@ -1,0 +1,20 @@
+{
+  "text": "用洞察分析风格说明两种方案的差异；数据仅用于接口演示。",
+  "style": "insight-analysis",
+  "purpose": "compare",
+  "context": {"scenario": "demo"},
+  "deck": {
+    "title": "洞察分析接口示例",
+    "style": "insight-analysis",
+    "slides": [{
+      "title": "方案对比（演示数据）",
+      "layout": "insight-evidence",
+      "conclusion": "演示中方案B的占用较低；是否采用还需要核对其他条件。",
+      "panels": [
+        {"title": "结果", "blocks": [{"type": "table", "headers": ["指标", "方案A", "方案B"], "rows": [["占用 / GiB", "16", "12"], ["数据性质", "演示", "演示"]]}]},
+        {"title": "判断条件", "blocks": [{"type": "bullets", "items": ["这里只演示表格、结论栏与隐藏备注。", "真实报告需填实际场景、精度和结果依据。", "静态容量不等于实测吞吐。"]}]}
+      ],
+      "notes": {"source": "合成演示数据，不代表实际模型或硬件。"}
+    }]
+  }
+}

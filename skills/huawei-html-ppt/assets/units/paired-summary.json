@@ -1,0 +1,120 @@
+{
+  "id": "paired-summary",
+  "revision": 1,
+  "kind": "fragment",
+  "styles": [
+    "technical-project"
+  ],
+  "purpose": "单专题方案/进展页的成对摘要",
+  "slots": [
+    "challenge_or_goal",
+    "goal_or_progress"
+  ],
+  "sources": [
+    {
+      "kind": "generic-layout",
+      "note": "通用结构示例；私有参考材料及逐页追溯记录留在用户项目。"
+    }
+  ],
+  "diagram": {
+    "title": "挑战与目标",
+    "width": 690,
+    "height": 115,
+    "elements": [
+      {
+        "type": "rect",
+        "x": 0,
+        "y": 0,
+        "w": 335,
+        "h": 110,
+        "fill": "#F2F2F2",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "rect",
+        "x": 355,
+        "y": 0,
+        "w": 335,
+        "h": 110,
+        "fill": "#F2F2F2",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "rect",
+        "x": 0,
+        "y": 0,
+        "w": 42,
+        "h": 110,
+        "fill": "#C00000",
+        "stroke": "#C00000",
+        "dash": false
+      },
+      {
+        "type": "rect",
+        "x": 355,
+        "y": 0,
+        "w": 42,
+        "h": 110,
+        "fill": "#C00000",
+        "stroke": "#C00000",
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 11,
+        "y": 45,
+        "text": "挑\n战",
+        "fs": 20,
+        "color": "#FFFFFF",
+        "bold": true
+      },
+      {
+        "type": "text",
+        "x": 366,
+        "y": 45,
+        "text": "目\n标",
+        "fs": 20,
+        "color": "#FFFFFF",
+        "bold": true
+      },
+      {
+        "type": "text",
+        "x": 58,
+        "y": 44,
+        "text": "当前问题及影响",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "text",
+        "x": 58,
+        "y": 77,
+        "text": "不堆背景",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "text",
+        "x": 413,
+        "y": 44,
+        "text": "目标值与验收条件",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "text",
+        "x": 413,
+        "y": 77,
+        "text": "和当前挑战对应",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      }
+    ]
+  }
+}

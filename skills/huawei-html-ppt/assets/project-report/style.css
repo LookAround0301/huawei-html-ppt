@@ -1,0 +1,63 @@
+:root{--pr-red:#C00000;--pr-ink:#1D1D1A;--pr-gray:#666666;--pr-line:#C5C5C5;--pr-panel:#F2F2F2}
+*{box-sizing:border-box}body{margin:0;background:#555;font-family:'Microsoft YaHei',Arial,sans-serif;color:var(--pr-ink)}
+.project-report.slide{width:1280px;height:720px;position:relative;overflow:hidden;background:#fff;padding:29px 35px 43px}
+.project-report h1{font-size:29px;line-height:1.25;color:var(--pr-red);margin:0 0 11px;font-weight:700}
+.project-report .context{position:absolute;right:35px;top:12px;font-size:11px;color:var(--pr-gray)}
+.project-report .ribbon{display:flex;align-items:stretch;background:var(--pr-panel);min-height:54px}
+.project-report .ribbon-label{flex:0 0 95px;display:flex;align-items:center;justify-content:center;text-align:center;border-right:4px solid var(--pr-red);color:var(--pr-red);font-size:18px;font-weight:700;padding:7px}
+.project-report .ribbon-lines{padding:7px 15px;align-self:center;min-width:0;flex:1}
+.project-report .ribbon-lines p{font-size:15px;line-height:1.45;margin:0}
+.project-report .em,.project-report .item-name{color:var(--pr-red);font-weight:700}
+.project-report .muted{color:var(--pr-gray)}
+.project-report .timeline{height:61px;display:grid;grid-template-columns:110px 1fr;gap:16px;margin:10px 0 21px}
+.project-report .timeline-caption{padding-top:6px;font-size:16px;font-weight:700}
+.project-report .timeline-caption small{display:block;font-size:11px;font-weight:400;color:var(--pr-gray);margin-top:2px}
+.project-report .milestones{display:flex;position:relative;padding:0 8px}
+.project-report .milestones:before{content:'';position:absolute;left:0;right:0;top:27px;border-top:1px solid #929292}
+.project-report .milestones:after{content:'';position:absolute;right:-1px;top:23px;border-left:7px solid #929292;border-top:4px solid transparent;border-bottom:4px solid transparent}
+.project-report .milestone{flex:1;position:relative;text-align:center;font-size:12px;color:#929292}
+.project-report .milestone b{display:block;line-height:21px}
+.project-report .milestone i{display:block;width:0;height:0;margin:0 auto 5px;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:7px solid #aaa}
+.project-report .milestone.current{color:var(--pr-red);font-weight:700}.project-report .milestone.current i{border-bottom-color:var(--pr-red)}
+.project-report .portfolio-grid{display:grid;grid-template-columns:43fr 57fr;gap:25px;height:439px}
+.project-report .corner-frame{position:relative;border:1px solid #d4d4d4;min-width:0;min-height:0;padding:19px 8px 10px;background:linear-gradient(var(--pr-red),var(--pr-red)) left top/22px 1px no-repeat,linear-gradient(var(--pr-red),var(--pr-red)) left top/1px 22px no-repeat,linear-gradient(var(--pr-red),var(--pr-red)) right top/22px 1px no-repeat,linear-gradient(var(--pr-red),var(--pr-red)) right top/1px 22px no-repeat,linear-gradient(var(--pr-red),var(--pr-red)) left bottom/22px 1px no-repeat,linear-gradient(var(--pr-red),var(--pr-red)) left bottom/1px 22px no-repeat,linear-gradient(var(--pr-red),var(--pr-red)) right bottom/22px 1px no-repeat,linear-gradient(var(--pr-red),var(--pr-red)) right bottom/1px 22px no-repeat}
+.project-report .corner-frame>h2{position:absolute;top:-14px;left:17px;background:#fff;color:var(--pr-red);font-size:20px;margin:0;padding:0 9px;line-height:27px}
+.project-report .topic-rows{display:grid;height:100%;min-height:0}
+.project-report .topic-row{min-height:0;padding:4px 5px 8px;border-bottom:1px solid var(--pr-line)}
+.project-report .topic-row:last-child{border-bottom:0;padding-bottom:0}
+.project-report .topic-name{font-size:18px;font-weight:700;margin:0 0 6px}
+.project-report .topic-figure{height:calc(100% - 30px);min-height:0}.project-report svg{display:block;width:100%;height:100%}
+.project-report .progress-row{display:grid;grid-template-columns:53px 1fr;gap:10px}
+.project-report .theme-marker{font-weight:700;align-self:center;font-size:17px;line-height:1.35;text-align:center}
+.project-report .progress-content{min-width:0;min-height:0}
+.project-report .topic-summary{font-size:13px;line-height:1.5;margin:0 0 8px;padding-bottom:7px;border-bottom:1px solid #ddd}
+.project-report .progress-columns{display:grid;gap:13px;grid-template-columns:repeat(var(--columns,3),1fr)}
+.project-report .progress-item{font-size:14px;line-height:1.4;margin:0 0 9px;overflow-wrap:anywhere}
+.project-report .landscape-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;height:526px;margin-top:20px}
+.project-report .landscape-card{display:flex;flex-direction:column;padding:15px 11px 10px}
+.project-report .landscape-card h2{position:static;font-size:20px;margin:0 0 4px;padding:0;color:var(--pr-red)}
+.project-report .scope{font-size:15px;color:var(--pr-gray);margin:0 0 20px}
+.project-report .landscape-card h3{color:var(--pr-gray);font-size:17px;margin:0 0 12px}
+.project-report .challenges{padding:0 0 0 19px;margin:0;font-size:17px;line-height:1.6;flex:1}
+.project-report .challenges li{margin:0 0 14px}
+.project-report .topic-matrix{border-top:1px solid var(--pr-line);padding-top:13px}
+.project-report .topic-boxes{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.project-report .topic-box{border:1px solid #d5d5d5;min-height:66px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;font-weight:700;font-size:16px}
+.project-report .coordination{height:520px;margin-top:15px}.project-report .track{display:grid;grid-template-columns:102px 1fr;gap:12px}
+.project-report .track-name{font-size:21px;font-weight:700;align-self:center;color:var(--pr-red)}
+.project-report .track-stages{display:grid;grid-template-columns:repeat(4,1fr);position:relative;padding-top:22px}
+.project-report .track-stages:before{content:'';position:absolute;left:0;right:0;top:69px;border-top:1px solid #999}
+.project-report .track-stage{text-align:center;padding:0 12px;font-size:17px;line-height:1.5}
+.project-report .track-stage h3{font-size:20px;color:var(--pr-red);margin:0 0 27px}
+.project-report .track-stage b{display:block;margin-bottom:3px}.project-report .track-stage p{margin:0;font-size:16px}
+.project-report .handoff{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin:20px 0 18px 114px}
+.project-report .handoff p{border-left:2px solid var(--pr-red);padding:8px 14px;margin:0;font-size:17px;line-height:1.5;background:#fafafa}
+.project-report .version-track{margin-top:10px}.project-report .version-track .milestones{height:67px}.project-report .version-track .milestone{font-size:14px}
+.project-report .rules{margin-top:19px;border-top:1px solid var(--pr-line);padding-top:8px}
+.project-report .rules p{margin:7px 0;font-size:16px;line-height:1.5}.project-report .rules .gate{background:var(--pr-panel);border-left:3px solid var(--pr-red);padding:8px 12px}
+.project-report .explain-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:18px;margin-top:13px;border-top:2px solid var(--pr-red)}
+.project-report .explain-table th,.project-report .explain-table td{border:1px solid var(--pr-line);padding:13px 12px;text-align:left;vertical-align:middle;line-height:1.5}
+.project-report .explain-table th{color:var(--pr-red);background:var(--pr-panel);font-size:18px}.project-report .explain-table td:first-child{font-weight:700;background:#fafafa}
+.project-report .glossary{font-size:13px;color:var(--pr-gray);margin-top:12px;line-height:1.5}
+.project-report footer{position:absolute;left:35px;right:35px;bottom:11px;display:flex;justify-content:space-between;font-size:10px;color:#888;align-items:center}.project-report footer img{height:22px;width:auto}
+@media print{@page{size:1280px 720px;margin:0}.project-report.slide{break-after:page;margin:0}.project-report.slide:last-child{break-after:auto}}

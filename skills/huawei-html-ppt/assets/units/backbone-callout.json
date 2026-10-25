@@ -1,0 +1,257 @@
+{
+  "id": "backbone-callout",
+  "revision": 1,
+  "kind": "fragment",
+  "styles": [
+    "technical-project",
+    "insight-analysis"
+  ],
+  "purpose": "主干完整，局部展开与实际模块有对应连接；缓存、操作节点有不同语义",
+  "slots": [
+    "backbone",
+    "expanded_module",
+    "branches",
+    "cache"
+  ],
+  "sources": [
+    {
+      "kind": "generic-layout",
+      "note": "通用结构示例；私有参考材料及逐页追溯记录留在用户项目。"
+    }
+  ],
+  "diagram": {
+    "title": "主干与模块展开",
+    "width": 640,
+    "height": 300,
+    "elements": [
+      {
+        "type": "rect",
+        "x": 470,
+        "y": 12,
+        "w": 148,
+        "h": 38,
+        "fill": "#F2F2F2",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 493,
+        "y": 37,
+        "text": "输入 / 上一层",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "rect",
+        "x": 470,
+        "y": 112,
+        "w": 148,
+        "h": 58,
+        "fill": "#F2F2F2",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 486,
+        "y": 146,
+        "text": "重复模块",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "rect",
+        "x": 470,
+        "y": 250,
+        "w": 148,
+        "h": 38,
+        "fill": "#F2F2F2",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 493,
+        "y": 275,
+        "text": "输出 / 下一层",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "line",
+        "points": [
+          [
+            544,
+            50
+          ],
+          [
+            544,
+            112
+          ]
+        ],
+        "stroke": "#666666",
+        "arrow": true,
+        "dash": false
+      },
+      {
+        "type": "line",
+        "points": [
+          [
+            544,
+            170
+          ],
+          [
+            544,
+            250
+          ]
+        ],
+        "stroke": "#666666",
+        "arrow": true,
+        "dash": false
+      },
+      {
+        "type": "rect",
+        "x": 22,
+        "y": 70,
+        "w": 362,
+        "h": 150,
+        "fill": "#FFFFFF",
+        "stroke": "#888888",
+        "dash": true
+      },
+      {
+        "type": "text",
+        "x": 40,
+        "y": 96,
+        "text": "模块展开",
+        "fs": 17,
+        "color": "#1D1D1A",
+        "bold": true
+      },
+      {
+        "type": "rect",
+        "x": 42,
+        "y": 125,
+        "w": 95,
+        "h": 48,
+        "fill": "#E4F0F9",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 55,
+        "y": 154,
+        "text": "计算分支",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "ellipse",
+        "x": 174,
+        "y": 130,
+        "w": 38,
+        "h": 38,
+        "fill": "#FFFFFF",
+        "stroke": "#666666"
+      },
+      {
+        "type": "text",
+        "x": 186,
+        "y": 154,
+        "text": "+",
+        "fs": 18,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "rect",
+        "x": 260,
+        "y": 125,
+        "w": 95,
+        "h": 48,
+        "fill": "#E8F3EC",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 277,
+        "y": 154,
+        "text": "状态/缓存",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "line",
+        "points": [
+          [
+            137,
+            149
+          ],
+          [
+            174,
+            149
+          ]
+        ],
+        "stroke": "#666666",
+        "arrow": true,
+        "dash": false
+      },
+      {
+        "type": "line",
+        "points": [
+          [
+            260,
+            149
+          ],
+          [
+            212,
+            149
+          ]
+        ],
+        "stroke": "#666666",
+        "arrow": true,
+        "dash": false
+      },
+      {
+        "type": "line",
+        "points": [
+          [
+            470,
+            112
+          ],
+          [
+            384,
+            70
+          ]
+        ],
+        "stroke": "#666666",
+        "arrow": false,
+        "dash": true
+      },
+      {
+        "type": "line",
+        "points": [
+          [
+            470,
+            170
+          ],
+          [
+            384,
+            220
+          ]
+        ],
+        "stroke": "#666666",
+        "arrow": false,
+        "dash": true
+      }
+    ]
+  }
+}

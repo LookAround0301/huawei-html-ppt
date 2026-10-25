@@ -1,0 +1,181 @@
+{
+  "version": 1,
+  "unit_size": "fragment-only",
+  "units": [
+    {
+      "id": "conclusion-ribbon",
+      "revision": 1,
+      "styles": [
+        "insight-analysis"
+      ],
+      "purpose": "保留独立结论，不用标题代替",
+      "sources": [
+        {
+          "kind": "generic-layout",
+          "note": "通用结构示例；私有参考材料及逐页追溯记录留在用户项目。"
+        }
+      ],
+      "asset": "assets/units/conclusion-ribbon.json",
+      "preview": "assets/units/conclusion-ribbon.svg",
+      "editable": "assets/units/conclusion-ribbon.drawio"
+    },
+    {
+      "id": "paired-summary",
+      "revision": 1,
+      "styles": [
+        "technical-project"
+      ],
+      "purpose": "单专题方案/进展页的成对摘要",
+      "sources": [
+        {
+          "kind": "generic-layout",
+          "note": "通用结构示例；私有参考材料及逐页追溯记录留在用户项目。"
+        }
+      ],
+      "asset": "assets/units/paired-summary.json",
+      "preview": "assets/units/paired-summary.svg",
+      "editable": "assets/units/paired-summary.drawio"
+    },
+    {
+      "id": "titled-corner-frame",
+      "revision": 1,
+      "styles": [
+        "technical-project",
+        "insight-analysis"
+      ],
+      "purpose": "轻量框线组织高密度内容",
+      "sources": [
+        {
+          "kind": "generic-layout",
+          "note": "通用结构示例；私有参考材料及逐页追溯记录留在用户项目。"
+        }
+      ],
+      "asset": "assets/units/titled-corner-frame.json",
+      "preview": "assets/units/titled-corner-frame.svg",
+      "editable": "assets/units/titled-corner-frame.drawio"
+    },
+    {
+      "id": "milestone-band",
+      "revision": 1,
+      "styles": [
+        "technical-project"
+      ],
+      "purpose": "目标后紧跟当前阶段，计划/实际/待定分别标明",
+      "sources": [
+        {
+          "kind": "generic-layout",
+          "note": "通用结构示例；私有参考材料及逐页追溯记录留在用户项目。"
+        }
+      ],
+      "asset": "assets/units/milestone-band.json",
+      "preview": "assets/units/milestone-band.svg",
+      "editable": "assets/units/milestone-band.drawio"
+    },
+    {
+      "id": "topic-progress-row",
+      "revision": 1,
+      "styles": [
+        "technical-project"
+      ],
+      "purpose": "与左侧技术布局保持相同的专题顺序和行高",
+      "sources": [
+        {
+          "kind": "generic-layout",
+          "note": "通用结构示例；私有参考材料及逐页追溯记录留在用户项目。"
+        }
+      ],
+      "asset": "assets/units/topic-progress-row.json",
+      "preview": "assets/units/topic-progress-row.svg",
+      "editable": "assets/units/topic-progress-row.drawio"
+    },
+    {
+      "id": "comparison-table",
+      "revision": 1,
+      "styles": [
+        "technical-project",
+        "insight-analysis"
+      ],
+      "purpose": "对比必须同口径，简单表优先于复杂统计图",
+      "sources": [
+        {
+          "kind": "generic-layout",
+          "note": "通用结构示例；私有参考材料及逐页追溯记录留在用户项目。"
+        }
+      ],
+      "asset": "assets/units/comparison-table.json",
+      "preview": "assets/units/comparison-table.svg",
+      "editable": "assets/units/comparison-table.drawio"
+    },
+    {
+      "id": "backbone-callout",
+      "revision": 1,
+      "styles": [
+        "technical-project",
+        "insight-analysis"
+      ],
+      "purpose": "主干完整，局部展开与实际模块有对应连接；缓存、操作节点有不同语义",
+      "sources": [
+        {
+          "kind": "generic-layout",
+          "note": "通用结构示例；私有参考材料及逐页追溯记录留在用户项目。"
+        }
+      ],
+      "asset": "assets/units/backbone-callout.json",
+      "preview": "assets/units/backbone-callout.svg",
+      "editable": "assets/units/backbone-callout.drawio"
+    },
+    {
+      "id": "overview-local-change",
+      "revision": 1,
+      "styles": [
+        "technical-project",
+        "insight-analysis"
+      ],
+      "purpose": "上方保留总览，下方放大对应变化，红色定位增量",
+      "sources": [
+        {
+          "kind": "generic-layout",
+          "note": "通用结构示例；私有参考材料及逐页追溯记录留在用户项目。"
+        }
+      ],
+      "asset": "assets/units/overview-local-change.json",
+      "preview": "assets/units/overview-local-change.svg",
+      "editable": "assets/units/overview-local-change.drawio"
+    },
+    {
+      "id": "challenge-action-column",
+      "revision": 1,
+      "styles": [
+        "technical-project"
+      ],
+      "purpose": "三列报告中的一个完整论证单元；按内容决定列数",
+      "sources": [
+        {
+          "kind": "generic-layout",
+          "note": "通用结构示例；私有参考材料及逐页追溯记录留在用户项目。"
+        }
+      ],
+      "asset": "assets/units/challenge-action-column.json",
+      "preview": "assets/units/challenge-action-column.svg",
+      "editable": "assets/units/challenge-action-column.drawio"
+    },
+    {
+      "id": "cache-state-lanes",
+      "revision": 1,
+      "styles": [
+        "technical-project",
+        "insight-analysis"
+      ],
+      "purpose": "区分逐Token增长的数据和按策略保存的状态；块/柱体比通用方框更直观",
+      "sources": [
+        {
+          "kind": "generic-layout",
+          "note": "通用结构示例；私有参考材料及逐页追溯记录留在用户项目。"
+        }
+      ],
+      "asset": "assets/units/cache-state-lanes.json",
+      "preview": "assets/units/cache-state-lanes.svg",
+      "editable": "assets/units/cache-state-lanes.drawio"
+    }
+  ]
+}

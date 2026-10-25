@@ -1,0 +1,134 @@
+{
+  "version": "4.0",
+  "canvas": [
+    1280,
+    720
+  ],
+  "styles": {
+    "technical-project": {
+      "name": "技术项目风格",
+      "headers": [
+        [
+          "挑战",
+          "目标"
+        ],
+        [
+          "目标",
+          "进展"
+        ]
+      ],
+      "default_report_renderer": "scripts/render_project_report.py"
+    },
+    "insight-analysis": {
+      "name": "洞察分析风格",
+      "headers": [
+        [
+          "分析结论"
+        ]
+      ],
+      "default_diagram_reference": "assets/units/catalog.json"
+    }
+  },
+  "layouts": {
+    "project-solution": {
+      "style": "technical-project",
+      "class": "major-minor",
+      "header": [
+        "挑战",
+        "目标"
+      ]
+    },
+    "project-progress": {
+      "style": "technical-project",
+      "class": "equal",
+      "header": [
+        "目标",
+        "进展"
+      ]
+    },
+    "project-roadmap": {
+      "style": "technical-project",
+      "class": "wide",
+      "header": [
+        "目标",
+        "进展"
+      ]
+    },
+    "project-review-table": {
+      "style": "technical-project",
+      "class": "wide",
+      "header": [
+        "目标",
+        "进展"
+      ]
+    },
+    "insight-system": {
+      "style": "insight-analysis",
+      "class": "major-minor",
+      "header": [
+        "分析结论"
+      ]
+    },
+    "insight-zoom": {
+      "style": "insight-analysis",
+      "class": "wide",
+      "header": [
+        "分析结论"
+      ]
+    },
+    "insight-mechanism": {
+      "style": "insight-analysis",
+      "class": "wide",
+      "header": [
+        "分析结论"
+      ]
+    },
+    "insight-evidence": {
+      "style": "insight-analysis",
+      "class": "equal",
+      "header": [
+        "分析结论"
+      ]
+    },
+    "insight-backbone-callouts": {
+      "style": "insight-analysis",
+      "class": "wide",
+      "header": [
+        "分析结论"
+      ],
+      "use": "完整模型：右侧主干、左侧模块展开，用虚线建立对应关系"
+    },
+    "insight-overview-zoom": {
+      "style": "insight-analysis",
+      "class": "wide",
+      "header": [
+        "分析结论"
+      ],
+      "use": "局部变化：上方保留主干，下方按功能层次放大，用红色定位增量"
+    },
+    "project-landscape": {
+      "style": "technical-project",
+      "class": "project-report",
+      "renderer": "scripts/render_project_report.py",
+      "use": "多项目定位 / 挑战 / 专题"
+    },
+    "project-portfolio": {
+      "style": "technical-project",
+      "class": "project-report",
+      "renderer": "scripts/render_project_report.py",
+      "use": "项目目标 / 节点 / 布局与进展"
+    },
+    "project-coordination": {
+      "style": "technical-project",
+      "class": "project-report",
+      "renderer": "scripts/render_project_report.py",
+      "use": "技术线与版本线交接"
+    },
+    "project-explainer": {
+      "style": "technical-project",
+      "class": "project-report",
+      "renderer": "scripts/render_project_report.py",
+      "use": "技术点 / 做什么 / 解决什么问题"
+    }
+  }
+}

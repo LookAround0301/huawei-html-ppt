@@ -1,0 +1,109 @@
+{
+  "id": "challenge-action-column",
+  "revision": 1,
+  "kind": "fragment",
+  "styles": [
+    "technical-project"
+  ],
+  "purpose": "三列报告中的一个完整论证单元；按内容决定列数",
+  "slots": [
+    "direction",
+    "challenge",
+    "action",
+    "acceptance"
+  ],
+  "sources": [
+    {
+      "kind": "generic-layout",
+      "note": "通用结构示例；私有参考材料及逐页追溯记录留在用户项目。"
+    }
+  ],
+  "diagram": {
+    "title": "挑战到措施",
+    "width": 360,
+    "height": 250,
+    "elements": [
+      {
+        "type": "text",
+        "x": 20,
+        "y": 27,
+        "text": "技术方向",
+        "fs": 20,
+        "color": "#C00000",
+        "bold": true
+      },
+      {
+        "type": "rect",
+        "x": 10,
+        "y": 44,
+        "w": 338,
+        "h": 78,
+        "fill": "#F2F2F2",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 25,
+        "y": 69,
+        "text": "挑战：当前约束",
+        "fs": 17,
+        "color": "#C00000",
+        "bold": true
+      },
+      {
+        "type": "text",
+        "x": 25,
+        "y": 98,
+        "text": "原因与影响",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "line",
+        "points": [
+          [
+            180,
+            126
+          ],
+          [
+            180,
+            151
+          ]
+        ],
+        "stroke": "#C00000",
+        "arrow": true,
+        "dash": false
+      },
+      {
+        "type": "rect",
+        "x": 10,
+        "y": 160,
+        "w": 338,
+        "h": 84,
+        "fill": "#F2F2F2",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 25,
+        "y": 186,
+        "text": "措施：具体动作",
+        "fs": 17,
+        "color": "#C00000",
+        "bold": true
+      },
+      {
+        "type": "text",
+        "x": 25,
+        "y": 216,
+        "text": "责任 / 产物 / 验收",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      }
+    ]
+  }
+}

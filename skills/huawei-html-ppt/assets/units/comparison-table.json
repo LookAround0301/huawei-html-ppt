@@ -1,0 +1,207 @@
+{
+  "id": "comparison-table",
+  "revision": 1,
+  "kind": "fragment",
+  "styles": [
+    "technical-project",
+    "insight-analysis"
+  ],
+  "purpose": "对比必须同口径，简单表优先于复杂统计图",
+  "slots": [
+    "headers",
+    "rows",
+    "conditions"
+  ],
+  "sources": [
+    {
+      "kind": "generic-layout",
+      "note": "通用结构示例；私有参考材料及逐页追溯记录留在用户项目。"
+    }
+  ],
+  "diagram": {
+    "title": "简明对比表",
+    "width": 650,
+    "height": 180,
+    "elements": [
+      {
+        "type": "rect",
+        "x": 5,
+        "y": 8,
+        "w": 640,
+        "h": 40,
+        "fill": "#F2F2F2",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "line",
+        "points": [
+          [
+            5,
+            8
+          ],
+          [
+            5,
+            170
+          ],
+          [
+            645,
+            170
+          ],
+          [
+            645,
+            8
+          ]
+        ],
+        "stroke": "#666666",
+        "arrow": false,
+        "dash": false
+      },
+      {
+        "type": "line",
+        "points": [
+          [
+            5,
+            48
+          ],
+          [
+            645,
+            48
+          ]
+        ],
+        "stroke": "#666666",
+        "arrow": false,
+        "dash": false
+      },
+      {
+        "type": "line",
+        "points": [
+          [
+            5,
+            108
+          ],
+          [
+            645,
+            108
+          ]
+        ],
+        "stroke": "#666666",
+        "arrow": false,
+        "dash": false
+      },
+      {
+        "type": "line",
+        "points": [
+          [
+            195,
+            8
+          ],
+          [
+            195,
+            170
+          ]
+        ],
+        "stroke": "#666666",
+        "arrow": false,
+        "dash": false
+      },
+      {
+        "type": "line",
+        "points": [
+          [
+            410,
+            8
+          ],
+          [
+            410,
+            170
+          ]
+        ],
+        "stroke": "#666666",
+        "arrow": false,
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 24,
+        "y": 34,
+        "text": "条件 / 指标",
+        "fs": 17,
+        "color": "#1D1D1A",
+        "bold": true
+      },
+      {
+        "type": "text",
+        "x": 220,
+        "y": 34,
+        "text": "基线",
+        "fs": 17,
+        "color": "#1D1D1A",
+        "bold": true
+      },
+      {
+        "type": "text",
+        "x": 440,
+        "y": 34,
+        "text": "方案",
+        "fs": 17,
+        "color": "#1D1D1A",
+        "bold": true
+      },
+      {
+        "type": "text",
+        "x": 24,
+        "y": 85,
+        "text": "场景与精度",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "text",
+        "x": 220,
+        "y": 85,
+        "text": "基准设置",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "text",
+        "x": 440,
+        "y": 85,
+        "text": "同口径设置",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "text",
+        "x": 24,
+        "y": 145,
+        "text": "测量值与单位",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "text",
+        "x": 220,
+        "y": 145,
+        "text": "数据",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "text",
+        "x": 440,
+        "y": 145,
+        "text": "数据与差异",
+        "fs": 16,
+        "color": "#C00000",
+        "bold": false
+      }
+    ]
+  }
+}

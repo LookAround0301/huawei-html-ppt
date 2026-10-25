@@ -1,0 +1,21 @@
+{
+  "text": "用技术项目风格说明本阶段目标与进展；内容仅用于接口演示。",
+  "style": "technical-project",
+  "purpose": "progress",
+  "context": {"scenario": "demo"},
+  "deck": {
+    "title": "技术项目接口示例",
+    "style": "technical-project",
+    "slides": [{
+      "title": "本阶段目标与进展（示例）",
+      "layout": "project-progress",
+      "labels": ["目标", "进展"],
+      "summary": ["完成单项方案验证，明确验收条件。", "示例流程已跑通，性能结果尚未评估。"],
+      "panels": [
+        {"title": "技术方案", "blocks": [{"type": "bullets", "items": ["固定输入和对比条件。", "完成方案实现与基本正确性检查。", "准备一致的测试配置。"]}]},
+        {"title": "当前进展", "blocks": [{"type": "table", "headers": ["事项", "状态"], "rows": [["输入与场景", "已整理（演示）"], ["实现验证", "已完成（演示）"], ["性能评估", "待验证（演示）"]]}]}
+      ],
+      "notes": {"source": "合成示例，不是实际项目进度。"}
+    }]
+  }
+}

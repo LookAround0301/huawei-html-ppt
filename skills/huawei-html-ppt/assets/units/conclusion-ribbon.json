@@ -1,0 +1,63 @@
+{
+  "id": "conclusion-ribbon",
+  "revision": 1,
+  "kind": "fragment",
+  "styles": [
+    "insight-analysis"
+  ],
+  "purpose": "保留独立结论，不用标题代替",
+  "slots": [
+    "conclusion"
+  ],
+  "sources": [
+    {
+      "kind": "generic-layout",
+      "note": "通用结构示例；私有参考材料及逐页追溯记录留在用户项目。"
+    }
+  ],
+  "diagram": {
+    "title": "显式结论栏",
+    "width": 650,
+    "height": 90,
+    "elements": [
+      {
+        "type": "rect",
+        "x": 0,
+        "y": 10,
+        "w": 650,
+        "h": 64,
+        "fill": "#F2F2F2",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "rect",
+        "x": 0,
+        "y": 10,
+        "w": 110,
+        "h": 64,
+        "fill": "#C00000",
+        "stroke": "#C00000",
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 14,
+        "y": 48,
+        "text": "分析结论",
+        "fs": 20,
+        "color": "#FFFFFF",
+        "bold": true
+      },
+      {
+        "type": "text",
+        "x": 128,
+        "y": 48,
+        "text": "关键判断；写清适用条件。",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,344 @@
+{
+  "id": "cache-state-lanes",
+  "revision": 1,
+  "kind": "fragment",
+  "styles": [
+    "technical-project",
+    "insight-analysis"
+  ],
+  "purpose": "区分逐Token增长的数据和按策略保存的状态；块/柱体比通用方框更直观",
+  "slots": [
+    "token_blocks",
+    "state_checkpoints",
+    "retention_policy"
+  ],
+  "sources": [
+    {
+      "kind": "generic-layout",
+      "note": "通用结构示例；私有参考材料及逐页追溯记录留在用户项目。"
+    }
+  ],
+  "diagram": {
+    "title": "缓存与状态分层",
+    "width": 660,
+    "height": 235,
+    "elements": [
+      {
+        "type": "text",
+        "x": 12,
+        "y": 28,
+        "text": "Token 缓存与状态保存",
+        "fs": 19,
+        "color": "#1D1D1A",
+        "bold": true
+      },
+      {
+        "type": "text",
+        "x": 12,
+        "y": 82,
+        "text": "Token 缓存",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "text",
+        "x": 12,
+        "y": 155,
+        "text": "状态保存",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "rect",
+        "x": 155,
+        "y": 50,
+        "w": 42,
+        "h": 38,
+        "fill": "#E4F0F9",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 165,
+        "y": 76,
+        "text": "1",
+        "fs": 14,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "rect",
+        "x": 206,
+        "y": 50,
+        "w": 42,
+        "h": 38,
+        "fill": "#E4F0F9",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 216,
+        "y": 76,
+        "text": "2",
+        "fs": 14,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "rect",
+        "x": 257,
+        "y": 50,
+        "w": 42,
+        "h": 38,
+        "fill": "#E4F0F9",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 267,
+        "y": 76,
+        "text": "3",
+        "fs": 14,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "rect",
+        "x": 308,
+        "y": 50,
+        "w": 42,
+        "h": 38,
+        "fill": "#E4F0F9",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 318,
+        "y": 76,
+        "text": "4",
+        "fs": 14,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "rect",
+        "x": 359,
+        "y": 50,
+        "w": 42,
+        "h": 38,
+        "fill": "#E4F0F9",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 369,
+        "y": 76,
+        "text": "5",
+        "fs": 14,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "rect",
+        "x": 410,
+        "y": 50,
+        "w": 42,
+        "h": 38,
+        "fill": "#E4F0F9",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 420,
+        "y": 76,
+        "text": "6",
+        "fs": 14,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "rect",
+        "x": 461,
+        "y": 50,
+        "w": 42,
+        "h": 38,
+        "fill": "#E4F0F9",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 471,
+        "y": 76,
+        "text": "7",
+        "fs": 14,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "rect",
+        "x": 512,
+        "y": 50,
+        "w": 42,
+        "h": 38,
+        "fill": "#E4F0F9",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 522,
+        "y": 76,
+        "text": "8",
+        "fs": 14,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "rect",
+        "x": 563,
+        "y": 50,
+        "w": 42,
+        "h": 38,
+        "fill": "#E4F0F9",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 573,
+        "y": 76,
+        "text": "9",
+        "fs": 14,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "line",
+        "points": [
+          [
+            155,
+            105
+          ],
+          [
+            606,
+            105
+          ]
+        ],
+        "stroke": "#666666",
+        "arrow": true,
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 165,
+        "y": 129,
+        "text": "随历史保留 Token 数据",
+        "fs": 14,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "rect",
+        "x": 155,
+        "y": 147,
+        "w": 45,
+        "h": 32,
+        "fill": "#F2F2F2",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "ellipse",
+        "x": 155,
+        "y": 169,
+        "w": 45,
+        "h": 17,
+        "fill": "#F2F2F2",
+        "stroke": "#C5C5C5"
+      },
+      {
+        "type": "ellipse",
+        "x": 155,
+        "y": 138,
+        "w": 45,
+        "h": 17,
+        "fill": "#F2F2F2",
+        "stroke": "#C5C5C5"
+      },
+      {
+        "type": "rect",
+        "x": 359,
+        "y": 147,
+        "w": 45,
+        "h": 32,
+        "fill": "#F2F2F2",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "ellipse",
+        "x": 359,
+        "y": 169,
+        "w": 45,
+        "h": 17,
+        "fill": "#F2F2F2",
+        "stroke": "#C5C5C5"
+      },
+      {
+        "type": "ellipse",
+        "x": 359,
+        "y": 138,
+        "w": 45,
+        "h": 17,
+        "fill": "#F2F2F2",
+        "stroke": "#C5C5C5"
+      },
+      {
+        "type": "rect",
+        "x": 563,
+        "y": 147,
+        "w": 45,
+        "h": 32,
+        "fill": "#F2F2F2",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "ellipse",
+        "x": 563,
+        "y": 169,
+        "w": 45,
+        "h": 17,
+        "fill": "#F2F2F2",
+        "stroke": "#C5C5C5"
+      },
+      {
+        "type": "ellipse",
+        "x": 563,
+        "y": 138,
+        "w": 45,
+        "h": 17,
+        "fill": "#F2F2F2",
+        "stroke": "#C5C5C5"
+      },
+      {
+        "type": "text",
+        "x": 154,
+        "y": 216,
+        "text": "保存位置与有效期取决于实际实现，不把示意间隔当成算法规则。",
+        "fs": 14,
+        "color": "#1D1D1A",
+        "bold": false
+      }
+    ]
+  }
+}

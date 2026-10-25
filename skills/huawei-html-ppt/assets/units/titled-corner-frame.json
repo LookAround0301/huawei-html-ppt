@@ -1,0 +1,114 @@
+{
+  "id": "titled-corner-frame",
+  "revision": 1,
+  "kind": "fragment",
+  "styles": [
+    "technical-project",
+    "insight-analysis"
+  ],
+  "purpose": "轻量框线组织高密度内容",
+  "slots": [
+    "title",
+    "body"
+  ],
+  "sources": [
+    {
+      "kind": "generic-layout",
+      "note": "通用结构示例；私有参考材料及逐页追溯记录留在用户项目。"
+    }
+  ],
+  "diagram": {
+    "title": "细线与骑线标题",
+    "width": 460,
+    "height": 220,
+    "elements": [
+      {
+        "type": "rect",
+        "x": 5,
+        "y": 20,
+        "w": 448,
+        "h": 192,
+        "fill": "#FFFFFF",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "line",
+        "points": [
+          [
+            5,
+            70
+          ],
+          [
+            5,
+            20
+          ],
+          [
+            35,
+            20
+          ]
+        ],
+        "stroke": "#C00000",
+        "arrow": false,
+        "dash": false
+      },
+      {
+        "type": "line",
+        "points": [
+          [
+            423,
+            20
+          ],
+          [
+            453,
+            20
+          ],
+          [
+            453,
+            70
+          ]
+        ],
+        "stroke": "#C00000",
+        "arrow": false,
+        "dash": false
+      },
+      {
+        "type": "rect",
+        "x": 110,
+        "y": 4,
+        "w": 230,
+        "h": 32,
+        "fill": "#FFFFFF",
+        "stroke": "#FFFFFF",
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 135,
+        "y": 27,
+        "text": "方案 / 进展 / 证据",
+        "fs": 18,
+        "color": "#C00000",
+        "bold": true
+      },
+      {
+        "type": "text",
+        "x": 24,
+        "y": 86,
+        "text": "主体内容优先占用面积",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "text",
+        "x": 24,
+        "y": 125,
+        "text": "边框用于分组，避免厚重装饰",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      }
+    ]
+  }
+}

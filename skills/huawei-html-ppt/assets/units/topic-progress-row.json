@@ -1,0 +1,174 @@
+{
+  "id": "topic-progress-row",
+  "revision": 1,
+  "kind": "fragment",
+  "styles": [
+    "technical-project"
+  ],
+  "purpose": "与左侧技术布局保持相同的专题顺序和行高",
+  "slots": [
+    "topic",
+    "summary",
+    "progress_columns"
+  ],
+  "sources": [
+    {
+      "kind": "generic-layout",
+      "note": "通用结构示例；私有参考材料及逐页追溯记录留在用户项目。"
+    }
+  ],
+  "diagram": {
+    "title": "专题总进展",
+    "width": 660,
+    "height": 190,
+    "elements": [
+      {
+        "type": "text",
+        "x": 12,
+        "y": 33,
+        "text": "专题名称",
+        "fs": 18,
+        "color": "#1D1D1A",
+        "bold": true
+      },
+      {
+        "type": "text",
+        "x": 145,
+        "y": 33,
+        "text": "总进展：结果、缺口、下一步",
+        "fs": 17,
+        "color": "#C00000",
+        "bold": true
+      },
+      {
+        "type": "line",
+        "points": [
+          [
+            145,
+            49
+          ],
+          [
+            648,
+            49
+          ]
+        ],
+        "stroke": "#666666",
+        "arrow": false,
+        "dash": false
+      },
+      {
+        "type": "line",
+        "points": [
+          [
+            310,
+            62
+          ],
+          [
+            310,
+            175
+          ]
+        ],
+        "stroke": "#666666",
+        "arrow": false,
+        "dash": false
+      },
+      {
+        "type": "line",
+        "points": [
+          [
+            480,
+            62
+          ],
+          [
+            480,
+            175
+          ]
+        ],
+        "stroke": "#666666",
+        "arrow": false,
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 145,
+        "y": 80,
+        "text": "技术点一",
+        "fs": 16,
+        "color": "#C00000",
+        "bold": true
+      },
+      {
+        "type": "text",
+        "x": 145,
+        "y": 114,
+        "text": "动作与产物",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "text",
+        "x": 145,
+        "y": 147,
+        "text": "结果及条件",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "text",
+        "x": 325,
+        "y": 80,
+        "text": "技术点二",
+        "fs": 16,
+        "color": "#C00000",
+        "bold": true
+      },
+      {
+        "type": "text",
+        "x": 325,
+        "y": 114,
+        "text": "动作与产物",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "text",
+        "x": 325,
+        "y": 147,
+        "text": "当前缺口",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "text",
+        "x": 495,
+        "y": 80,
+        "text": "技术点三",
+        "fs": 16,
+        "color": "#C00000",
+        "bold": true
+      },
+      {
+        "type": "text",
+        "x": 495,
+        "y": 114,
+        "text": "动作与产物",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "text",
+        "x": 495,
+        "y": 147,
+        "text": "后续计划",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      }
+    ]
+  }
+}

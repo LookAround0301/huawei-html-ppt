@@ -10,9 +10,7 @@
 
 1. `python-pptx`，`prs.slide_width=Inches(13.333); prs.slide_height=Inches(7.5)`，
    空白版式 `prs.slide_layouts[6]`。
-2. **数据从交付 HTML 解析**：按 `<!-- ==== 页名 ==== -->` 注释切块 →
-   正则取 `<table>` 行列（`<br>`→`\n`、剥标签、`html.unescape`）→ 注入原生表格。
-   HTML 是唯一数据源：改 HTML 后重跑脚本即可再出新 PPT，禁止手抄转录。
+2. **同一份结构化数据**：优先读取交付 HTML 的 `script#deck-model` 或相邻 `deck-model.json`，从 slides、panels、blocks、diagram 和 notes 生成原生对象。旧版没有元数据的HTML再按其DOM解析；不要默认依赖不存在的分页注释，也不要手工转录数据。
 3. 表格：`add_table` + 逐格 `fill`（表头 `#F2F2F2` 粗体、正文白底）+ 逐格描边
    （XML `a:lnL/R/T/B`，0.5pt 近黑）；列宽按 HTML 的百分比换算 Emu。
 4. 图形页（时间轴/流程/甘特/依赖图）用形状重建：矩形（轴/带/牌）+

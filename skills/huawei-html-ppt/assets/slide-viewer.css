@@ -1,0 +1,24 @@
+/* Viewer chrome scales the fixed canvas; slide geometry stays unchanged. */
+@media screen {
+  html { scroll-padding-top: 64px; }
+  body { overflow-x: hidden; }
+  .deck { width: auto; padding: 64px 12px 20px; }
+  .slide-viewport { position: relative; margin: 0 auto 20px; }
+  .slide-viewport > .slide { position: absolute; left: 0; top: 0; margin: 0; transform-origin: top left; }
+  .viewer-toolbar { position: fixed; z-index: 100; inset: 0 0 auto; min-height: 48px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; padding: 7px 10px; background: #F2F2F2; border-bottom: 1px solid #C5C5C5; color: #1D1D1A; font: 14px "Microsoft YaHei", sans-serif; box-sizing: border-box; }
+  .viewer-toolbar button, .viewer-toolbar select { font: inherit; height: 32px; border: 1px solid #C5C5C5; border-radius: 3px; background: #FFFFFF; color: #1D1D1A; padding: 0 10px; cursor: pointer; }
+  .viewer-toolbar button:focus-visible, .viewer-toolbar select:focus-visible { outline: 2px solid #C00000; outline-offset: 2px; }
+  .viewer-toolbar button[aria-pressed="true"] { border-color: #C00000; color: #C00000; }
+  .viewer-toolbar button:disabled { color: #929292; cursor: default; }
+  .viewer-toolbar .viewer-icon { min-width: 32px; padding: 0 7px; }
+  .viewer-scale { min-width: 37px; color: #666666; text-align: right; }
+  body.viewer-actual { overflow-x: auto; }
+  body.viewer-actual .slide-viewport { margin-left: auto; margin-right: auto; }
+  @media (max-width: 450px) { .viewer-toolbar { gap: 5px; } .viewer-scale { display: none; } }
+}
+@media print {
+  .viewer-toolbar { display: none !important; }
+  .deck { width: 1280px !important; padding: 0 !important; margin: 0 !important; }
+  .slide-viewport { width: 1280px !important; height: 720px !important; margin: 0 !important; break-after: page; }
+  .slide-viewport > .slide { position: relative !important; transform: none !important; margin: 0 !important; }
+}

@@ -1,0 +1,223 @@
+{
+  "id": "overview-local-change",
+  "revision": 1,
+  "kind": "fragment",
+  "styles": [
+    "technical-project",
+    "insight-analysis"
+  ],
+  "purpose": "上方保留总览，下方放大对应变化，红色定位增量",
+  "slots": [
+    "baseline",
+    "change_location",
+    "zoom",
+    "change"
+  ],
+  "sources": [
+    {
+      "kind": "generic-layout",
+      "note": "通用结构示例；私有参考材料及逐页追溯记录留在用户项目。"
+    }
+  ],
+  "diagram": {
+    "title": "局部变化放大",
+    "width": 660,
+    "height": 260,
+    "elements": [
+      {
+        "type": "rect",
+        "x": 24,
+        "y": 15,
+        "w": 145,
+        "h": 42,
+        "fill": "#F2F2F2",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 40,
+        "y": 43,
+        "text": "继承模块",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "rect",
+        "x": 254,
+        "y": 15,
+        "w": 145,
+        "h": 42,
+        "fill": "#F2F2F2",
+        "stroke": "#C00000",
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 267,
+        "y": 43,
+        "text": "变化所在模块",
+        "fs": 16,
+        "color": "#C00000",
+        "bold": false
+      },
+      {
+        "type": "rect",
+        "x": 488,
+        "y": 15,
+        "w": 145,
+        "h": 42,
+        "fill": "#F2F2F2",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 508,
+        "y": 43,
+        "text": "继承输出",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "line",
+        "points": [
+          [
+            169,
+            36
+          ],
+          [
+            254,
+            36
+          ]
+        ],
+        "stroke": "#666666",
+        "arrow": true,
+        "dash": false
+      },
+      {
+        "type": "line",
+        "points": [
+          [
+            399,
+            36
+          ],
+          [
+            488,
+            36
+          ]
+        ],
+        "stroke": "#666666",
+        "arrow": true,
+        "dash": false
+      },
+      {
+        "type": "rect",
+        "x": 116,
+        "y": 120,
+        "w": 430,
+        "h": 126,
+        "fill": "#FFFFFF",
+        "stroke": "#C00000",
+        "dash": true
+      },
+      {
+        "type": "text",
+        "x": 131,
+        "y": 147,
+        "text": "局部变化：只强调新增或修改",
+        "fs": 17,
+        "color": "#C00000",
+        "bold": true
+      },
+      {
+        "type": "rect",
+        "x": 140,
+        "y": 172,
+        "w": 150,
+        "h": 46,
+        "fill": "#E4F0F9",
+        "stroke": "#C5C5C5",
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 156,
+        "y": 201,
+        "text": "继承路径",
+        "fs": 16,
+        "color": "#1D1D1A",
+        "bold": false
+      },
+      {
+        "type": "rect",
+        "x": 363,
+        "y": 172,
+        "w": 150,
+        "h": 46,
+        "fill": "#FBE8E8",
+        "stroke": "#C00000",
+        "dash": false
+      },
+      {
+        "type": "text",
+        "x": 381,
+        "y": 201,
+        "text": "新增路径",
+        "fs": 16,
+        "color": "#C00000",
+        "bold": false
+      },
+      {
+        "type": "line",
+        "points": [
+          [
+            290,
+            195
+          ],
+          [
+            363,
+            195
+          ]
+        ],
+        "stroke": "#C00000",
+        "arrow": true,
+        "dash": false
+      },
+      {
+        "type": "line",
+        "points": [
+          [
+            254,
+            57
+          ],
+          [
+            116,
+            120
+          ]
+        ],
+        "stroke": "#C00000",
+        "arrow": false,
+        "dash": true
+      },
+      {
+        "type": "line",
+        "points": [
+          [
+            399,
+            57
+          ],
+          [
+            546,
+            120
+          ]
+        ],
+        "stroke": "#C00000",
+        "arrow": false,
+        "dash": true
+      }
+    ]
+  }
+}

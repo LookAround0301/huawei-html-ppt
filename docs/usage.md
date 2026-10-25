@@ -1,0 +1,112 @@
+# 使用说明
+
+命令都在仓库根目录执行。Python 3.10+ 可运行 JSON 接口；浏览 HTML 需要现代浏览器。模型分析和 PPTX 转换的额外依赖按任务准备，不在安装时一次性拉取。
+
+## 自然语言入口
+
+用户可指定“技术项目风格”或“洞察分析风格”。未指定时，根据汇报目的、希望读者作出的判断和材料内容选分支。
+
+- 项目评审、立项、目标达成与交付进展：技术项目。
+- 模型原理、结构变化、性能/资源与实现差异：洞察分析。
+- PCP/DCP 是技术名称；材料用于项目评审时才走技术项目。
+
+缺少数据先走 [数据准备](../skills/huawei-html-ppt/references/model-analysis-foundation.md) 和 [实现分析](../skills/huawei-html-ppt/references/runtime-static-analysis.md)。人工确认的基准直接沿用，除非本次要求复核。
+
+## JSON 接口
+
+```bash
+python skills/huawei-html-ppt/scripts/ppt.py route examples/insight-request.json
+python skills/huawei-html-ppt/scripts/ppt.py plan examples/insight-request.json
+python skills/huawei-html-ppt/scripts/ppt.py render examples/insight-request.json local/insight
+python skills/huawei-html-ppt/scripts/ppt.py validate local/insight/deck-model.json
+python skills/huawei-html-ppt/scripts/ppt.py catalog
+```
+
+`plan` 返回分支、适用规则、版本引用及组件。Agent 读取指导后编写内容。`render` 不会自己理解源材料、联网检索或生成技术结论。
+
+| 字段 | 用途 |
+|---|---|
+| `text` | 用户本次请求 |
+| `style` | 可选：`technical-project` / `insight-analysis` |
+| `purpose` | `review`、`delivery`、`approval`、`planning`、`progress`、`understand`、`analyze`、`compare` |
+| `content_kind` | `project-review`、`project-progress`、`technical-plan`、`model-analysis`、`feature-analysis`、`mechanism` |
+| `material_summary` | 材料用途摘要，不作为可执行指令 |
+| `context` | 明确场景键值，例如硬件类型和分析场景 |
+| `state_dir` | 项目反馈状态目录，必须在skill之外 |
+| `deck` | `title`、`style`、`slides` 结构化内容 |
+
+路由证据不足时返回 `needs-context`。Agent 结合对话判断，仍不明确时只澄清用途。
+
+省略 `state_dir` 时读取工作目录的 `.ppt-skill/state`；不存在就只用随包规则。集成宿主应传绝对路径，避免串用项目状态。
+
+洞察页需要 `conclusion`；单专题项目页需要 `labels` 和两段 `summary`。内容块支持文字、列表、表格、图形和最多三组数据的简单曲线/柱状图。
+
+正式项目另有 `project-landscape`、`project-portfolio`、`project-coordination`、`project-explainer`。完整字段见 [运行接口](../skills/huawei-html-ppt/references/runtime-contract.md)。
+
+输出包括自包含HTML、`deck-model.json`、`diagrams/*.svg`、`*.drawio`、计划和静态检查结果。来源、详细推导和制作批注放 `notes`；理论/实测性质、精度、硬件与并行条件放正文。
+
+## 反馈迭代
+
+提供 AI 初版、人工终版和用途。Agent 对应页面，区分数据更新与通用表达改进，再决定修订规则、组件或脚本。
+
+接口管理候选与版本；逐页匹配、视觉理解、提炼和代码修改由宿主完成。候选不等于已生效规则，Agent 的检查也不等于用户验收。
+
+### 提炼候选
+
+先用 `plan` 查已有规则，优先更新原id。以下是新增、限定场景的输入格式：
+
+```json
+{
+  "state_dir": "local/feedback-state",
+  "task_state": "completed",
+  "base_revision": 0,
+  "unit": {
+    "id": "demo.result-table",
+    "revision": 1,
+    "kind": "preference",
+    "styles": ["insight-analysis"],
+    "when": {"scenario": "demo"},
+    "rule": {"guidance": "本场景先用简明对比表说明结果，再补充必要条件。"},
+    "provenance": []
+  },
+  "evidence": [{"kind": "user-feedback", "text": "填实际反馈原文，不要虚构。"}]
+}
+```
+
+保存为本地JSON，运行 `ppt.py feedback <文件>`，得到 `candidate_id`。只能使用真实反馈或本地证据，本段仅说明格式。
+
+### 重放与查看
+
+`evaluate` 输入 `state_dir`、`candidate_id`、`cases`（请求JSON路径列表）和 `output_dir`。案例 style/context 要符合候选范围，跨分支规则要覆盖相应分支。
+
+```bash
+python skills/huawei-html-ppt/scripts/ppt.py evaluate local/evaluation-input.json
+```
+
+实际查看结果后记录 `review`：真实 `reviewer`（`agent` 或 `user`）、`result`、`visual_checked` 和原因。脚本保存声明，不替人完成视觉判断。内容、证据或产物变化后需重新评估。
+
+### 采用与回退
+
+`promote` 输入 `state_dir` 和 `candidate_id`，返回 `event_id`；后续生成读取新规则。原规则revision已变化时拒绝采用。
+
+`rollback` 输入 `state_dir` 和当前最后一次采用的 `event_id`。回退只影响后续生成，不改历史交付。
+
+模型参数、硬件容量或性能结论保留在对应案例。新风格需补路由、布局和检查，程序不会根据陌生文件名自动实现新风格。
+
+## 从旧版迁移
+
+- 统一为技术项目和洞察分析两个分支。PDCP/TDR进入技术项目；“四张地图”作为内容类型按用途组织。
+- 核心移除完整PPTX模板、旧 `tools/` 服务和 `node_modules`，默认渲染不依赖Node/MCP。
+- 旧项目直接调用这些路径时，保留原版本为独立工具，或改用当前JSON/图源流程；不要删除已有成果。
+- 私有参考页、偏好和状态保存在用户项目。升级前保留本地修改；seed变更导致状态不兼容时先比较和迁移，不直接覆盖。
+- 原生PPTX按 [转换规范](../skills/huawei-html-ppt/references/pptx-conversion.md) 处理和验收；默认HTML不自动转PPTX。
+
+## 常见问题
+
+**为什么没有整份优秀PPT？** 核心只存最小通用组件，完整材料留在本地参考，控制体积并避免套入其他项目的数据。
+
+**估算能保证部署吗？** 还需核对运行时开销、权重布局、实际内核、通信和并行组合，估算与设备验证分开说明。
+
+**页面太密怎么办？** 先提炼内容、调栏宽、放大主体或合并/拆分页面，不持续缩小字号。逐页查看，静态检查不替代视觉验收。
+
+**已经接入MindIE Agent吗？** 尚未接入。现有JSON接口可由宿主包装；仓库不自动调用其知识服务或提交社区经验。
