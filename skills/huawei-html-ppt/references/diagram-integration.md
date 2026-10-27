@@ -4,6 +4,8 @@ PPT 主 Skill 负责内容事实、来源、故事线、主题和展示约束；
 
 高层 `diagram-brief` 准备独立 Agent 任务，`diagram-accept` 消费绘图交付；它们是交接协议，不是声称 Python 能自动模型推理。宿主通过真实 Agent 调度工具启动独立绘图执行者，并保存实际任务身份；没有该能力即阻塞。低级 `diagram-plan` / `diagram-render` 只处理作者已完成的画稿，保留调试用途，不能再作为完整绘图能力接入的完成证据。
 
+调用前必须按 [只读预检与安装确认](diagram-installation.md) 检查依赖。高层 common 预检与后端预检分开；已满足就继续，缺失仅产安装方案并询问，不自动执行。
+
 ## 高层：内容委托给独立绘图 Agent
 
 `diagram-brief request.json empty-output/` 的请求包含 `infra_root`（或环境变量）、`agent_dispatch_available` 与 `brief`。brief 的权威 schema 在独立绘图仓 `contracts/diagram-brief.schema.json`，包含 task_id、intent、question、audience、facts（事实 ID / 状态 / 来源）、target、theme、display_constraints、required_outputs、language_profile、preserve；不接收预制几何或画稿。theme 只交宿主颜色约束，不要求所有功能填充同灰。显示约束是可用空间/阅读要求，不是强制图比例。

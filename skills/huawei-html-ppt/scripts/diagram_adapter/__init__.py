@@ -23,13 +23,18 @@ HEX = re.compile(r'^#[0-9a-fA-F]{6}$')
 
 def tool_contract():
     """Stable host-facing discovery; dependency details remain inside the adapter."""
-    return {'api_version':1, 'brief':'diagram-brief', 'accept':'diagram-accept',
+    return {'api_version':1, 'brief':'diagram-brief', 'accept':'diagram-accept', 'doctor':'diagram-doctor',
             'plan':'diagram-plan', 'render':'diagram-render', 'low_level_only':['diagram-plan','diagram-render'],
             'generation_runtime':'independent_agent_required',
             'intents':['model','report','mixed'], 'low_level_default_palette':'huawei-plain',
             'high_level_theme_policy':'Drawing agent interprets host theme without flattening all functional fills',
             'language_profile':LOCK['language_profile'],
             'dependency':dict(LOCK)}
+
+
+def preflight(req):
+    from .doctor import inspect
+    return inspect(sys.modules[__name__],req)
 
 
 def prepare_brief(req, output):

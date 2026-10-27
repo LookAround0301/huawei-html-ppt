@@ -172,3 +172,5 @@ python skills/huawei-html-ppt/scripts/check_package.py
 ## 外部技术绘图工具
 
 `ppt.py diagram-brief` / `diagram-accept` 提供独立绘图 Agent 的高层交接与交付核验；主 Skill 交事实、来源、主题及用途，不先画 drawio/TeX/IR。真实 Agent 执行设计、参考消费、渲染和精修，缺调度能力则阻塞。详见 [绘图工具接入](../skills/huawei-html-ppt/references/diagram-integration.md)。`diagram-plan` / `diagram-render` 仅保留为已有画稿的低级编译工具，不代表完整设计生成。
+
+依赖管理入口为只读 `ppt.py diagram-doctor doctor-request.json`；安装必须先披露版本/来源/位置/影响并获得实际确认，见 [安装确认引导](../skills/huawei-html-ppt/references/diagram-installation.md)。配置 `install: true` 不表示同意，独立 Agent 调度能力不能通过软件安装补齐。

@@ -23,6 +23,8 @@ PCP/DCP 是技术名称，不等于 PDCP。模型主题也能做项目评审；�
 
 ## 按需调用绘图工具
 
+调用前按 [依赖预检与安装确认引导](references/diagram-installation.md) 执行只读 `diagram-doctor`：依赖齐则直接用，缺失先列明确方案并询问是否安装；只有真实确认后执行，再自检恢复原任务。配置字段不代表同意，调度能力不能通过安装补齐。
+
 独立绘图仓库：[infra-io-generator](https://github.com/grandolantow/infra-io-generator)。它提供模型架构与技术机制/报告两类绘图能力，负责参考、设计、多方案渲染和视觉 QA；本 Skill 负责内容委托、选版与叙事排版。实际调用使用 `scripts/diagram_adapter/dependency-lock.json` 的固定提交，不直接执行浮动 main；安装与能力边界见 [绘图工具接入](references/diagram-integration.md)。
 
 需要新绘模型架构或技术机制图时，主 Skill 只组织内容事实、来源、用途、主题与展示约束，先读 [绘图工具接入](references/diagram-integration.md)。高层入口 `diagram-brief` 生成独立绘图 Agent 交接包；宿主必须真正启动独立 Agent，令其从选参考、语义与组件设计到渲染、对照精修、验收完整执行绘图 Skill。主 Skill 不预先写 drawio、TeX、IR 或固定图形坐标。可以按可用空间下单，但给绘图 Agent 构图自主权；收到成图后再调整页面或反馈，不用页面横宽硬决定图构图。没有独立 Agent 调度能力时明确阻塞，不回退成主 Skill 先画好图后声称独立调用。

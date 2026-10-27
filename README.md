@@ -87,7 +87,7 @@
 
 ## 按需调用专业绘图 Skill
 
-需要新绘模型架构或机制图时，主 Skill 通过交接工具把内容事实、来源、用途与主题交给独立 `infra-io-generator` 绘图 Agent；由它完成参考选择、设计、渲染与对照修订。主 Skill 不先提供画好的图，只核验返回交付并适配页面。主题亲和保留功能层次，不强制所有组件同灰。无独立 Agent 调度能力则明确阻塞，不把交接包或低级编译调用当设计完成。[安装、接口与限制](skills/huawei-html-ppt/references/diagram-integration.md)。
+需要新绘模型架构或机制图时，主 Skill 通过交接工具把内容事实、来源、用途与主题交给独立 `infra-io-generator` 绘图 Agent；由它完成参考选择、设计、渲染与对照修订。主 Skill 不先提供画好的图，只核验返回交付并适配页面。主题亲和保留功能层次，不强制所有组件同灰。无独立 Agent 调度能力则明确阻塞，不把交接包或低级编译调用当设计完成。[安装、接口与限制](skills/huawei-html-ppt/references/diagram-integration.md)。调用前按 [只读预检与安装确认 Prompt](skills/huawei-html-ppt/references/diagram-installation.md) 检查依赖：齐则用，缺则列方案询问，不自动安装。
 
 ## 输出与边界
 

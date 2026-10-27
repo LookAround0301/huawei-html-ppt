@@ -346,12 +346,12 @@ def rollback(req):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('operation', choices=['route', 'plan', 'render', 'validate', 'catalog', 'feedback', 'evaluate', 'review', 'promote', 'rollback', 'diagram-plan', 'diagram-render', 'diagram-brief', 'diagram-accept'])
+    parser.add_argument('operation', choices=['route', 'plan', 'render', 'validate', 'catalog', 'feedback', 'evaluate', 'review', 'promote', 'rollback', 'diagram-plan', 'diagram-render', 'diagram-brief', 'diagram-accept', 'diagram-doctor'])
     parser.add_argument('input', nargs='?'); parser.add_argument('output', nargs='?')
     args = parser.parse_args()
     try:
         req = read(args.input) if args.input else {}
-        operations = {'route': route_request.from_request, 'plan': plan, 'validate': validate, 'diagram-plan': diagram_adapter.plan,
+        operations = {'route': route_request.from_request, 'plan': plan, 'validate': validate, 'diagram-plan': diagram_adapter.plan, 'diagram-doctor': diagram_adapter.preflight,
                       'feedback': feedback, 'evaluate': evaluate, 'review': review, 'promote': promote, 'rollback': rollback}
         if args.operation == 'catalog': result = read(ROOT / 'assets/units/catalog.json')
         elif args.operation in ('diagram-brief','diagram-accept'):
