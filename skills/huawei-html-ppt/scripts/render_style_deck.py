@@ -3,18 +3,20 @@ from pathlib import Path
 from xml.etree.ElementTree import Element, SubElement, tostring
 import argparse, base64, copy, html, json, importlib.util, hashlib
 from source_images import image_html
+import diagram_adapter
 
 ROOT=Path(__file__).resolve().parents[1]
 E=lambda v: html.escape(str(v),quote=True)
 
 
-def chart_svg(data):
+def chart_svg(data, theme=None):
     """Simple report charts; shared data only, no estimated or generated values."""
     width,height=660,370;left,top,right,bottom=72,36,24,62
     w,h=width-left-right,height-top-bottom
     labels=data['x'];series=data['series'];maximum=max(v for s in series for v in s['values']) or 1
     maximum*=1.12
-    colors=['#C00000','#666666','#1D1D1A']
+    chart_theme=diagram_adapter.theme(theme)
+    colors=[chart_theme['accent'],chart_theme['muted'],chart_theme['text']]
     out=[f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" role="img" aria-label="{E(data.get("title","数据图"))}">']
     for i in range(5):
         y=top+h-h*i/4;value=maximum*i/4
@@ -31,7 +33,7 @@ def chart_svg(data):
             x,y=px(i),top+h-value/maximum*h;points.append(f'{x},{y}')
             if data['kind']=='bar':
                 bw=w/len(labels)*.72/len(series);x+=bw*(j-len(series)/2)
-                fill=colors[j] if j==0 else ['#C00000','#BDBDBD','#E7E7E7'][j]
+                fill=colors[j] if j==0 else [chart_theme['accent'],chart_theme['line'],chart_theme['panel']][j]
                 out.append(f'<rect x="{x}" y="{y}" width="{bw-3}" height="{top+h-y}" fill="{fill}" stroke="{colors[j]}" stroke-width="1"/>')
             else:
                 out.append(f'<circle cx="{x}" cy="{y}" r="3.5" fill="{colors[j]}"/>')
@@ -116,6 +118,7 @@ def render(spec,outdir,asset_root=ROOT):
     catalog=json.loads((asset_root/'assets/two-style/layouts.json').read_text(encoding='utf-8'))
     style=spec['style'];assert style in catalog['styles']
     styles=(asset_root/'assets/two-style/style.css').read_text(encoding='utf-8')+'\n'+(asset_root/'assets/project-report/style.css').read_text(encoding='utf-8')+'\n'+(asset_root/'assets/slide-viewer.css').read_text(encoding='utf-8')
+    styles += '\n' + diagram_adapter.theme_css(spec.get('theme'))
     viewer=(asset_root/'assets/slide-viewer.js').read_text(encoding='utf-8')
     if style=='technical-project':
         styles+='\n'+(asset_root/'assets/source-figures.css').read_text(encoding='utf-8')
@@ -154,7 +157,8 @@ def render(spec,outdir,asset_root=ROOT):
                     body+=svg(d,f'arrow-{stem}')
                     (outdir/'diagrams'/f'{stem}.svg').write_text(svg(d,f'arrow-{stem}'),encoding='utf-8');drawio(d,outdir/'diagrams'/f'{stem}.drawio')
                 elif b['type']=='image':body+=image_html(b)
-                elif b['type']=='chart':body+=chart_svg(b['data'])
+                elif b['type']=='generated-diagram':body+=diagram_adapter.generated_html(b)
+                elif b['type']=='chart':body+=chart_svg(b['data'],spec.get('theme'))
                 elif b['type']=='text':body+=f'<p class="{E(b.get("class",""))}">{E(b["text"]).replace(chr(10),"<br>")}</p>'
                 elif b['type']=='heading':body+=f'<h3>{E(b["text"])}</h3>'
                 elif b['type']=='bullets':body+='<ul>'+''.join(f'<li>{E(v)}</li>' for v in b['items'])+'</ul>'
@@ -163,9 +167,9 @@ def render(spec,outdir,asset_root=ROOT):
                     body+='<div class="table-wrap"><table><colgroup>'+''.join(f'<col style="width:{w*100}%">' for w in widths)+'</colgroup><thead><tr>'+''.join(f'<th>{E(v)}</th>' for v in b['headers'])+'</tr></thead><tbody>'
                     for row in b['rows']:body+='<tr>'+''.join(f'<td>{E(v).replace(chr(10),"<br>")}</td>' for v in row)+'</tr>'
                     body+='</tbody></table></div>'
-            image_class=' image-panel' if any(b['type']=='image' for b in p['blocks']) else ''
+            image_class=' image-panel' if any(b['type'] in ('image','generated-diagram') for b in p['blocks']) else ''
             panels.append(f'<section class="frame {E(p.get("class",""))}{image_class}"><h2>{E(p["title"])}</h2>{body}</section>')
-        pages.append(f'<article class="slide {style}" data-slide="{n}" data-layout="{s["layout"]}"><span class="eyebrow">{E(spec.get("chapter",catalog["styles"][style]["name"]))}</span><h1>{E(s["title"])}</h1><div class="head-rule"></div>{top}<div class="body-grid {lay["class"]}">{"".join(panels)}</div><footer><span>{n:02d} / {len(spec["slides"]):02d}　 Huawei Confidential</span><img alt="HUAWEI" src="data:image/png;base64,{logo}"></footer></article>')
+        pages.append(f'<article class="slide {style}" data-slide="{n}" data-layout="{s["layout"]}"><span class="eyebrow">{E(spec.get("chapter",catalog["styles"][style]["name"]))}</span><h1>{E(s["title"])}</h1><div class="head-rule"></div>{top}<div class="body-grid {lay["class"]}">{"".join(panels)}</div><footer><span>{n:02d} / {len(spec["slides"]):02d}　 {E(spec.get("footer_label","Huawei Confidential"))}</span><img alt="HUAWEI" src="data:image/png;base64,{logo}"></footer></article>')
     metadata=json.dumps(spec,ensure_ascii=False).replace('</','<\\/')
     doc=f'<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{E(spec["title"])}</title><style>{styles}</style></head><body><main class="deck">{"".join(pages)}</main><script type="application/json" id="deck-model">{metadata}</script><script>{viewer}</script></body></html>'
     output=outdir/(spec['title']+'.html');output.write_text(doc,encoding='utf-8');(outdir/'deck-model.json').write_text(json.dumps(spec,ensure_ascii=False,indent=2),encoding='utf-8')

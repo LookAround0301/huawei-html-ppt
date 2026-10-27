@@ -17,6 +17,7 @@ import route_request
 import render_style_deck
 import diagram_audit
 import source_images
+import diagram_adapter
 
 
 def read(path):
@@ -97,6 +98,7 @@ def plan(request, units=None):
     return {'route': result, 'units': active,
             'unit_refs': [f"{u['id']}@{u['revision']}" for u in active],
             'components': [u for u in catalog['units'] if result['style'] in u['styles']],
+            'diagram_tools': diagram_adapter.tool_contract(),
             'component_builders': [u for u in read(ROOT / 'assets/components/catalog.json')['components'] if result['style'] in u['styles']]}
 
 
@@ -133,6 +135,8 @@ def diagrams(slide):
 
 def validate(deck):
     errors, warnings = [], []
+    try: diagram_adapter.theme(deck.get('theme'))
+    except ValueError as exc: errors.append(str(exc))
     title = deck.get('title', '')
     if not title or title.strip() in ('.', '..') or re.search(r'[\\/:*?"<>|\x00-\x1f]', title):
         errors.append('title must be a safe nonempty filename')
@@ -162,7 +166,10 @@ def validate(deck):
                 if 'title' not in p: errors.append(prefix + 'panel needs title')
                 for b in p.get('blocks', []):
                     kind = b.get('type')
-                    if kind not in ('text', 'heading', 'bullets', 'table', 'diagram', 'chart', 'image'): errors.append(prefix + 'unsupported block')
+                    if kind not in ('text', 'heading', 'bullets', 'table', 'diagram', 'chart', 'image', 'generated-diagram'): errors.append(prefix + 'unsupported block')
+                    if kind == 'generated-diagram':
+                        try: diagram_adapter.read_generated(b, diagram_adapter.theme(deck.get('theme')))
+                        except (ValueError, OSError) as exc: errors.append(prefix + str(exc))
                     if kind == 'image':
                         try: source_images.read_image(b)
                         except (ValueError, OSError) as exc: errors.append(prefix + str(exc))
@@ -339,14 +346,20 @@ def rollback(req):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('operation', choices=['route', 'plan', 'render', 'validate', 'catalog', 'feedback', 'evaluate', 'review', 'promote', 'rollback'])
+    parser.add_argument('operation', choices=['route', 'plan', 'render', 'validate', 'catalog', 'feedback', 'evaluate', 'review', 'promote', 'rollback', 'diagram-plan', 'diagram-render', 'diagram-brief', 'diagram-accept'])
     parser.add_argument('input', nargs='?'); parser.add_argument('output', nargs='?')
     args = parser.parse_args()
     try:
         req = read(args.input) if args.input else {}
-        operations = {'route': route_request.from_request, 'plan': plan, 'validate': validate,
+        operations = {'route': route_request.from_request, 'plan': plan, 'validate': validate, 'diagram-plan': diagram_adapter.plan,
                       'feedback': feedback, 'evaluate': evaluate, 'review': review, 'promote': promote, 'rollback': rollback}
         if args.operation == 'catalog': result = read(ROOT / 'assets/units/catalog.json')
+        elif args.operation in ('diagram-brief','diagram-accept'):
+            if not args.output: raise ValueError(args.operation+' requires output directory')
+            result = (diagram_adapter.prepare_brief if args.operation=='diagram-brief' else diagram_adapter.accept_delivery)(req,args.output)
+        elif args.operation == 'diagram-render':
+            if not args.output: raise ValueError('diagram-render requires output directory')
+            result = diagram_adapter.render(req, args.output)
         elif args.operation == 'render':
             if not args.output: raise ValueError('render requires output directory')
             result = render(req, args.output)

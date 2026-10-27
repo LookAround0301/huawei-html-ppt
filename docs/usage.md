@@ -167,3 +167,8 @@ python skills/huawei-html-ppt/scripts/check_package.py
 ```
 
 接口检查通过后，实际交付仍需逐页查看渲染，核对数据、连接关系和可读性。
+
+
+## 外部技术绘图工具
+
+`ppt.py diagram-brief` / `diagram-accept` 提供独立绘图 Agent 的高层交接与交付核验；主 Skill 交事实、来源、主题及用途，不先画 drawio/TeX/IR。真实 Agent 执行设计、参考消费、渲染和精修，缺调度能力则阻塞。详见 [绘图工具接入](../skills/huawei-html-ppt/references/diagram-integration.md)。`diagram-plan` / `diagram-render` 仅保留为已有画稿的低级编译工具，不代表完整设计生成。

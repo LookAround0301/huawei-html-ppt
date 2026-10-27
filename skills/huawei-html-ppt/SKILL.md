@@ -21,13 +21,19 @@ PCP/DCP 是技术名称，不等于 PDCP。模型主题也能做项目评审；�
 - 技术项目：读 [technical-project-style.md](references/technical-project-style.md)。正式版布局提炼见 [project-report-reference.md](references/project-report-reference.md)。
 - 洞察分析：读 [insight-analysis-style.md](references/insight-analysis-style.md)。需要计算时再读 [model-insight-workflow.md](references/model-insight-workflow.md)；用户确认的基准直接沿用。
 
+## 按需调用绘图工具
+
+需要新绘模型架构或技术机制图时，主 Skill 只组织内容事实、来源、用途、主题与展示约束，先读 [绘图工具接入](references/diagram-integration.md)。高层入口 `diagram-brief` 生成独立绘图 Agent 交接包；宿主必须真正启动独立 Agent，令其从选参考、语义与组件设计到渲染、对照精修、验收完整执行绘图 Skill。主 Skill 不预先写 drawio、TeX、IR 或固定图形坐标。可以按可用空间下单，但给绘图 Agent 构图自主权；收到成图后再调整页面或反馈，不用页面横宽硬决定图构图。没有独立 Agent 调度能力时明确阻塞，不回退成主 Skill 先画好图后声称独立调用。
+
+绘图 Agent 返回交付后，`diagram-accept` 核验独立工作流证据与产物，默认请求 3–4 个有统一编号、实质组织差异的方案，独立绘图 Agent 交全部方案源、视觉 QA 与统一归档 PDF。主 Skill 指定选择 ID，只将其中一版嵌入 HTML，保留全部方案 PDF 供用户选择；不能把换色或重复图当多个方案。先产图，再由主 Skill 决定解释内容与解释多少。主 Skill 要主动判断哪些结果与结论更适合图示，但不把所有文字机械画图。PPT 主题大体亲和即可，允许独立朴素功能色，不等于所有功能同灰；具体视觉设计由绘图 Skill 负责。按同一产物等比不裁切适配或拆页，HTML 与实际 PPTX 分别验收；未生成 PPTX 不声称两者已验证一致。`diagram-plan`/`diagram-render` 仅保留为已有画稿的低级规划/编译接口，不是完整设计生成入口，其调用次数不证明设计能力。原图与普通图表优先规则不变。
+
 ## 制作
 
 1. 用 `plan` 读取本次分支、适用规则和最小组件；先理解材料的核心变化、实现约束和证据，再形成判断与组织页面。洞察结论按 [结论写法](references/insight-conclusions.md) 提炼关键事实、原因和具体判断，不能只摘抄数字或复述页题。已有结构化材料优先复用。
-2. 技术项目先查用户材料、对应版本的仓库文档（含 `docs` 图片）和官方论文，有匹配原图就直接本地复用，不能默认重新画。先按 [原图复用规则](references/technical-project-style.md#原图优先) 核对版本与内容。需要新绘或改绘时再选组件：`assets/units/catalog.json` 是最小单元目录，`plan` 返回 `component_builders`；通过 `scripts/diagram_components.py` 实际实例化所需组件，保留参数、端口和使用记录，不能只在备注中写组件名称。新结构可扩展局部组件，不强套现有拓扑。见 [组件复用与绘图验收](references/component-reuse-and-review.md)。按问题选简单曲线、柱状图、对比表及必要的结构图，见 [chart-selection.md](references/chart-selection.md)。
-3. 新绘图继续沿用 [reference-diagram-fidelity.md](references/reference-diagram-fidelity.md)：完整主干、实际分支、缓存与回路，整体和局部放大明确对应；图内文字与批注黑灰红、低饱和填充，不能退化为无关联的方框卡片。直接使用的原图保留原貌，新增标注遵守黑灰红规范。
+2. 技术项目先查用户材料、对应版本的仓库文档（含 `docs` 图片）和官方论文，有匹配原图就直接本地复用，不能默认重新画。先按 [原图复用规则](references/technical-project-style.md#原图优先) 核对版本与内容。下述内置最小组件规则只适用于主 Skill 自有的简单示意组件；独立模型架构/技术图走上面的 Agent 工具交接，不将这套实现要求重复施加给绘图 Agent。需要内置简单组件时再选组件：`assets/units/catalog.json` 是最小单元目录，`plan` 返回 `component_builders`；通过 `scripts/diagram_components.py` 实际实例化所需组件，保留参数、端口和使用记录，不能只在备注中写组件名称。新结构可扩展局部组件，不强套现有拓扑。见 [组件复用与绘图验收](references/component-reuse-and-review.md)。按问题选简单曲线、柱状图、对比表及必要的结构图，见 [chart-selection.md](references/chart-selection.md)。
+3. 主 Skill 自有简单图继续沿用 [reference-diagram-fidelity.md](references/reference-diagram-fidelity.md)：完整主干、实际分支、缓存与回路，整体和局部放大明确对应；图内文字与批注黑灰红、低饱和填充，不能退化为无关联的方框卡片。直接使用的原图保留原貌，新增标注遵守黑灰红规范。
 4. 用同一份 `deck-model.json` 生成 HTML，原图用 `image` 本地嵌入并保持比例；技术项目按图形密度选概览配表、图表核验或原图通栏，可点击放大。局部版式见 [技术项目风格](references/technical-project-style.md#原图和分析怎么搭配)。新绘图同步生成 SVG、draw.io，不把原图声称为可编辑图源。接口见 [runtime-contract.md](references/runtime-contract.md)。`python scripts/ppt.py render request.json output/`。逻辑画布1280×720，HTML自包含并自动适配。图表、说明和页数随内容变通，不强塞固定页数或重复卡片。
-5. 新结构图使用 `diagram_contract: 1`，在图中声明主路径、共享分支、缓存读写与放大对应关系；`validate` 校验真实组件重放和这些路径，`render` 保存 `diagram-audit.json`。原图检查来源、适用版本、清晰度、比例和关键内容完整性，不要求组件重放。再逐页检查字体、连线遮挡、留白、翻页及图的解释力。保存实际查看者和截图摘要；静态通过不能记成视觉通过或用户确认。
+5. 主 Skill 自有简单结构图使用 `diagram_contract: 1`，在图中声明主路径、共享分支、缓存读写与放大对应关系；`validate` 校验真实组件重放和这些路径，`render` 保存 `diagram-audit.json`。原图检查来源、适用版本、清晰度、比例和关键内容完整性，不要求组件重放。再逐页检查字体、连线遮挡、留白、翻页及图的解释力。保存实际查看者和截图摘要；静态通过不能记成视觉通过或用户确认。
 6. 明确需要可编辑 PPTX 时读 [pptx-conversion.md](references/pptx-conversion.md)，保留原生文字/表格/形状和备注，逐页渲染检查。默认交付 HTML。
 
 共享要求见 [style-guide.md](references/style-guide.md)：大白话标题、准确术语、内容集中，减少大块无意义留白，不能靠小字和装饰填满。来源、依据、制作批注放隐藏元数据/演讲者备注；影响结论的条件正常显示。

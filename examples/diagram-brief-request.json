@@ -1,0 +1,22 @@
+{
+  "agent_dispatch_available": true,
+  "brief": {
+    "schema_version": 1,
+    "task_id": "synthetic-page-mapping",
+    "intent": "report",
+    "question": "Explain the difference between logical page identity and physical placement using this synthetic example.",
+    "audience": "Engineers learning memory indirection",
+    "facts": [
+      {"id": "f1", "statement": "In this invented example, logical page L0 maps to physical slot P2.", "status": "verified", "sources": ["Synthetic example definition; not a measured system result"]},
+      {"id": "f2", "statement": "In this invented example, logical page L1 maps to physical slot P0.", "status": "verified", "sources": ["Synthetic example definition; not a measured system result"]},
+      {"id": "f3", "statement": "The figure must distinguish logical identity from physical location without implying a performance gain.", "status": "verified", "sources": ["Synthetic example scope"]}
+    ],
+    "target": "ppt",
+    "theme": {"accent": "#C00000", "text": "#1D1D1A", "muted": "#666666", "background": "#FFFFFF", "panel": "#F2F4F6", "line": "#AEB8C0"},
+    "display_constraints": {"use": "An explanatory figure within a landscape slide; host may resize the figure container or split slides. Do not force a diagram aspect ratio."},
+    "required_outputs": ["drawio", "svg", "pdf"],
+    "language_profile": "diagram-en-prose-zh",
+    "variant_count": 3,
+    "preserve": ["Keep the two explicitly defined mappings and mark the example as synthetic."]
+  }
+}
