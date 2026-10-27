@@ -50,6 +50,8 @@ python -c "from pathlib import Path; import shutil; shutil.copytree(Path('skills
 - 模型原理、结构变化、性能/资源与实现差异：洞察分析。
 - PCP/DCP 是技术名称；材料用于项目评审时才走技术项目。
 
+模型相关任务应说明模型与版本；特性分析再补充特性名称和硬件/负载场景。若缺少模型对象会影响结论，先确认对象；通用原理不能代替某个模型的支持、收益或部署结论。
+
 模型洞察与模型相关技术项目先走同一套 [数据与分析流程](../skills/huawei-html-ppt/references/source-acquisition.md)：理解模型结构，定位特性作用模块，核对运行实现和场景结果，再按汇报用途组织。已有底稿和人工确认的基准直接沿用，缺失部分才补充。非模型项目不强行进入模型分析。
 
 ## JSON 接口
