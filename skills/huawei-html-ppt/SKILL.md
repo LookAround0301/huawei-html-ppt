@@ -32,7 +32,7 @@ PCP/DCP 是技术名称，不等于 PDCP。模型主题也能做项目评审；�
 
 共享要求见 [style-guide.md](references/style-guide.md)：大白话标题、准确术语、内容集中，减少大块无意义留白，不能靠小字和装饰填满。来源、依据、制作批注放隐藏元数据/演讲者备注；影响结论的条件正常显示。
 
-用户材料优先。缺少资料时读 [source-acquisition.md](references/source-acquisition.md)。从官方模型仓库取得事实，用 se-tools / model_analysis 计算和整理；运行实现联合检查 vLLM-Ascend 与匹配版本的上游 vLLM。调度、KV 管理及并行调用链按需读 [runtime-static-analysis.md](references/runtime-static-analysis.md)，先查 patch/覆盖再判断是否继承上游。涉及昇腾的洞察按 [部署分析](references/ascend-deployment-analysis.md) 分别建立A3/A5场景，覆盖量化、算子、各类Cache、通信、P/D并行与部署，不把个案容量作为通用硬件参数。
+模型洞察与涉及模型特性的技术项目，共用 [数据与分析流程](references/source-acquisition.md)：用户材料优先，从模型结构和匹配版本的运行实现出发，分析特性作用的模块、状态、通信及场景结果，再形成同一份底稿。按需使用官方模型仓库、se-tools / model_analysis、vLLM-Ascend 和上游 vLLM；不是每次都跑全部工具。调度和缓存路径按 [运行实现分析](references/runtime-static-analysis.md) 核对 patch/覆盖。两分支只改变汇报重点，不分别编造数据或支持结论；无模型关联的项目直接用项目材料。涉及A3/A5部署判断时按 [部署分析](references/ascend-deployment-analysis.md) 分别核对场景，不把个案容量当通用硬件参数。
 
 本地材料不上传。解析与渲染在本机；不把私有内容送到外部绘图、图像生成、云文档或搜索服务。
 

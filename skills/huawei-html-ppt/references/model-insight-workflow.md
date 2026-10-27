@@ -5,7 +5,7 @@
 
 用于 AI 模型研究、模型对比、机制拆解和实验分析，以及基于这些结果制作华为风格技术汇报。
 流程为：问题与场景 → 证据采集 → 结构/算子清单 → 量化计算与核验 → 初步结论 → 绘图 → 排版。
-开始分析时先读 [model-analysis-foundation.md](model-analysis-foundation.md)，建立可追溯、可复算的底稿。
+开始分析时先按 [共用数据与分析](source-acquisition.md) 确认模型、特性和场景，按需读 [model-analysis-foundation.md](model-analysis-foundation.md) 建立可追溯、可复算的底稿。本文件侧重洞察分析如何组织判断与页面，不另建一套数据来源。
 用户只要求分析时，交付数据与初步结果即可；需要汇报时按 [insight-analysis-style.md](insight-analysis-style.md) 进入洞察分析风格，复用共享绘图与导出流程。
 本地组件库见 [model-diagram-components.md](model-diagram-components.md)，新增组件继续从实际语料和复用案例中验证。
 

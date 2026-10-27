@@ -167,6 +167,25 @@
           "source": "用户确认原图复用与图表搭配，要求推广通用经验且不上传报告、原图。"
         }
       ]
+    },
+    {
+      "id": "analysis.model-feature",
+      "revision": 1,
+      "kind": "content",
+      "styles": [
+        "technical-project",
+        "insight-analysis"
+      ],
+      "when": {},
+      "rule": {
+        "guidance": "模型洞察与涉及模型特性的技术项目共用数据和分析底稿：先确定模型/版本、特性及场景，理解相关层型、模块、缓存和状态，再沿匹配版本的运行代码核对特性作用、约束和结果。用户基准优先，缺失部分按需从官方模型资料、分析工具和vLLM/vLLM-Ascend补充，不强制跑全部工具。事实、估算、源码支持和实测分清；同一特性更换模型或场景后重查受影响部分。两种风格引用同一份事实与结果，分别组织为变化/影响或目标/方案/进展；非模型项目直接用项目材料。详见references/source-acquisition.md。"
+      },
+      "provenance": [
+        {
+          "kind": "user-preference",
+          "source": "用户要求把模型结构与特性分析的数据来源作为两种风格的公共部分。"
+        }
+      ]
     }
   ]
 }
