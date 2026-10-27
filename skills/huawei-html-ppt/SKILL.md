@@ -23,6 +23,8 @@ PCP/DCP 是技术名称，不等于 PDCP。模型主题也能做项目评审；�
 
 ## 按需调用绘图工具
 
+独立绘图仓库：[infra-io-generator](https://github.com/grandolantow/infra-io-generator)。它提供模型架构与技术机制/报告两类绘图能力，负责参考、设计、多方案渲染和视觉 QA；本 Skill 负责内容委托、选版与叙事排版。实际调用使用 `scripts/diagram_adapter/dependency-lock.json` 的固定提交，不直接执行浮动 main；安装与能力边界见 [绘图工具接入](references/diagram-integration.md)。
+
 需要新绘模型架构或技术机制图时，主 Skill 只组织内容事实、来源、用途、主题与展示约束，先读 [绘图工具接入](references/diagram-integration.md)。高层入口 `diagram-brief` 生成独立绘图 Agent 交接包；宿主必须真正启动独立 Agent，令其从选参考、语义与组件设计到渲染、对照精修、验收完整执行绘图 Skill。主 Skill 不预先写 drawio、TeX、IR 或固定图形坐标。可以按可用空间下单，但给绘图 Agent 构图自主权；收到成图后再调整页面或反馈，不用页面横宽硬决定图构图。没有独立 Agent 调度能力时明确阻塞，不回退成主 Skill 先画好图后声称独立调用。
 
 绘图 Agent 返回交付后，`diagram-accept` 核验独立工作流证据与产物，默认请求 3–4 个有统一编号、实质组织差异的方案，独立绘图 Agent 交全部方案源、视觉 QA 与统一归档 PDF。主 Skill 指定选择 ID，只将其中一版嵌入 HTML，保留全部方案 PDF 供用户选择；不能把换色或重复图当多个方案。先产图，再由主 Skill 决定解释内容与解释多少。主 Skill 要主动判断哪些结果与结论更适合图示，但不把所有文字机械画图。PPT 主题大体亲和即可，允许独立朴素功能色，不等于所有功能同灰；具体视觉设计由绘图 Skill 负责。按同一产物等比不裁切适配或拆页，HTML 与实际 PPTX 分别验收；未生成 PPTX 不声称两者已验证一致。`diagram-plan`/`diagram-render` 仅保留为已有画稿的低级规划/编译接口，不是完整设计生成入口，其调用次数不证明设计能力。原图与普通图表优先规则不变。
