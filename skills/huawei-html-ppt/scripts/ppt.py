@@ -153,6 +153,9 @@ def validate(deck):
                 errors.append(prefix + 'single-topic project requires paired summary')
             panels = s.get('panels', [])
             if not panels: errors.append(prefix + 'no content panels')
+            widths=s.get('panel_widths')
+            if widths is not None and (not isinstance(widths,list) or len(widths)!=len(panels) or any(isinstance(w,bool) or not isinstance(w,(int,float)) or not math.isfinite(w) or w<=0 for w in widths)):
+                errors.append(prefix+'panel_widths must contain one positive finite number per panel')
             if layout in ('project-figure-overview', 'project-figure-evidence', 'project-figure-full'):
                 expected = 1 if layout == 'project-figure-full' else 2
                 if len(panels) != expected: errors.append(prefix + f'{layout} needs {expected} panels')

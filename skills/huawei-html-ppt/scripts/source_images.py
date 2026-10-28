@@ -19,6 +19,9 @@ def read_image(spec):
     source = spec.get('source')
     if not isinstance(source, dict) or not source or not any(source.values()):
         raise ValueError('image.source must record its original reference')
+    height=spec.get('height')
+    if height is not None and (isinstance(height,bool) or not isinstance(height,(int,float)) or not 40<=height<=600):
+        raise ValueError('image.height must be a number from 40 to 600')
     data = path.read_bytes()
     if data.startswith(b'\x89PNG\r\n\x1a\n'):
         mime = 'image/png'
@@ -38,5 +41,6 @@ def image_html(spec):
     uri = 'data:' + mime + ';base64,' + base64.b64encode(data).decode('ascii')
     alt = html.escape(spec['alt'], quote=True)
     sha = hashlib.sha256(data).hexdigest()
-    return (f'<figure class="source-figure"><img src="{uri}" alt="{alt}" '
+    sizing=f' style="height:{float(spec["height"]):g}px;flex:none"' if spec.get('height') is not None else ''
+    return (f'<figure class="source-figure"{sizing}><img src="{uri}" alt="{alt}" '
             f'data-source-sha256="{sha}"></figure>')

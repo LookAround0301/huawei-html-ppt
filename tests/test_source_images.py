@@ -72,6 +72,19 @@ class SourceImageTests(unittest.TestCase):
         self.slide['topics'][0]['diagram'] = {'width': 1, 'height': 1, 'elements': []}
         self.assertFalse(ppt.validate(self.request['deck'])['ok'])
 
+    def test_optional_figure_height_preserves_image_bytes(self):
+        self.spec['height']=240
+        result=ppt.render(self.request,self.path/'sized')
+        document=Path(result['html']).read_text(encoding='utf-8')
+        self.assertIn('style="height:240px;flex:none"',document)
+        parser=Images();parser.feed(document)
+        image=next(x for x in parser.items if x.get('alt')==self.spec['alt'])
+        self.assertEqual(base64.b64decode(image['src'].split(',')[1]),self.png)
+        for height in (True, '240', 0, 39, 601, float('nan'), float('inf')):
+            with self.subTest(height=height):
+                self.spec['height']=height
+                self.assertFalse(ppt.validate(self.request['deck'])['ok'])
+
     def test_invalid_paths_missing_provenance_and_unsupported_files_are_rejected(self):
         for replacement in ({'path': 'https://example.invalid/image.png'}, {'path': 'relative.png'},
                             {'path': str(self.path / 'missing.png')}, {'source': {}}, {'alt': ''}):

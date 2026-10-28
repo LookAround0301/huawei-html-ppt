@@ -165,7 +165,9 @@ def render(spec,outdir,asset_root=ROOT):
                     body+='</tbody></table></div>'
             image_class=' image-panel' if any(b['type']=='image' for b in p['blocks']) else ''
             panels.append(f'<section class="frame {E(p.get("class",""))}{image_class}"><h2>{E(p["title"])}</h2>{body}</section>')
-        pages.append(f'<article class="slide {style}" data-slide="{n}" data-layout="{s["layout"]}"><span class="eyebrow">{E(spec.get("chapter",catalog["styles"][style]["name"]))}</span><h1>{E(s["title"])}</h1><div class="head-rule"></div>{top}<div class="body-grid {lay["class"]}">{"".join(panels)}</div><footer><span>{n:02d} / {len(spec["slides"]):02d}　 Huawei Confidential</span><img alt="HUAWEI" src="data:image/png;base64,{logo}"></footer></article>')
+        widths=s.get('panel_widths')
+        grid_style=(' style="grid-template-columns:'+ ' '.join(f'{float(w):g}fr' for w in widths)+'"') if widths else ''
+        pages.append(f'<article class="slide {style}" data-slide="{n}" data-layout="{s["layout"]}"><span class="eyebrow">{E(spec.get("chapter",catalog["styles"][style]["name"]))}</span><h1>{E(s["title"])}</h1><div class="head-rule"></div>{top}<div class="body-grid {lay["class"]}"{grid_style}>{"".join(panels)}</div><footer><span>{n:02d} / {len(spec["slides"]):02d}　 Huawei Confidential</span><img alt="HUAWEI" src="data:image/png;base64,{logo}"></footer></article>')
     metadata=json.dumps(spec,ensure_ascii=False).replace('</','<\\/')
     doc=f'<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{E(spec["title"])}</title><style>{styles}</style></head><body><main class="deck">{"".join(pages)}</main><script type="application/json" id="deck-model">{metadata}</script><script>{viewer}</script></body></html>'
     output=outdir/(spec['title']+'.html');output.write_text(doc,encoding='utf-8');(outdir/'deck-model.json').write_text(json.dumps(spec,ensure_ascii=False,indent=2),encoding='utf-8')

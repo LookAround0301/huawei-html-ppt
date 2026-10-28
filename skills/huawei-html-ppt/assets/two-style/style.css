@@ -10,3 +10,12 @@
 .insight-conclusion .conclusion-label{display:flex;align-items:center;justify-content:center;flex:0 0 104px;background:var(--brand);color:#fff;font-size:19px;letter-spacing:1px;padding:8px}
 .insight-conclusion p{align-self:center;margin:0;padding:6px 15px;font-size:18px;line-height:1.5;font-weight:500}
 .insight-analysis .body-grid{height:478px;margin-top:23px}
+
+/* Diagram images retain their aspect ratio; tables and text stay native. */
+.frame.image-panel{display:flex;flex-direction:column;gap:9px}
+.image-panel .source-figure{margin:0;min-height:0;flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.image-panel .source-figure img{display:block;width:100%;height:100%;object-fit:contain}
+.image-panel p{flex:none;margin:2px 0;line-height:1.45;font-size:17px}
+.compact-table th,.compact-table td{padding:6px 8px;font-size:16px;line-height:1.35}
+.compact-table p{font-size:16px;line-height:1.4;margin:7px 0}
+.compact-table h3{font-size:17px;margin:11px 0 6px}

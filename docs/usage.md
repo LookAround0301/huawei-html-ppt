@@ -166,4 +166,6 @@ python -m unittest discover -s tests -v
 python skills/huawei-html-ppt/scripts/check_package.py
 ```
 
+使用可选二维模型绘图组件时，本机还需 Node.js，并运行 `node --test tests/test_model_architecture.cjs`。组件不需要 npm 依赖，也不改变默认 Python 文稿接口。见[二维结构图接口与检查范围](../skills/huawei-html-ppt/references/model-diagram-renderer.md)。
+
 接口检查通过后，实际交付仍需逐页查看渲染，核对数据、连接关系和可读性。

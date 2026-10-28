@@ -59,6 +59,19 @@ class RuntimeTests(unittest.TestCase):
         self.insight['deck']['title']='../escape'
         with self.assertRaises(ValueError):ppt.render(self.insight,self.path/'output')
 
+    def test_panel_widths_control_columns_and_reject_invalid_values(self):
+        slide=self.insight['deck']['slides'][0]
+        slide['panels']=[copy.deepcopy(slide['panels'][0]) for _ in range(2)]
+        slide['panel_widths']=[1.5,1]
+        self.assertTrue(ppt.validate(self.insight['deck'])['ok'])
+        result=ppt.render(self.insight,self.path/'widths')
+        self.assertIn('grid-template-columns:1.5fr 1fr',Path(result['html']).read_text(encoding='utf-8'))
+        for widths in ([1], [0,1], [-1,1], [True,1], [float('nan'),1],
+                       [float('inf'),1], '1 1', ['1',1]):
+            with self.subTest(widths=widths):
+                slide['panel_widths']=widths
+                self.assertFalse(ppt.validate(self.insight['deck'])['ok'])
+
     def test_diagram_outputs_share_geometry(self):
         component=ppt.read(REPO/'skills/huawei-html-ppt/assets/units/cache-state-lanes.json')['diagram']
         slide=self.insight['deck']['slides'][0]
