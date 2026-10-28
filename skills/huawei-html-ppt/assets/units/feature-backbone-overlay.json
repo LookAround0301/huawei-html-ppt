@@ -1,0 +1,27 @@
+{
+  "id": "feature-backbone-overlay",
+  "revision": 1,
+  "kind": "scene-fragment",
+  "implementation": "scripts/feature_overlay.cjs",
+  "entrypoint": "addFeatureLane",
+  "reference": "references/feature-backbone-overview.md",
+  "purpose": "从真实模型模块连出特性路径，区分已有计算与新增算子、通信和合并；不内置模型数据或通信顺序",
+  "parameters": {
+    "anchor": "已有Scene模型节点的id",
+    "id/title/x/y/w/h": "局部组件标识、英文标题和位置",
+    "nodes": "调用者提供节点、相对坐标、change、kind、shape注释及证据引用",
+    "edges": "显式端口、相对via和真实依赖；不自动串成一条链",
+    "paths": "必须连通的局部节点路径",
+    "scopeVia": "主干关联虚线的绝对坐标拐点"
+  },
+  "encoding": {
+    "existing": "浅蓝；已有状态用浅灰",
+    "added/replaced": "浅红；具体为新增或替换保存在节点记录，并由标签/图外说明区分",
+    "scope": "虚线关联主干，不能当数据流或collective"
+  },
+  "acceptance": [
+    "检查受影响模型模块、阶段和启用条件；混合模块不共享未经证实的特性路径",
+    "通信节点声明collective、group、tensor；新增或替换节点提供source_refs",
+    "auditFeatureOverlays检查主干关联、节点语义和必经路径；仍需源码核对及实际渲染审阅"
+  ]
+}

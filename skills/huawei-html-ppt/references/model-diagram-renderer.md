@@ -5,6 +5,8 @@
 - 输入输出只用英文文字标签；缓存为矩形，专家组可用简洁堆叠矩形。
 - 实际计算、控制和状态读写关系先核对，再组织节点。使用具名端口；`Scene.path` 生成水平/垂直折线，SVG 与 draw.io 使用同一条路线。
 - 运行实现图按 [源码与 shape 规则](runtime-static-analysis.md#把实现画进模型结构) 表达关键融合与条件路径。shape 用普通英文/符号文字，优先标实际发生变化的边和节点，不恢复装饰矩阵图标。
+- 特性图复用同一 `Scene`、具名端口和导出方式，按 [特性实现规则](runtime-static-analysis.md#特性图) 组织计算、通信及状态流；不要求套用内置模型模块或完整主干版式。
+- 特性首页使用 [主干叠加组件](feature-backbone-overview.md)：`scripts/feature_overlay.cjs` 的 `addFeatureLane` 从真实模型节点关联到显式特性路径；保存变化分类、通信组与证据引用，用 `auditFeatureOverlays` 检查新增节点与必经路径。
 - `audit` 检查节点边界、连线是否正交及图内中文。仍需渲染检查穿字、穿框、拐点、图例、字号和路径含义。
 - 保存结构参数、场景 JSON、组件版本/哈希、SVG、原生 draw.io 与审阅结果；报告可嵌入本地 PNG。图片来源记录 `kind: generated` 及上述文件，不把新绘图冒称仓库原图。
 - 此引擎是现有 Python 组件之外的可选生成方式，需要本机 Node。生成图像时单独运行，不改变纯 Python 的文稿接口。

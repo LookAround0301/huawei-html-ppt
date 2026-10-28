@@ -178,6 +178,16 @@
       "editable": "assets/units/cache-state-lanes.drawio"
     },
     {
+      "id": "feature-backbone-overlay",
+      "revision": 1,
+      "styles": ["technical-project", "insight-analysis"],
+      "purpose": "特性首个内容页：从模型主干关联已有计算与新增算子/通信；按真实阶段和条件分别展示",
+      "asset": "assets/units/feature-backbone-overlay.json",
+      "implementation": "scripts/feature_overlay.cjs",
+      "reference": "references/feature-backbone-overview.md",
+      "sources": [{"kind":"generic-component","note":"仅保留参数化局部表达，不含用户报告、样例、模型数据或私有证据。"}]
+    },
+    {
       "id": "source-figure-layouts",
       "revision": 1,
       "styles": [

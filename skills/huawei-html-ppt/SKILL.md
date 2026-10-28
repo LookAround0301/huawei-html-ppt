@@ -27,6 +27,10 @@ PCP/DCP 是技术名称，不等于 PDCP。模型主题也能做项目评审；�
 
 模型结构图优先基于匹配版本的 vLLM-Ascend 实际执行路径；继承部分继续查对应 vLLM。没有对应实现时，用 Hugging Face 源码或用户提供的结构/实现材料绘制，并说明原理与运行实现的边界。用户已确认的数据与版本约束继续沿用。图中体现关键融合算子和必要的 shape 变化，不套用其他模型的内核或维度。
 
+特性图沿用同一二维绘图标准，以 vLLM-Ascend 的实际实现为依据，代入目标模型及配置，讲清计算、通信和状态如何流动；继承或委托上游的部分继续核对匹配的 vLLM。HF 原理不能代替 Ascend 特性实现证据，未找到实现就标明范围，见 [特性图](references/runtime-static-analysis.md#特性图)。
+
+涉及模型的特性汇报，首个内容页将模型主干与特性新增步骤结合：从实际受影响模块连出阶段/条件路径，区分已有计算、新增或替换的算子、通信与合并，并给出具体结论。混合模块不套用同一条通信链。按 [特性首页规则与组件](references/feature-backbone-overview.md) 制作；原图优先与两个风格分支的要求不变。
+
 1. 用 `plan` 读取本次分支、适用规则和最小组件；先理解材料的核心变化、实现约束和证据，再形成判断与组织页面。洞察结论按 [结论写法](references/insight-conclusions.md) 提炼关键事实、原因和具体判断，不能只摘抄数字或复述页题。已有结构化材料优先复用。
 2. 技术项目先查用户材料、对应版本的仓库文档（含 `docs` 图片）和官方论文，有匹配原图就直接本地复用，不能默认重新画。先按 [原图复用规则](references/technical-project-style.md#原图优先) 核对版本与内容。需要新绘或改绘时再选组件：`assets/units/catalog.json` 是最小单元目录，`plan` 返回 `component_builders`；通过 `scripts/diagram_components.py` 实际实例化所需组件，保留参数、端口和使用记录，不能只在备注中写组件名称。新结构可扩展局部组件，不强套现有拓扑。见 [组件复用与绘图验收](references/component-reuse-and-review.md)。按问题选简单曲线、柱状图、对比表及必要的结构图，见 [chart-selection.md](references/chart-selection.md)。
 3. 新绘图继续沿用 [reference-diagram-fidelity.md](references/reference-diagram-fidelity.md)，模型结构也可使用 [二维结构图组件](references/model-diagram-renderer.md)：完整主干、实际分支、缓存与回路。昇腾运行图先走读实际 Ascend 调用链，体现关键融合算子、启用条件及必要的 shape 变化，见 [执行实现与 shape](references/runtime-static-analysis.md#把实现画进模型结构)。图内文字与批注黑灰红、低饱和填充，不能退化为无关联的方框卡片。原图保留技术内容与拓扑，图内文字按英文规范处理；新增标注遵守黑灰红规范。

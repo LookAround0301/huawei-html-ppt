@@ -20,6 +20,8 @@ data = g.contract('mechanism',
 
 新材料不适用已有构图时，可用 `Diagram.node/connect/matrix` 补充图元并定义新的小组件，或调整组合关系。不要为了通过检查伪造组件使用记录。不要把整页报告固化为一个组件。固定宽高只约束组件的内部比例，页面布局、图表种类和内容数量仍按材料决定。
 
+二维 `Scene` 的特性首页可用 [feature-backbone-overlay](feature-backbone-overview.md)：从已有模型模块连出一段特性路径，显式声明已有/新增/替换、通信组、条件、证据与必经路径。局部组件不预设阶段数或通信顺序；关联虚线不算计算数据流。使用其 `auditFeatureOverlays`，不伪造 Python 组件重放记录。
+
 `comparison-table` 用于结构总览旁的关键参数表，通过 `changed_rows` 只强调真实变化；`memory-budget` 接收本次核算的容量与分项，不内置特定硬件容量或系统预留。完整参考报告及学习记录留在项目目录，只将这些最小表达方式和通用规则纳入skill。
 
 `pd-state-transfer` 分别呈现P/D并行配置、节点、物理卡与rank数量，以及有读写箭头的状态交接。P/D规模通过各自的`nodes/cards_per_node/ranks_per_node/parallel`传入；`states`只列本模型真实需要迁移的1–4类状态。组件不解析并行字符串来证明进程组正确，也不假设一卡一rank；这些由场景底稿核验。
