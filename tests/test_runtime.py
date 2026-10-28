@@ -55,6 +55,52 @@ class RuntimeTests(unittest.TestCase):
         deck['slides'][0]['panels'][0]['blocks'][0]['rows'][0].append('extra')
         self.assertFalse(ppt.validate(deck)['ok'])
 
+    def test_feature_conclusions_render_text_and_paragraphs(self):
+        slide=self.project['deck']['slides'][0]
+        slide['header_mode']='conclusion'
+        slide.pop('summary')
+        slide.pop('labels')
+        for paragraphs in ('A < B\nKeep the condition explicit.',
+                           ['A < B', 'Use "local" results only.']):
+            with self.subTest(paragraphs=paragraphs):
+                slide['conclusion']=paragraphs
+                self.assertTrue(ppt.validate(self.project['deck'])['ok'])
+                result=ppt.render(self.project,self.path/'feature')
+                text=Path(result['html']).read_text(encoding='utf-8')
+                visible=text.split('<script type="application/json" id="deck-model">')[0]
+                self.assertIn('class="feature-conclusion"',visible)
+                self.assertIn('<p>A &lt; B',visible)
+                if isinstance(paragraphs,list):
+                    self.assertIn('<p>Use &quot;local&quot; results only.</p>',visible)
+                else:
+                    self.assertIn('A &lt; B<br>Keep the condition explicit.</p>',visible)
+                self.assertEqual(ppt.read(result['deck'])['slides'][0]['conclusion'],paragraphs)
+
+    def test_feature_conclusion_rejects_empty_or_invalid_values(self):
+        slide=self.project['deck']['slides'][0]
+        slide['header_mode']='conclusion'
+        for value in (None, '', '  ', [], [''], ['valid', None], 42, {'text':'value'}):
+            with self.subTest(value=value):
+                slide['conclusion']=value
+                self.assertFalse(ppt.validate(self.project['deck'])['ok'])
+        slide['conclusion']='A valid conclusion.'
+        slide['header_mode']='unknown'
+        self.assertFalse(ppt.validate(self.project['deck'])['ok'])
+
+    def test_project_paired_summary_remains_default(self):
+        slide=self.project['deck']['slides'][0]
+        for explicit in (False,True):
+            with self.subTest(explicit=explicit):
+                if explicit:slide['header_mode']='paired'
+                self.assertTrue(ppt.validate(self.project['deck'])['ok'])
+                result=ppt.render(self.project,self.path/'paired')
+                text=Path(result['html']).read_text(encoding='utf-8')
+                self.assertIn('<div class="summary">',text)
+                self.assertNotIn('<aside class="feature-conclusion"',text)
+        slide.pop('summary')
+        slide['conclusion']='A conclusion does not replace a required paired summary.'
+        self.assertFalse(ppt.validate(self.project['deck'])['ok'])
+
     def test_safe_output_name(self):
         self.insight['deck']['title']='../escape'
         with self.assertRaises(ValueError):ppt.render(self.insight,self.path/'output')

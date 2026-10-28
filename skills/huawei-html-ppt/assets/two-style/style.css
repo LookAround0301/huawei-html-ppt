@@ -19,3 +19,10 @@
 .compact-table th,.compact-table td{padding:6px 8px;font-size:16px;line-height:1.35}
 .compact-table p{font-size:16px;line-height:1.4;margin:7px 0}
 .compact-table h3{font-size:17px;margin:11px 0 6px}
+
+/* Feature implementation analysis can lead with several conclusion paragraphs. */
+.feature-conclusion{display:flex;margin-top:15px;height:132px;background:var(--panel);color:var(--ink)}
+.feature-conclusion>strong{display:flex;align-items:center;justify-content:center;flex:0 0 104px;background:var(--brand);color:#fff;font-size:19px;letter-spacing:1px;padding:8px}
+.feature-conclusion>div{align-self:center;padding:6px 15px;min-width:0}
+.feature-conclusion p{margin:3px 0;font-size:18px;line-height:1.45;font-weight:500}
+.technical-project.feature-analysis-page .body-grid{height:418px;margin-top:23px}

@@ -149,8 +149,17 @@ def validate(deck):
         formal = catalog[layout].get('class') == 'project-report'
         if style == 'insight-analysis' and not s.get('conclusion'): errors.append(prefix + 'missing explicit conclusion')
         if not formal:
-            if style == 'technical-project' and (s.get('labels', catalog[layout].get('header')) not in [['挑战', '目标'], ['目标', '进展']] or len(s.get('summary', [])) != 2):
-                errors.append(prefix + 'single-topic project requires paired summary')
+            if style == 'technical-project':
+                mode = s.get('header_mode', 'paired')
+                if mode == 'conclusion':
+                    lines = s.get('conclusion')
+                    lines = lines if isinstance(lines, list) else [lines]
+                    if not lines or not all(isinstance(v, str) and v.strip() for v in lines):
+                        errors.append(prefix + 'feature analysis requires nonempty conclusion text or paragraphs')
+                elif mode != 'paired':
+                    errors.append(prefix + 'unknown technical-project header_mode')
+                elif s.get('labels', catalog[layout].get('header')) not in [['挑战', '目标'], ['目标', '进展']] or len(s.get('summary', [])) != 2:
+                    errors.append(prefix + 'single-topic project requires paired summary')
             panels = s.get('panels', [])
             if not panels: errors.append(prefix + 'no content panels')
             widths=s.get('panel_widths')

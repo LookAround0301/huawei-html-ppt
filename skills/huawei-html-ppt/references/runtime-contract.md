@@ -28,7 +28,7 @@ context 是字符串键值，例如 `{hardware:"ascend", scenario:"long-context"
 
 deck 格式沿用 `title, style, slides[]`。slides 支持共享两分支布局和四种正式项目布局，可在同一项目报告混用。显式 deck.style/用户style冲突时报错，不静默改风格。单个slide已指定layout时保留；未指定时按page_kind和有效规则选择。
 
-共享页：`title, layout, panels[]`；洞察页还要 `conclusion`，单专题项目页要 `labels:[挑战,目标]` 或 `[目标,进展]` 及两段 `summary`。
+共享页：`title, layout, panels[]`；洞察页还要 `conclusion`。单专题项目页默认用 `labels:[挑战,目标]` 或 `[目标,进展]` 及两段 `summary`。特性实现分析可显式设置 `header_mode: "conclusion"`，改用 `conclusion` 字符串或非空字符串数组，渲染为可多段的分析结论；此模式不再要求 `summary`。默认模式为 `paired`，其他值报错。多段结论仍需按实际显示尺寸检查溢出。
 slide 可选 `panel_widths`，用正数指定各栏相对宽度；图像可选 `height`（40–600，逻辑像素），等比适配，便于图表让出合适空间。
 
 panel 为 `title, blocks[]`；block 支持 text、heading、bullets、table、diagram、chart、image。
