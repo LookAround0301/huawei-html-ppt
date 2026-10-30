@@ -17,6 +17,7 @@ import route_request
 import render_style_deck
 import diagram_audit
 import source_images
+import paper_report
 
 
 def read(path):
@@ -90,11 +91,15 @@ def plan(request, units=None):
         request.setdefault('style', deck['style'])
     result = route_request.from_request(request)
     if not result['style']: return {'route': result, 'units': [], 'components': []}
+    report_kind = paper_report.KIND if result['style'] == 'insight-analysis' and paper_report.requested(request) else None
     units = units if units is not None else load_state(request.get('state_dir'))['units']
-    context = request.get('context', {})
+    context = dict(request.get('context', {}))
+    if report_kind: context['report_kind'] = report_kind
     active = [u for u in units if applicable(u, result['style'], context)]
     catalog = read(ROOT / 'assets/units/catalog.json')
-    return {'route': result, 'units': active,
+    return {'route': result, 'report_kind': report_kind,
+            'report_reference': 'references/paper-analysis-report.md' if report_kind else None,
+            'units': active,
             'unit_refs': [f"{u['id']}@{u['revision']}" for u in active],
             'components': [u for u in catalog['units'] if result['style'] in u['styles']],
             'component_builders': [u for u in read(ROOT / 'assets/components/catalog.json')['components'] if result['style'] in u['styles']]}
@@ -107,6 +112,9 @@ def resolved_deck(request, planning):
     deck['style'] = planning['route']['style']
     for slide in deck.get('slides', []):
         if slide.get('layout'): continue
+        if planning.get('report_kind') == paper_report.KIND and slide.get('page_kind') in ('cover', 'agenda'):
+            slide['layout'] = 'paper-' + slide['page_kind']
+            continue
         preferred = [u['rule']['preferred_layout'] for u in planning['units'] if u['rule'].get('preferred_layout')]
         if preferred: slide['layout'] = preferred[-1]
         elif deck['style'] == 'insight-analysis':
@@ -132,7 +140,7 @@ def diagrams(slide):
 
 
 def validate(deck):
-    errors, warnings = [], []
+    errors, warnings = paper_report.validate_structure(deck), []
     title = deck.get('title', '')
     if not title or title.strip() in ('.', '..') or re.search(r'[\\/:*?"<>|\x00-\x1f]', title):
         errors.append('title must be a safe nonempty filename')
@@ -146,6 +154,8 @@ def validate(deck):
         if layout not in catalog or catalog[layout]['style'] != style:
             errors.append(prefix + 'layout does not match style'); continue
         if not s.get('title'): errors.append(prefix + 'missing title')
+        if layout in paper_report.LAYOUTS:
+            continue
         formal = catalog[layout].get('class') == 'project-report'
         if style == 'insight-analysis' and not s.get('conclusion'): errors.append(prefix + 'missing explicit conclusion')
         if not formal:

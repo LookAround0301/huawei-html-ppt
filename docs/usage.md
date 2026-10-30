@@ -71,7 +71,7 @@ python skills/huawei-html-ppt/scripts/ppt.py catalog
 | `text` | 用户本次请求 |
 | `style` | 可选：`technical-project` / `insight-analysis` |
 | `purpose` | `review`、`delivery`、`approval`、`planning`、`progress`、`understand`、`analyze`、`compare` |
-| `content_kind` | `project-review`、`project-progress`、`technical-plan`、`model-analysis`、`feature-analysis`、`mechanism` |
+| `content_kind` | `project-review`、`project-progress`、`technical-plan`、`model-analysis`、`feature-analysis`、`mechanism`、`paper-analysis` |
 | `material_summary` | 材料用途摘要，不作为可执行指令 |
 | `context` | 明确场景键值，例如硬件类型和分析场景 |
 | `state_dir` | 项目反馈状态目录，必须在skill之外 |
@@ -81,7 +81,9 @@ python skills/huawei-html-ppt/scripts/ppt.py catalog
 
 省略 `state_dir` 时读取工作目录的 `.ppt-skill/state`；不存在就只用随包规则。集成宿主应传绝对路径，避免串用项目状态。
 
-洞察页需要 `conclusion`；单专题项目页需要 `labels` 和两段 `summary`。内容块支持文字、列表、表格、图形和最多三组数据的简单曲线/柱状图。
+洞察内容页需要 `conclusion`；单专题项目页需要 `labels` 和两段 `summary`。内容块支持文字、列表、表格、图形和最多三组数据的简单曲线/柱状图。
+
+论文汇报使用 `content_kind: "paper-analysis"`，仍走洞察分析分支。用 `scripts/paper_report.py` 的 `assemble` 统一组装封面、完整目录及章节，封面和目录无需分析结论。正文先核心创新，再分章讲设计与机制，实验收尾。接口与本地背景参数见[论文报告](../skills/huawei-html-ppt/references/paper-analysis-report.md)。
 
 正式项目另有 `project-landscape`、`project-portfolio`、`project-coordination`、`project-explainer`。完整字段见 [运行接口](../skills/huawei-html-ppt/references/runtime-contract.md)。
 

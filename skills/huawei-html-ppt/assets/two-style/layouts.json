@@ -156,6 +156,18 @@
         "进展"
       ],
       "use": "复杂原图通栏，顶部目标和进展"
+    },
+    "paper-cover": {
+      "style": "insight-analysis",
+      "class": "paper-frontmatter",
+      "role": "cover",
+      "use": "论文封面"
+    },
+    "paper-agenda": {
+      "style": "insight-analysis",
+      "class": "paper-frontmatter",
+      "role": "chapter-navigation",
+      "use": "论文逐章高亮目录"
     }
   }
 }

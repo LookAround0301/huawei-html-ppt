@@ -10,14 +10,16 @@ PURPOSES = {'review': 'technical-project', 'delivery': 'technical-project', 'app
             'understand': 'insight-analysis', 'analyze': 'insight-analysis', 'compare': 'insight-analysis'}
 CONTENT = {'project-review': 'technical-project', 'project-progress': 'technical-project',
            'technical-plan': 'technical-project', 'model-analysis': 'insight-analysis',
-           'feature-analysis': 'insight-analysis', 'mechanism': 'insight-analysis'}
+           'feature-analysis': 'insight-analysis', 'mechanism': 'insight-analysis',
+           'paper-analysis': 'insight-analysis'}
 SIGNALS = {
     'technical-project': [('项目评审', 6), ('进展评审', 6), ('立项', 5), ('PDCP', 5), ('TDR', 5),
                           ('技术规划', 5), ('技术项目', 4), ('项目布局', 4), ('专题进展', 4),
                           ('阶段汇报', 4), ('交付计划', 4), ('目标达成', 4), ('资源申请', 5),
                           ('项目总览', 4), ('版本协同', 4), ('研发协同', 4), ('里程碑', 2)],
     'insight-analysis': [('洞察', 5), ('原理分享', 6), ('特性分析', 5), ('模型分析', 5),
-                         ('性能分析', 4), ('版本对比', 4), ('亲和性', 3), ('机制', 2), ('结构', 1)]}
+                         ('性能分析', 4), ('版本对比', 4), ('亲和性', 3), ('机制', 2), ('结构', 1),
+                         ('论文分析', 6), ('论文汇报', 6), ('论文解读', 6), ('论文研读', 6)]}
 
 
 def choose(value):
@@ -45,6 +47,8 @@ def route(text='', explicit=None, purpose=None, content_kind=None, material_summ
         hits[style] = []
         for channel, body, scale in [('request', text, 1), ('material-summary', material_summary, .5)]:
             normalized = re.sub(r'\s+', '', body).upper()
+            # A PDCP cover/agenda reference describes layout, not project-review intent.
+            normalized = re.sub(r'PDCP(?=(?:风格)?的?(?:封面|目录))', '', normalized)
             for term, weight in terms:
                 if term.upper() in normalized:
                     # Ignore direct negations rather than counting them as intent.

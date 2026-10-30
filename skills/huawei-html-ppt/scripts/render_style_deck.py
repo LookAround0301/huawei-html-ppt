@@ -3,6 +3,7 @@ from pathlib import Path
 from xml.etree.ElementTree import Element, SubElement, tostring
 import argparse, base64, copy, html, json, importlib.util, hashlib
 from source_images import image_html
+import paper_report
 
 ROOT=Path(__file__).resolve().parents[1]
 E=lambda v: html.escape(str(v),quote=True)
@@ -116,6 +117,8 @@ def render(spec,outdir,asset_root=ROOT):
     catalog=json.loads((asset_root/'assets/two-style/layouts.json').read_text(encoding='utf-8'))
     style=spec['style'];assert style in catalog['styles']
     styles=(asset_root/'assets/two-style/style.css').read_text(encoding='utf-8')+'\n'+(asset_root/'assets/project-report/style.css').read_text(encoding='utf-8')+'\n'+(asset_root/'assets/slide-viewer.css').read_text(encoding='utf-8')
+    if any(s.get('layout') in paper_report.LAYOUTS for s in spec['slides']):
+        styles+='\n'+(asset_root/'assets/paper-report.css').read_text(encoding='utf-8')
     viewer=(asset_root/'assets/slide-viewer.js').read_text(encoding='utf-8')
     if style=='technical-project':
         styles+='\n'+(asset_root/'assets/source-figures.css').read_text(encoding='utf-8')
@@ -124,6 +127,9 @@ def render(spec,outdir,asset_root=ROOT):
     pages=[]
     for n,s in enumerate(spec['slides'],1):
         lay=catalog['layouts'][s['layout']];assert lay['style']==style,(style,s['layout'])
+        if s['layout'] in paper_report.LAYOUTS:
+            pages.append(paper_report.render_frontmatter(s,spec,n,logo))
+            continue
         if lay.get('class')=='project-report':
             module=importlib.util.spec_from_file_location('formal_project',ROOT/'scripts/render_project_report.py')
             project=importlib.util.module_from_spec(module);module.loader.exec_module(project)

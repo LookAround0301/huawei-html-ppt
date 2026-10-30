@@ -1,0 +1,17 @@
+{
+  "id": "paper-frontmatter",
+  "revision": 1,
+  "kind": "layout",
+  "styles": ["insight-analysis"],
+  "purpose": "论文报告封面及逐章重复目录，章节列表与正文共用一份数据",
+  "slots": ["paper_title", "date", "optional_local_background", "chapters", "active_chapter"],
+  "variants": [
+    {"layout": "paper-cover", "role": "cover", "use": "PDCP风格封面，标题为论文题目加论文分析报告"},
+    {"layout": "paper-agenda", "role": "chapter-navigation", "use": "完整目录，放大标红即将进入的章节"}
+  ],
+  "composition": "封面、核心创新目录、核心创新正文；随后每章目录在前、正文在后，实验章收尾",
+  "implementation": "scripts/paper_report.py",
+  "renderer": "scripts/render_style_deck.py",
+  "assets": ["assets/paper-report.css"],
+  "sources": [{"kind": "generic-layout", "note": "仅保留通用布局与参数；本地参考照片、原始PPT、论文和报告不随包发布。"}]
+}

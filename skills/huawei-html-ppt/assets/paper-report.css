@@ -1,0 +1,17 @@
+/* Paper cover and recurring PDCP-style chapter navigation, 1280 x 720. */
+.slide.paper-cover{background:#ebebeb;padding:0;color:#1d1d1a}
+.paper-cover .cover-backdrop{position:absolute;left:0;top:0;width:1280px;height:588px;overflow:hidden}
+.paper-cover .source-figure{margin:0}
+.paper-cover .cover-backdrop img{display:block;width:1280px;height:auto;max-width:none}
+.paper-cover::after{content:"";position:absolute;left:0;right:0;top:588px;bottom:0;background:#fff}
+.paper-cover h1{position:absolute;left:94px;top:86px;width:1110px;margin:0;color:#1d1d1a;font-size:42px;font-weight:600;line-height:1.35;letter-spacing:0;white-space:pre-line;overflow-wrap:anywhere}
+.paper-cover .cover-accent{position:absolute;left:824px;top:225px;width:74px;height:73px;border-top:2px solid #c00000;border-left:2px solid #c00000}
+.paper-cover .cover-date{position:absolute;left:94px;top:535px;margin:0;font-size:20px;line-height:1.4;font-weight:600;color:#1d1d1a}
+.slide.paper-agenda{background:#ebebeb;padding:0;color:#1d1d1a}
+.paper-agenda h1{position:absolute;left:108px;top:68px;margin:0;padding-bottom:4px;color:#1d1d1a;font-size:50px;font-weight:400;line-height:1.2;letter-spacing:0}
+.paper-agenda .agenda-rule{position:absolute;left:108px;top:140px;width:96px;height:3px;background:#c00000}
+.paper-agenda .chapter-list{position:absolute;left:120px;top:190px;width:1080px;margin:0;padding:0;list-style:none}
+.paper-agenda .chapter-list li{display:flex;align-items:baseline;gap:12px;min-height:54px;margin:0;padding:0;font-size:30px;line-height:1.45;font-weight:400;color:#1d1d1a}
+.paper-agenda .chapter-list li.current{font-size:39px;color:#c00000}
+.paper-agenda .chapter-number{flex:0 0 40px;text-align:left}
+.paper-cover footer,.paper-agenda footer{left:40px;right:40px;bottom:18px;z-index:1}

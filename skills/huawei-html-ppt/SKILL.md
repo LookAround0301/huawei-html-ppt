@@ -22,6 +22,7 @@ PCP/DCP 是技术名称，不等于 PDCP。模型主题也能做项目评审；�
 
 - 技术项目：读 [technical-project-style.md](references/technical-project-style.md)。正式版布局提炼见 [project-report-reference.md](references/project-report-reference.md)。
 - 洞察分析：读 [insight-analysis-style.md](references/insight-analysis-style.md)。需要计算时再读 [model-insight-workflow.md](references/model-insight-workflow.md)；用户确认的基准直接沿用。
+- 论文分析/汇报仍属洞察分析：按 [论文报告](references/paper-analysis-report.md) 使用 PDCP 风格封面、逐章重复且高亮当前章的完整目录，再讲核心创新、设计机制和实验结果。可用 `scripts/paper_report.py` 组装，封面和目录不套正文结论栏。
 
 ## 制作
 

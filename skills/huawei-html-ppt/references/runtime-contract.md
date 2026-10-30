@@ -22,13 +22,13 @@ python scripts/ppt.py rollback action-input.json
 `{text, style?, purpose?, content_kind?, material_summary?, context?, state_dir?, deck?}`。
 明确 style > 用户请求中明确风格 > purpose > content_kind > 请求与材料摘要的用途证据。
 purpose：review/delivery/approval/planning/progress/understand/analyze/compare。
-content_kind：project-review/project-progress/technical-plan/model-analysis/feature-analysis/mechanism。
+content_kind：project-review/project-progress/technical-plan/model-analysis/feature-analysis/mechanism/paper-analysis。
 context 是字符串键值，例如 `{hardware:"ascend", scenario:"long-context"}`，用于条件规则匹配。
 省略state_dir时，plan/render读取当前项目的 `.ppt-skill/state`；没有状态就只使用随包规则。集成宿主应显式传入项目状态目录，避免工作目录变化造成串用。
 
 deck 格式沿用 `title, style, slides[]`。slides 支持共享两分支布局和四种正式项目布局，可在同一项目报告混用。显式 deck.style/用户style冲突时报错，不静默改风格。单个slide已指定layout时保留；未指定时按page_kind和有效规则选择。
 
-共享页：`title, layout, panels[]`；洞察页还要 `conclusion`。单专题项目页默认用 `labels:[挑战,目标]` 或 `[目标,进展]` 及两段 `summary`。特性实现分析可显式设置 `header_mode: "conclusion"`，改用 `conclusion` 字符串或非空字符串数组，渲染为可多段的分析结论；此模式不再要求 `summary`。默认模式为 `paired`，其他值报错。多段结论仍需按实际显示尺寸检查溢出。
+共享内容页：`title, layout, panels[]`；洞察内容页还要 `conclusion`。单专题项目页默认用 `labels:[挑战,目标]` 或 `[目标,进展]` 及两段 `summary`。特性实现分析可显式设置 `header_mode: "conclusion"`，改用 `conclusion` 字符串或非空字符串数组，渲染为可多段的分析结论；此模式不再要求 `summary`。默认模式为 `paired`，其他值报错。多段结论仍需按实际显示尺寸检查溢出。
 slide 可选 `panel_widths`，用正数指定各栏相对宽度；图像可选 `height`（40–600，逻辑像素），等比适配，便于图表让出合适空间。
 
 panel 为 `title, blocks[]`；block 支持 text、heading、bullets、table、diagram、chart、image。
@@ -43,6 +43,19 @@ image 为 `{type:"image",path:"本地绝对路径",alt:"图的内容",source:{ur
 正式项目页字段详见现有 `render_project_report.py` 的 portfolio/landscape/coordination/explainer函数。
 
 `notes` 仅进入隐藏deck-model和未来PPT备注；标题/正文不要填来源、内部批注。图片及其他资源须在本地处理。
+
+## 论文报告
+
+`content_kind: "paper-analysis"` 或明确的论文汇报请求仍路由到 `insight-analysis`。`plan` 返回 `report_kind: "paper-analysis"`、论文参考路径和对应规则。显式选择其他主风格时不强制改路由。老的普通洞察 deck 不自动插页。
+
+使用 `paper_report.assemble(title, chapters, cover=None)` 生成正文及导航，或传入同等结构的 deck：
+
+- `deck.report_kind: "paper-analysis"`；`deck.chapters` 为有序的 `{id, title}` 数组，包含核心创新及实验章节。
+- `paper-cover`：`title`，可选 `date`、`background`。背景为普通本地图像对象，字段同 `image`，缺省浅灰底。背景原字节嵌入，按封面背景区顶部等比显示；不把用户照片加入组件包。
+- `paper-agenda`：`title: "目录"`、`active_chapter` 引用章节 id，目录内容统一读取 `deck.chapters`。
+- 每个正文页的 `chapter_id` 关联前方目录。每章可以有多页；正文保留 `conclusion`、`panels` 等原有字段。
+
+`assemble` 从 `chapters[{id,title,slides}]` 自动插入一张封面及每章的目录，默认封面标题补“论文分析报告”，调用者可在 `cover.title` 指定换行或完整标题。`validate` 检查章节 id 唯一、高亮有效、封面在前、每章目录紧接对应正文且章节顺序完整。封面和目录不用正文的结论与图表字段；正文仍需通过原有检查。静态检查不代替逐页视觉验收。
 
 ## 演进输入
 

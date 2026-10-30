@@ -98,14 +98,14 @@
     },
     {
       "id": "insight.conclusion",
-      "revision": 2,
+      "revision": 3,
       "kind": "layout",
       "styles": [
         "insight-analysis"
       ],
       "when": {},
       "rule": {
-        "guidance": "洞察先理解材料的核心变化、实现路径和资源约束，再形成结论与页面；每页保留红色分析结论栏。概览提炼关键结构与变化，机制解释影响和代价，性能依据同口径结果定位瓶颈，部署写清P/D组合、规模、条件与占用。允许有依据的判断、优先级和取舍，不只摘抄参数或写“需关注、待验证”。事实、推断、建议有对应证据；不把容量可行写成性能最优。人工修正要追溯理解错误与遗漏条件，形成适用范围明确的经验。详见references/insight-conclusions.md。"
+        "guidance": "洞察先理解材料的核心变化、实现路径和资源约束，再形成结论与页面；每个内容页保留红色分析结论栏，封面和目录只承担标识与导航。概览提炼关键结构与变化，机制解释影响和代价，性能依据同口径结果定位瓶颈，部署写清P/D组合、规模、条件与占用。允许有依据的判断、优先级和取舍，不只摘抄参数或写“需关注、待验证”。事实、推断、建议有对应证据；不把容量可行写成性能最优。人工修正要追溯理解错误与遗漏条件，形成适用范围明确的经验。详见references/insight-conclusions.md。"
       },
       "provenance": [
         {
@@ -184,6 +184,26 @@
         {
           "kind": "user-preference",
           "source": "用户要求把模型结构与特性分析的数据来源作为两种风格的公共部分。"
+        }
+      ]
+    },
+    {
+      "id": "paper.structure",
+      "revision": 1,
+      "kind": "layout",
+      "styles": [
+        "insight-analysis"
+      ],
+      "when": {
+        "report_kind": "paper-analysis"
+      },
+      "rule": {
+        "guidance": "论文分析报告按references/paper-analysis-report.md制作。用paper_report.assemble组装PDCP风格封面、各章高亮完整目录及正文：先核心创新，再按创新点讲设计与机制，实验结果收尾。目录包含核心创新，目录在对应内容之前，每章可有多页；正文标题不加模块编号。封面标题为论文题目加论文分析报告，本地背景和参考原件不打包。内容页保留具体结论和图文证据，导航页不套结论栏。"
+      },
+      "provenance": [
+        {
+          "kind": "user-preference",
+          "source": "用户确认论文汇报的封面、目录与章节组织，要求沉淀通用组件。"
         }
       ]
     }
