@@ -136,6 +136,38 @@ class RuntimeTests(unittest.TestCase):
         self.insight['deck']['slides'][0]['panels'][0]['blocks'][0]['data']['x']=[1,2,4]
         self.assertTrue(ppt.validate(self.insight['deck'])['ok'])
 
+    def test_custom_series_color_matches_marks_and_legend(self):
+        chart = {
+            'kind': 'line',
+            'x': [1, 2],
+            'series': [
+                {'name': 'First', 'values': [2, 3], 'color': '#167B88'},
+                {'name': 'Second', 'values': [1, 2]},
+            ],
+        }
+        deck = self.insight['deck']
+        deck['slides'][0]['panels'] = [
+            {'title': 'Trend', 'blocks': [{'type': 'chart', 'data': chart}]},
+        ]
+        namespace = {'svg': 'http://www.w3.org/2000/svg'}
+        for kind, selector, attribute in (
+            ('line', 'svg:polyline', 'stroke'),
+            ('bar', 'svg:rect[@stroke-width="1"]', 'fill'),
+        ):
+            with self.subTest(kind=kind):
+                chart['kind'] = kind
+                result = ppt.render(self.insight, self.path/kind)
+                html = Path(result['html']).read_text(encoding='utf-8')
+                start = html.index('<svg ')
+                end = html.index('</svg>', start) + len('</svg>')
+                svg = ElementTree.fromstring(html[start:end])
+                self.assertEqual(svg.find(selector, namespace).get(attribute), '#167B88')
+                swatches = svg.findall('svg:rect[@y="15"]', namespace)
+                self.assertEqual([cell.get('fill') for cell in swatches], ['#167B88', '#666666'])
+        chart['series'][0]['color'] = 'teal'
+        self.assertTrue(any('chart series color must be #RRGGBB' in error
+                            for error in ppt.validate(deck)['errors']))
+
     def candidate(self):
         unit={'id':'test.preference','revision':1,'kind':'preference','styles':['insight-analysis'],
               'when':{'scenario':'demo'},'rule':{'guidance':'Synthetic test rule; scoped to the demo only.'},'provenance':[]}

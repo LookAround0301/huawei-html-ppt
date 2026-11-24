@@ -18,6 +18,7 @@
 4. 图形页（时间轴/流程/甘特/依赖图）用形状重建：矩形（轴/带/牌）+
    `MSO_SHAPE.ISOSCELES_TRIANGLE`（rotation 翻转方向）+ connector（`prstDash` 虚线）+
    `MSO_SHAPE.OVAL`；坐标函数**只做一次换算**返回英寸。
+   图表读取同份 `chart.data`，保留各系列的 `series[].color`，并让曲线、点或柱形与图例对应。
 5. 页脚：`Page X/Y` 文本 + Huawei Confidential + logo 图片。
 6. 每页构建后保存，用 **PowerPoint COM 导出 PNG 抽检**，迭代修到与 HTML 版一致：
    ```powershell

@@ -11,11 +11,12 @@ E=lambda v: html.escape(str(v),quote=True)
 
 def chart_svg(data):
     """Simple report charts; shared data only, no estimated or generated values."""
-    width,height=660,370;left,top,right,bottom=72,36,24,62
+    width,height=660,370;left,top,right,bottom=72,48,24,62
     w,h=width-left-right,height-top-bottom
     labels=data['x'];series=data['series'];maximum=max(v for s in series for v in s['values']) or 1
     maximum*=1.12
     colors=['#C00000','#666666','#1D1D1A']
+    bar_fills=['#C00000','#BDBDBD','#E7E7E7']
     out=[f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" role="img" aria-label="{E(data.get("title","数据图"))}">']
     for i in range(5):
         y=top+h-h*i/4;value=maximum*i/4
@@ -27,18 +28,19 @@ def chart_svg(data):
     for i,label in enumerate(labels):
         out.append(f'<text x="{px(i)}" y="{top+h+25}" text-anchor="middle" font-size="14" fill="#1D1D1A">{E(label)}</text>')
     for j,s in enumerate(series):
+        color=E(s['color']) if 'color' in s else colors[j]
+        fill=color if 'color' in s else bar_fills[j]
         points=[]
         for i,value in enumerate(s['values']):
             x,y=px(i),top+h-value/maximum*h;points.append(f'{x},{y}')
             if data['kind']=='bar':
                 bw=w/len(labels)*.72/len(series);x+=bw*(j-len(series)/2)
-                fill=colors[j] if j==0 else ['#C00000','#BDBDBD','#E7E7E7'][j]
-                out.append(f'<rect x="{x}" y="{y}" width="{bw-3}" height="{top+h-y}" fill="{fill}" stroke="{colors[j]}" stroke-width="1"/>')
+                out.append(f'<rect x="{x}" y="{y}" width="{bw-3}" height="{top+h-y}" fill="{fill}" stroke="{color}" stroke-width="1"/>')
             else:
-                out.append(f'<circle cx="{x}" cy="{y}" r="3.5" fill="{colors[j]}"/>')
-        if data['kind']=='line':out.append(f'<polyline points="{" ".join(points)}" fill="none" stroke="{colors[j]}" stroke-width="2.5"'+(' stroke-dasharray="6 3"' if j==2 else '')+'/>')
-        out.append(f'<rect x="{left+j*170}" y="15" width="16" height="4" fill="{colors[j]}"/><text x="{left+22+j*170}" y="24" font-size="14" fill="#1D1D1A">{E(s["name"])}</text>')
-    out.append(f'<text x="{left}" y="{height-5}" font-size="14" fill="#666666">{E(data.get("x_label",""))}</text><text x="8" y="22" font-size="14" fill="#666666">{E(data.get("y_label",""))}</text></svg>')
+                out.append(f'<circle cx="{x}" cy="{y}" r="3.5" fill="{color}"/>')
+        if data['kind']=='line':out.append(f'<polyline points="{" ".join(points)}" fill="none" stroke="{color}" stroke-width="2.5"'+(' stroke-dasharray="6 3"' if j==2 else '')+'/>')
+        out.append(f'<rect x="{left+j*170}" y="15" width="16" height="4" fill="{color}"/><text x="{left+22+j*170}" y="24" font-size="14" fill="#1D1D1A">{E(s["name"])}</text>')
+    out.append(f'<text x="{left}" y="{height-5}" font-size="14" fill="#666666">{E(data.get("x_label",""))}</text><text x="8" y="{top-7}" font-size="14" fill="#666666">{E(data.get("y_label",""))}</text></svg>')
     return ''.join(out)
 
 

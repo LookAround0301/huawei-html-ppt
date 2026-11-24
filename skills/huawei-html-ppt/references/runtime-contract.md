@@ -32,7 +32,7 @@ deck 格式沿用 `title, style, slides[]`。slides 支持共享两分支布局�
 slide 可选 `panel_widths`，用正数指定各栏相对宽度；图像可选 `height`（40–600，逻辑像素），等比适配，便于图表让出合适空间。
 
 panel 为 `title, blocks[]`；block 支持 text、heading、bullets、table、diagram、chart、image。
-chart 为 `{type:"chart",data:{kind:"line"|"bar", x_label,y_label, x:[...], series:[{name,values:[...]}]}}`，最多3组、数据长度一致。不虚构缺失数据。
+chart 为 `{type:"chart",data:{kind:"line"|"bar", x_label,y_label, x:[...], series:[{name,values:[...],color?}]}}`，最多3组、数据长度一致。可选的 `color` 使用 `#RRGGBB`，同时用于该系列的曲线、点或柱形及图例色块。省略时使用原有默认色。不虚构缺失数据。
 diagram 为已确认的 width/height/elements 格式，输出 SVG 与可编辑draw.io。
 image 为 `{type:"image",path:"本地绝对路径",alt:"图的内容",source:{url:"原文地址",revision:"commit或论文版本",figure:"文件路径或图号"}}`。source 必须记录真实来源，可以按资料补充页码或改动说明。支持 PNG/JPEG/GIF/WebP，其他格式先在本地导出；HTML 原字节嵌入，保留校验摘要、等比例完整显示，不联网取图。建议原图独占一个 panel，解释放旁栏；图片中的来源不另行转写为可见页脚。
 组合页每个 topic 在 `diagram` 与 `image` 中选一个，image 字段同上但不需 type。原图不受新绘图的组件重放校验，不输出伪造的 SVG/draw.io；来源保留在隐藏 deck-model。局部放大或新增覆盖标注由宿主准备，记录处理依据并视觉核验。

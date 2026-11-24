@@ -199,6 +199,10 @@ def validate(deck):
                             if any(not math.isfinite(x) for x in xs) or any(a>=b for a,b in zip(xs,xs[1:])):
                                 errors.append(prefix + 'numeric line-chart x values must be finite and strictly increasing')
                         for v in series:
+                            if 'color' in v:
+                                color = v['color']
+                                if not isinstance(color, str) or not re.fullmatch(r'#[0-9a-fA-F]{6}', color):
+                                    errors.append(prefix + 'chart series color must be #RRGGBB')
                             values = v.get('values', [])
                             if len(values) != len(xs) or any(not isinstance(x, (int, float)) or isinstance(x, bool) or not math.isfinite(x) for x in values):
                                 errors.append(prefix + 'chart values must be finite and align with labels')
